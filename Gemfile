@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.0.rc2'
+gem 'rails', '3.2.0'
 
 gem 'pg'
 gem 'jquery-rails'
@@ -9,6 +9,7 @@ gem 'simple_form', git: 'git://github.com/plataformatec/simple_form.git'
 gem 'devise', '2.0.0.rc'
 gem 'cancan'
 gem 'role_model'
+gem 'carrierwave'
 gem 'capistrano'
 
 group :assets do

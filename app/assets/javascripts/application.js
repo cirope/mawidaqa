@@ -18,4 +18,6 @@
 //= require vendor/twitter/bootstrap-twipsy
 //= require vendor/twitter/bootstrap-popover
 //= require common
+//= require documents
+//= require files
 //= require users

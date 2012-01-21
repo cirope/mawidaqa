@@ -1,4 +1,6 @@
 MawidaQA::Application.routes.draw do
+  resources :documents
+
   devise_for :users
   
   resources :users do
@@ -8,5 +10,7 @@ MawidaQA::Application.routes.draw do
     end
   end
   
-  root to: 'users#index'
+  match 'private/:path', to: 'files#download', constraints: { path: /.+/ }
+  
+  root to: 'documents#index'
 end

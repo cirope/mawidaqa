@@ -13,5 +13,7 @@
  *= require vendor/jquery/ui-custom
  *= require common
  *= require devise
+ *= require documents
+ *= require files
  *= require users
 */

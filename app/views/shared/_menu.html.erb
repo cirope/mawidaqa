@@ -7,6 +7,10 @@
           :li, link_to(t('menu.users'), users_path),
           class: ('active' if controller_name == 'users')
         ) %>
+        <%= content_tag(
+          :li, link_to(t('menu.documents'), documents_path),
+          class: ('active' if controller_name == 'documents')
+        ) %>
       </ul>
       <ul class="nav secondary-nav">
         <li>

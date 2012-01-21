@@ -70,7 +70,7 @@
       last_word_connector: ", y "
 
     select:
-      prompt: "Por favor seleccione"
+      prompt: "Seleccionar..."
 
   number:
     format:
@@ -170,7 +170,7 @@
 
   helpers:
     select:
-      prompt: "Por favor seleccione"
+      prompt: "Seleccionar..."
 
     submit:
       create: 'Crear %{model}'

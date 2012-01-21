@@ -7,9 +7,18 @@
     
   activerecord:
     models:
+      document: 'Documento'
       user: 'Usuario'
       
     attributes:
+      document:
+        name: 'Nombre'
+        code: 'Código'
+        status: 'Estado'
+        version: 'Versión'
+        notes: 'Notas'
+        version_comments: 'Comentarios de la versión'
+        file: 'Archivo'
       user:
         name: 'Nombre'
         lastname: 'Apellido'
@@ -36,12 +45,28 @@
   menu:
     actions:
       logout: 'Salir de la aplicación'
+    documents: 'Documentos'
     users: 'Usuarios'
     
   messages:
     confirmation: '¿Está seguro?'
     
   view:
+    documents:
+      index_title: 'Listado de documentos'
+      show_title: 'Detalle de documento'
+      new_title: 'Nuevo documento'
+      edit_title: 'Modificar documento'
+      correctly_created: 'Documento agregado correctamente.'
+      correctly_updated: 'Documento actualizado correctamente.'
+      stale_object_error: 'El documento no pudo ser actualizado, intente nuevamente.'
+      non_existent: 'Archivo inexistente'
+      status:
+        approved: 'Aprobado'
+        on_revision: 'En revisión'
+        revised: 'Revisado'
+        obsolete: 'Obsoleto'
+        rejected: 'Rechazado'
     users:
       index_title: 'Listado de usuarios'
       show_title: 'Detalle de usuario'

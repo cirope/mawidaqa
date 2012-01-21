@@ -11,7 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120109032633) do
+ActiveRecord::Schema.define(:version => 20120117155144) do
+
+  create_table "documents", :force => true do |t|
+    t.string   "name",                                :null => false
+    t.string   "code",                                :null => false
+    t.integer  "status",                              :null => false
+    t.integer  "version",                             :null => false
+    t.text     "notes"
+    t.text     "version_comments"
+    t.string   "file"
+    t.boolean  "current",          :default => false, :null => false
+    t.integer  "lock_version",     :default => 0,     :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+  end
+
+  add_index "documents", ["code"], :name => "index_documents_on_code"
+  add_index "documents", ["current"], :name => "index_documents_on_current"
+  add_index "documents", ["name"], :name => "index_documents_on_name"
+  add_index "documents", ["status"], :name => "index_documents_on_status"
 
   create_table "users", :force => true do |t|
     t.string   "name",                                   :null => false
