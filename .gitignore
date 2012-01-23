@@ -4,7 +4,12 @@
 /doc/
 /log/
 /nbproject/private/
+<<<<<<< HEAD
 /private/
 /public/assets/
 /tmp/
 /uploads/
+=======
+/public/assets/
+/tmp/
+>>>>>>> f190f5fc555b0d15c17ac12235d27b27a0e1fd1c
