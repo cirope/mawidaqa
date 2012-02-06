@@ -1,3 +1,8 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+jQuery ($)->
+  if $('#c_documents').length > 0
+    $('#document_tag_list').tagit
+      allowSpaces: true,
+      removeConfirmation: true,
+      tagSource: (search, showChoices)->
+        $.getJSON '/tags', { q: search.term }, (data)->
+          showChoices $.map(data, (t)-> t.name)

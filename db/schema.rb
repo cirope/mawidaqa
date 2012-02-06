@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120117155144) do
+ActiveRecord::Schema.define(:version => 20120206174016) do
 
   create_table "documents", :force => true do |t|
     t.string   "name",                                :null => false
@@ -31,6 +31,22 @@ ActiveRecord::Schema.define(:version => 20120117155144) do
   add_index "documents", ["current"], :name => "index_documents_on_current"
   add_index "documents", ["name"], :name => "index_documents_on_name"
   add_index "documents", ["status"], :name => "index_documents_on_status"
+
+  create_table "documents_tags", :id => false, :force => true do |t|
+    t.integer "document_id", :null => false
+    t.integer "tag_id",      :null => false
+  end
+
+  add_index "documents_tags", ["document_id", "tag_id"], :name => "index_documents_tags_on_document_id_and_tag_id", :unique => true
+
+  create_table "tags", :force => true do |t|
+    t.string   "name",                        :null => false
+    t.integer  "lock_version", :default => 0, :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
+  add_index "tags", ["name"], :name => "index_tags_on_name"
 
   create_table "users", :force => true do |t|
     t.string   "name",                                   :null => false

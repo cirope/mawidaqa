@@ -8,6 +8,7 @@
   activerecord:
     models:
       document: 'Documento'
+      tag: 'Etiqueta'
       user: 'Usuario'
       
     attributes:
@@ -18,7 +19,10 @@
         version: 'Versión'
         notes: 'Notas'
         version_comments: 'Comentarios de la versión'
+        tag_list: 'Etiquetas'
         file: 'Archivo'
+      tag:
+        name: 'Nombre'
       user:
         name: 'Nombre'
         lastname: 'Apellido'

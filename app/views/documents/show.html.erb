@@ -24,6 +24,15 @@
     <b><%= Document.human_attribute_name 'version_comments' %>:</b>
   </p>
   <%= simple_format @document.version_comments %>
+  
+  <% unless @document.tags.empty? %>
+    <h3><%= Document.human_attribute_name 'tag_list' %></h3>
+    <ul>
+      <% @document.tags.each do |tag| %>
+        <li><%= content_tag :span, tag, class: 'label' %></li>
+      <% end %>
+    </ul>
+  <% end %>
 </div>
 
 <nav class="actions">

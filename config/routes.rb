@@ -1,4 +1,6 @@
 MawidaQA::Application.routes.draw do
+  resources :tags, only: [ :index ]
+  
   resources :documents
 
   devise_for :users

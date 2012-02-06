@@ -11,7 +11,7 @@ class DocumentsControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:documents)
-    assert_select '#error_explanation', false
+    assert_select '#unexpected_error', false
     assert_template 'documents/index'
   end
 
@@ -19,7 +19,7 @@ class DocumentsControllerTest < ActionController::TestCase
     get :new
     assert_response :success
     assert_not_nil assigns(:document)
-    assert_select '#error_explanation', false
+    assert_select '#unexpected_error', false
     assert_template 'documents/new'
   end
 
@@ -37,7 +37,7 @@ class DocumentsControllerTest < ActionController::TestCase
     get :show, id: @document
     assert_response :success
     assert_not_nil assigns(:document)
-    assert_select '#error_explanation', false
+    assert_select '#unexpected_error', false
     assert_template 'documents/show'
   end
 
@@ -45,7 +45,7 @@ class DocumentsControllerTest < ActionController::TestCase
     get :edit, id: @document
     assert_response :success
     assert_not_nil assigns(:document)
-    assert_select '#error_explanation', false
+    assert_select '#unexpected_error', false
     assert_template 'documents/edit'
   end
 

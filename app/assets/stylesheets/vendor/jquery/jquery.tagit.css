@@ -1,0 +1,47 @@
+ul.tagit {
+  overflow: auto;
+  margin: 0px;
+}
+
+ul.tagit.ui-widget-content {
+  border: none;
+}
+
+ul.tagit li {
+  width: 195px;
+  display: block;
+  margin: 2px 5px 2px 0px !important;
+}
+
+ul.tagit li.tagit-choice {
+  padding: .2em 18px .2em .5em;
+  position: relative;
+  line-height: inherit;
+}
+
+ul.tagit li.tagit-new {
+}
+
+ul.tagit li.tagit-choice a.tagit-label {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+ul.tagit li.tagit-choice .tagit-close {
+  cursor: pointer;
+  position: absolute;
+  right: .1em;
+  top: 50%;
+  margin-top: -8px;
+}
+
+/* used for some custom themes that don't need image icons */
+ul.tagit li.tagit-choice .tagit-close .text-icon {
+  display: none;
+}
+
+ul.tagit li.tagit-choice input {
+  display: block;
+  float: left;
+  margin: 2px 5px 2px 0;
+}

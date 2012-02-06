@@ -86,4 +86,42 @@ class DocumentTest < ActiveSupport::TestCase
       error_message_from_model(@document, :code, :too_long, count: 255)
     ], @document.errors[:code]
   end
+  
+  test 'read tag list' do
+    @document = Fabricate(:document) do
+      tags!(count: 2) { |a, i| Fabricate(:tag, name: "Test #{i}") }
+    end
+    
+    assert_equal 'Test 1,Test 2', @document.tag_list
+  end
+  
+  test 'write tag list' do
+    @document = Fabricate(:document) do
+      tags!(count: 1) { |a, i| Fabricate(:tag, name: 'Test') }
+    end
+    
+    assert_difference ['Tag.count', '@document.tags.count'], 2 do
+      assert @document.update_attributes(
+        tag_list: 'Test, Multi word tag,NewTag, '
+      )
+    end
+    
+    assert_equal 'Test,Multi word tag,NewTag', @document.reload.tag_list
+    
+    assert_difference '@document.tags.count', -2 do
+      assert_no_difference 'Tag.count' do
+        assert @document.update_attributes(tag_list: 'NewTag, ')
+      end
+    end
+    
+    assert_equal 'NewTag', @document.reload.tag_list
+    
+    assert_difference '@document.tags.count', -1 do
+      assert_no_difference 'Tag.count' do
+        assert @document.update_attributes(tag_list: '')
+      end
+    end
+    
+    assert_equal '', @document.reload.tag_list
+  end
 end

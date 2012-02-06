@@ -11,6 +11,7 @@
  *= require_self
  *= require vendor/twitter/bootstrap
  *= require vendor/jquery/ui-custom
+ *= require vendor/jquery/jquery.tagit
  *= require common
  *= require devise
  *= require documents
