@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.1'
+gem 'rails', git: 'git://github.com/rails/rails', branch: '3-2-stable'
 
 gem 'pg'
 gem 'jquery-rails'
