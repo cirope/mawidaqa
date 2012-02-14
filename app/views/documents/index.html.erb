@@ -5,8 +5,8 @@
         <tr>
           <th><%= Document.human_attribute_name 'code' %></th>
           <th><%= Document.human_attribute_name 'name' %></th>
-          <th><%= Document.human_attribute_name 'status' %></th>
-          <th><%= Document.human_attribute_name 'version' %></th>
+          <th class="disposable"><%= Document.human_attribute_name 'status' %></th>
+          <th class="disposable"><%= Document.human_attribute_name 'version' %></th>
           <th colspan="2"></th>
         </tr>
       </thead>
@@ -16,8 +16,8 @@
           <tr>
             <td><%= link_to document.code, document %></td>
             <td><%= document.name %></td>
-            <td><%= document_status_text document %></td>
-            <td><%= document.version %></td>
+            <td class="disposable"><%= document_status_text document %></td>
+            <td class="disposable"><%= document.version %></td>
             <td><%= link_to_edit edit_document_path(document) %></td>
             <td><%= link_to_destroy document %></td>
           </tr>
