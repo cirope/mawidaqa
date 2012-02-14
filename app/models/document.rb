@@ -48,7 +48,7 @@ class Document < ActiveRecord::Base
     # Add or create and add the new ones
     tags.each do |tag|
       unless self.tags.map(&:name).include?(tag)
-        self.tags << Tag.find_or_create_by_name(tag)
+        self.tags << Tag.all_by_name(tag).first_or_create!(name: tag)
       end
     end
   end
