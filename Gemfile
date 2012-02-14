@@ -11,6 +11,7 @@ gem 'cancan'
 gem 'role_model'
 gem 'carrierwave'
 gem 'rocket_tag'
+gem 'paper_trail'
 gem 'capistrano'
 
 group :assets do

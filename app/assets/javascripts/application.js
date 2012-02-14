@@ -19,4 +19,5 @@
 //= require common
 //= require documents
 //= require files
+//= require mobile
 //= require users
