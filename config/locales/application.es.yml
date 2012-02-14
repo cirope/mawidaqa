@@ -7,9 +7,15 @@
     
   activerecord:
     models:
-      document: 'Documento'
-      tag: 'Etiqueta'
-      user: 'Usuario'
+      document:
+        one: 'Documento'
+        other: 'Documentos'
+      tag:
+        one: 'Etiqueta'
+        other: 'Etiquetas'
+      user:
+        one: 'Usuario'
+        other: 'Usuarios'
       
     attributes:
       document:
