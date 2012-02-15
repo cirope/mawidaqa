@@ -6,21 +6,25 @@ class TagTest < ActiveSupport::TestCase
   end
   
   test 'create' do
-    assert_difference 'Tag.count' do
+    assert_difference ['Tag.count', 'Version.count'] do
       @tag = Tag.create(Fabricate.attributes_for(:tag))
     end
   end
   
   test 'update' do
-    assert_no_difference 'Tag.count' do
-      assert @tag.update_attributes(name: 'Updated')
+    assert_difference 'Version.count' do
+      assert_no_difference 'Tag.count' do
+        assert @tag.update_attributes(name: 'Updated')
+      end
     end
     
     assert_equal 'Updated', @tag.reload.name
   end
   
   test 'destroy' do
-    assert_difference('Tag.count', -1) { @tag.destroy }
+    assert_difference 'Version.count' do
+      assert_difference('Tag.count', -1) { @tag.destroy }
+    end
   end
   
   test 'validates blank attributes' do

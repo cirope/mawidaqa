@@ -1,6 +1,8 @@
 class Tag < ActiveRecord::Base
   include Comparable
   
+  has_paper_trail
+  
   # Scopes
   scope :ordered_list, order('name ASC')
   

@@ -6,21 +6,25 @@ class DocumentTest < ActiveSupport::TestCase
   end
   
   test 'create' do
-    assert_difference 'Document.count' do
+    assert_difference ['Document.count', 'Version.count'] do
       @document = Document.create(Fabricate.attributes_for(:document))
     end
   end
   
   test 'update' do
-    assert_no_difference 'Document.count' do
-      assert @document.update_attributes(name: 'Updated')
+    assert_difference 'Version.count' do
+      assert_no_difference 'Document.count' do
+        assert @document.update_attributes(name: 'Updated')
+      end
     end
     
     assert_equal 'Updated', @document.reload.name
   end
   
   test 'destroy' do
-    assert_difference('Document.count', -1) { @document.destroy }
+    assert_difference 'Version.count' do
+      assert_difference('Document.count', -1) { @document.destroy }
+    end
   end
   
   test 'validates blank attributes' do

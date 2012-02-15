@@ -1,6 +1,8 @@
 class Document < ActiveRecord::Base
   mount_uploader :file, FileUploader
   
+  has_paper_trail version: :paper_trail_version
+  
   # Constants
   STATUS = {
     approved: 0,
