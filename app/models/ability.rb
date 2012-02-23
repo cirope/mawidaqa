@@ -28,6 +28,22 @@ class Ability
     can :update_profile, User
   end
   
+  def approver_rules
+    can :create, :all
+    can :update, :all
+    can :destroy, :all
+    can :edit_profile, User
+    can :update_profile, User
+  end
+  
+  def reviewer_rules
+    can :create, :all
+    can :update, :all
+    can :destroy, :all
+    can :edit_profile, User
+    can :update_profile, User
+  end
+  
   def default_rules
     can :read, :all
   end

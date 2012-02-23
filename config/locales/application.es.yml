@@ -91,4 +91,6 @@
       edit_profile: 'Editar perfil'
       roles:
         admin: 'Administrador'
+        approver: 'Aprobador'
         regular: 'Normal'
+        reviewer: 'Revisor'
