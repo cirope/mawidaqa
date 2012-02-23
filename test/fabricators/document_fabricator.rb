@@ -5,5 +5,9 @@ Fabricator(:document) do
   version { rand(5).next }
   notes { Faker::Lorem.sentences(3).join("\n") }
   version_comments { Faker::Lorem.sentences(3).join("\n") }
-  file 'test.txt'
+  file {
+    Rack::Test::UploadedFile.new(
+      "#{Rails.root}/test/fixtures/files/test.txt", 'text/plain', false
+    )
+  }
 end

@@ -32,9 +32,10 @@ class DocumentTest < ActiveSupport::TestCase
     @document.code = ''
     @document.status = nil
     @document.version = nil
+    @document.remove_file!
     
     assert @document.invalid?
-    assert_equal 4, @document.errors.size
+    assert_equal 5, @document.errors.size
     assert_equal [error_message_from_model(@document, :name, :blank)],
       @document.errors[:name]
     assert_equal [error_message_from_model(@document, :code, :blank)],
@@ -43,6 +44,8 @@ class DocumentTest < ActiveSupport::TestCase
       @document.errors[:status]
     assert_equal [error_message_from_model(@document, :version, :blank)],
       @document.errors[:version]
+    assert_equal [error_message_from_model(@document, :file, :blank)],
+      @document.errors[:file]
   end
   
   test 'validates well formated attributes' do
@@ -89,6 +92,30 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [
       error_message_from_model(@document, :code, :too_long, count: 255)
     ], @document.errors[:code]
+  end
+  
+  test 'create parent when file change' do
+    assert_difference 'Document.count' do
+      assert @document.update_attributes(
+        file: Rack::Test::UploadedFile.new(
+          File.join(Rails.root, 'test', 'fixtures', 'files', 'test_2.txt'),
+          'text/plain',
+          false
+        )
+      )
+    end
+    
+    assert_not_nil @document.parent
+  end
+  
+  test 'do not create parent when the same file is uploaded' do
+    assert_no_difference 'Document.count' do
+      assert @document.update_attributes(
+        file: Fabricate.attributes_for(:document)['file']
+      )
+    end
+    
+    assert_nil @document.parent
   end
   
   test 'read tag list' do

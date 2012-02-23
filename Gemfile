@@ -11,6 +11,7 @@ gem 'cancan'
 gem 'role_model'
 gem 'carrierwave'
 gem 'rocket_tag'
+gem 'awesome_nested_set'
 gem 'paper_trail'
 gem 'capistrano'
 
@@ -23,7 +24,7 @@ end
 
 group :development do
   gem 'ruby-debug19', require: 'ruby-debug'
-  gem 'mongrel', '1.2.0.pre2'
+  gem 'thin'
 end
 
 group :test do

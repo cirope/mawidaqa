@@ -7,6 +7,7 @@
           <th><%= Document.human_attribute_name 'name' %></th>
           <th class="disposable"><%= Document.human_attribute_name 'status' %></th>
           <th class="disposable"><%= Document.human_attribute_name 'version' %></th>
+          <th class="disposable"><%= Document.human_attribute_name 'updated_at' %></th>
           <th colspan="2"></th>
         </tr>
       </thead>
@@ -18,6 +19,7 @@
             <td><%= document.name %></td>
             <td class="disposable"><%= document_status_text document %></td>
             <td class="disposable"><%= document.version %></td>
+            <td class="disposable"><%= l document.updated_at.to_date %></td>
             <td><%= link_to_edit edit_document_path(document) %></td>
             <td><%= link_to_destroy document %></td>
           </tr>
