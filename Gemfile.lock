@@ -1,12 +1,4 @@
 GIT
-  remote: git://github.com/plataformatec/simple_form.git
-  revision: 7b368ddb9fcf56400baa252893023e1e748afe6c
-  specs:
-    simple_form (2.0.0.rc)
-      actionpack (~> 3.0)
-      activemodel (~> 3.0)
-
-GIT
   remote: git://github.com/rails/rails
   revision: 419040f203f5c7864fa692459aa3284368c48d50
   branch: 3-2-stable
@@ -174,6 +166,9 @@ GEM
       ffi (~> 1.0.9)
       json_pure
       rubyzip
+    simple_form (2.0.0)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
     sprockets (2.1.2)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -228,7 +223,7 @@ DEPENDENCIES
   role_model
   ruby-debug19
   sass-rails
-  simple_form!
+  simple_form
   therubyracer
   thin
   turn
