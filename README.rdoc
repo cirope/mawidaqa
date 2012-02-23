@@ -4,7 +4,7 @@ Web Application for manage documents, courses and more =)
 
 === (The MIT License)
 
-Copyright (c) 2012 Franco Catena
+Copyright (c) 2012 Franco Catena - Raúl Moralejo
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
