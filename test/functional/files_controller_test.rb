@@ -10,7 +10,6 @@ class FilesControllerTest < ActionController::TestCase
       :document, file: fixture_file_upload('files/test.txt', 'text/plain')
     )
     
-    puts document.file.current_path.sub("#{PRIVATE_PATH}/", '')
     get :download, path: document.file.current_path.sub("#{PRIVATE_PATH}/", '')
     assert_response :success
     assert_equal(

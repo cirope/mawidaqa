@@ -13,9 +13,9 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require vendor/jquery/jquery.ui.datepicker-es
-//= require vendor/jquery/tag-it
-//= require vendor/twitter/bootstrap
+//= require jquery/jquery.ui.datepicker-es
+//= require jquery/tag-it
+//= require twitter/bootstrap
 //= require common
 //= require documents
 //= require files
