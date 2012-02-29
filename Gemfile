@@ -12,6 +12,7 @@ gem 'role_model'
 gem 'carrierwave'
 gem 'rocket_tag'
 gem 'awesome_nested_set'
+gem 'aasm'
 gem 'paper_trail'
 gem 'capistrano'
 

@@ -1,7 +1,6 @@
 Fabricator(:document) do
   name { "Document #{sequence(:document_name)}" }
-  code { "DT #{sequence(:document_code)}" }
-  status { Document::STATUS.values.sample }
+  code { "DT #{'%.3d' % sequence(:document_code)}" }
   version { rand(5).next }
   notes { Faker::Lorem.sentences(3).join("\n") }
   version_comments { Faker::Lorem.sentences(3).join("\n") }

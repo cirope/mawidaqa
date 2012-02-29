@@ -15,9 +15,6 @@ class Ability
   
   def admin_rules
     can :manage, :all
-    can :assign_roles, User
-    can :edit_profile, User
-    can :update_profile, User
   end
   
   def regular_rules
@@ -34,6 +31,8 @@ class Ability
     can :destroy, :all
     can :edit_profile, User
     can :update_profile, User
+    can :approve, Document
+    can :reject, Document
   end
   
   def reviewer_rules
@@ -42,6 +41,7 @@ class Ability
     can :destroy, :all
     can :edit_profile, User
     can :update_profile, User
+    can :revise, Document
   end
   
   def default_rules

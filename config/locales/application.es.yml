@@ -71,6 +71,9 @@
       correctly_updated: 'Documento actualizado correctamente.'
       stale_object_error: 'El documento no pudo ser actualizado, intente nuevamente.'
       non_existent: 'Archivo inexistente'
+      approved: 'El documento se aprobó.'
+      revised: 'El documento se revisó.'
+      rejected: 'El documento se rechazó.'
       status:
         approved: 'Aprobado'
         on_revision: 'En revisión'

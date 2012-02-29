@@ -91,4 +91,37 @@ class DocumentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  # PUT /documents/1/approve
+  # PUT /documents/1/approve.json
+  def approve
+    @document.approve!
+    
+    respond_to do |format|
+      format.html { redirect_to @document, notice: t('view.documents.approved') }
+      format.json { head :no_content }
+    end
+  end
+  
+  # PUT /documents/1/revise
+  # PUT /documents/1/revise.json
+  def revise
+    @document.revise!
+    
+    respond_to do |format|
+      format.html { redirect_to @document, notice: t('view.documents.revised') }
+      format.json { head :no_content }
+    end
+  end
+  
+  # PUT /documents/1/reject
+  # PUT /documents/1/reject.json
+  def reject
+    @document.reject!
+    
+    respond_to do |format|
+      format.html { redirect_to @document, notice: t('view.documents.rejected') }
+      format.json { head :no_content }
+    end
+  end
 end

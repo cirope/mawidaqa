@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(:version => 20120215171623) do
   create_table "documents", :force => true do |t|
     t.string   "name",                                :null => false
     t.string   "code",                                :null => false
-    t.integer  "status",                              :null => false
+    t.string   "status",                              :null => false
     t.integer  "version",                             :null => false
     t.text     "notes"
     t.text     "version_comments"

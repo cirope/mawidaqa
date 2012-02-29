@@ -1,18 +1,11 @@
 class Document < ActiveRecord::Base
+  include AASM
+  
   mount_uploader :file, FileUploader
   
   has_paper_trail version: :paper_trail_version
   
   acts_as_nested_set
-  
-  # Constants
-  STATUS = {
-    approved: 0,
-    on_revision: 1,
-    revised: 2,
-    obsolete: 3,
-    rejected: 4
-  }.freeze
   
   # Scopes
   scope :ordered_list, order('code ASC')
@@ -21,31 +14,54 @@ class Document < ActiveRecord::Base
   attr_accessor :skip_code_uniqueness
   
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :code, :status, :version, :notes, :version_comments,
-    :file, :file_cache, :tag_list, :lock_version
+  attr_accessible :name, :code, :version, :notes, :version_comments, :file,
+    :file_cache, :tag_list, :lock_version
+  
+  # Callbacks
+  before_validation :check_code_changes
+  
+  aasm column: :status do
+    state :on_revision, initial: true
+    state :approved
+    state :revised
+    state :obsolete
+    state :rejected
+    
+    event :revise do
+      transitions to: :revised, from: :on_revision
+    end
+    
+    event :approve do
+      transitions to: :approved, from: :revised
+    end
+    
+    event :reject do
+      transitions to: :rejected, from: [:on_revision, :revised]
+    end
+    
+    event :mark_as_obsolete do
+      transitions to: :obsolete, from: :approved
+    end
+  end
   
   # Restrictions
   validates :name, :code, :status, :version, :file, presence: true
   validates :name, :code, length: { maximum: 255 }, allow_nil: true,
     allow_blank: true
-  validates :code, uniqueness: { case_sensitive: false},
+  validates :code, uniqueness: { case_sensitive: false },
     allow_nil: true, allow_blank: true, unless: :skip_code_uniqueness
-  validates :status, inclusion: { in: STATUS.values }, allow_nil: true,
-    allow_blank: true
   validates :version, numericality: { only_integer: true, greater_than: 0 },
     allow_nil: true, allow_blank: true
   
   # Relations
   has_and_belongs_to_many :tags
   
-  def initialize(attributes = nil, options = {})
-    super(attributes, options)
-
-    self.on_revision!
-  end
-  
   def to_s
     "[#{self.code}] #{self.name}"
+  end
+  
+  def check_code_changes
+    self.skip_code_uniqueness = true unless self.code_changed?
   end
   
   def file=(file)
@@ -82,10 +98,5 @@ class Document < ActiveRecord::Base
         self.tags << Tag.all_by_name(tag).first_or_create!(name: tag)
       end
     end
-  end
-  
-  STATUS.each do |status, value|
-    define_method("#{status}?") { self.status == value }
-    define_method("#{status}!") { self.status = value }
   end
 end

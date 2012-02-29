@@ -1,7 +1,13 @@
 MawidaQA::Application.routes.draw do
   resources :tags, only: [ :index ]
   
-  resources :documents
+  resources :documents do
+    member do
+      put :revise
+      put :reject
+      put :approve
+    end
+  end
 
   devise_for :users
   

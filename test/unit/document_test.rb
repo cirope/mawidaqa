@@ -69,15 +69,12 @@ class DocumentTest < ActiveSupport::TestCase
   
   test 'validates attributes are in range' do
     @document.version = '0'
-    @document.status = Document::STATUS.values.sort.last.next
     
     assert @document.invalid?
-    assert_equal 2, @document.errors.count
+    assert_equal 1, @document.errors.count
     assert_equal [
       error_message_from_model(@document, :version, :greater_than, count: 0)
     ], @document.errors[:version]
-    assert_equal [error_message_from_model(@document, :status, :inclusion)],
-      @document.errors[:status]
   end
   
   test 'validates length of _long_ attributes' do
@@ -92,6 +89,32 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal [
       error_message_from_model(@document, :code, :too_long, count: 255)
     ], @document.errors[:code]
+  end
+  
+  test 'states transitions from on_revision' do
+    assert @document.on_revision?
+    assert !@document.may_approve?
+    assert @document.may_revise?
+    assert @document.may_reject?
+    assert !@document.may_mark_as_obsolete?
+    
+    assert @document.revise
+    assert @document.revised?
+    assert @document.may_approve?
+    assert @document.may_reject?
+    assert !@document.may_mark_as_obsolete?
+    
+    assert @document.approve
+    assert @document.approved?
+    assert !@document.may_revise?
+    assert !@document.may_reject?
+    assert @document.may_mark_as_obsolete?
+    
+    assert @document.mark_as_obsolete
+    assert @document.obsolete?
+    assert !@document.may_revise?
+    assert !@document.may_reject?
+    assert !@document.may_approve?
   end
   
   test 'create parent when file change' do
