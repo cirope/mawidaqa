@@ -74,6 +74,10 @@
       approved: 'El documento se aprobó.'
       revised: 'El documento se revisó.'
       rejected: 'El documento se rechazó.'
+      actions:
+        approve: 'Aprobar'
+        revise: 'Revisar'
+        reject: 'Rechazar'
       status:
         approved: 'Aprobado'
         on_revision: 'En revisión'
