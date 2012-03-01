@@ -118,6 +118,9 @@ class DocumentTest < ActiveSupport::TestCase
   end
   
   test 'create parent when file change' do
+    assert @document.revise!
+    assert @document.approve!
+    
     assert_difference 'Document.count' do
       assert @document.update_attributes(
         file: Rack::Test::UploadedFile.new(
@@ -128,7 +131,9 @@ class DocumentTest < ActiveSupport::TestCase
       )
     end
     
-    assert_not_nil @document.parent
+    assert_not_nil @document.reload.parent
+    assert @document.parent.approved?
+    assert @document.on_revision?
   end
   
   test 'do not create parent when the same file is uploaded' do

@@ -8,7 +8,7 @@ class Document < ActiveRecord::Base
   acts_as_nested_set
   
   # Scopes
-  scope :ordered_list, order('code ASC')
+  scope :ordered_list, leaves.reorder('code ASC')
   
   # Attributes without persistence
   attr_accessor :skip_code_uniqueness
@@ -42,6 +42,10 @@ class Document < ActiveRecord::Base
     event :mark_as_obsolete do
       transitions to: :obsolete, from: :approved
     end
+    
+    event :reset_status do
+      transitions to: :on_revision, from: [:approved]
+    end
   end
   
   # Restrictions
@@ -74,6 +78,11 @@ class Document < ActiveRecord::Base
           self.attributes.slice(*self.class.accessible_attributes)
         )
 
+        if self.approved?
+          self.parent.status = self.status
+          self.reset_status
+        end
+        
         self.parent.file = File.open(old_file)
         self.parent.skip_code_uniqueness = !self.code_changed?
       end

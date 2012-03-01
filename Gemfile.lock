@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/rails/rails
-  revision: 72ae0b4b07ed053007460bab81d710a29624a9a7
+  revision: 5bb5780f7b2015f3f948f39e0151198591757056
   branch: 3-2-stable
   specs:
     actionmailer (3.2.1)
@@ -115,7 +115,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.17.2)
-    minitest (2.11.2)
+    minitest (2.11.3)
     multi_json (1.1.0)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
