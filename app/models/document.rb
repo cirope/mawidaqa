@@ -8,7 +8,8 @@ class Document < ActiveRecord::Base
   acts_as_nested_set
   
   # Scopes
-  scope :ordered_list, leaves.reorder('code ASC')
+  scope :approved, where('status = ?', 'approved')
+  scope :ordered_list, approved.order('code ASC')
   
   # Attributes without persistence
   attr_accessor :skip_code_uniqueness
@@ -31,7 +32,7 @@ class Document < ActiveRecord::Base
       transitions to: :revised, from: :on_revision
     end
     
-    event :approve do
+    event :approve, after: :mark_related_as_obsolete do
       transitions to: :approved, from: :revised
     end
     
@@ -66,6 +67,10 @@ class Document < ActiveRecord::Base
   
   def check_code_changes
     self.skip_code_uniqueness = true unless self.code_changed?
+  end
+  
+  def mark_related_as_obsolete
+    self.ancestors.approved.all?(&:mark_as_obsolete!)
   end
   
   def file=(file)

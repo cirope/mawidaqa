@@ -146,6 +146,25 @@ class DocumentTest < ActiveSupport::TestCase
     assert_nil @document.parent
   end
   
+  test 'mark related as obsolete' do
+    assert_difference 'Document.count', 2 do
+      @document = Fabricate(:document) { status 'approved' }
+      
+      assert @document.update_attributes(
+        file: Rack::Test::UploadedFile.new(
+          File.join(Rails.root, 'test', 'fixtures', 'files', 'test_2.txt'),
+          'text/plain',
+          false
+        )
+      )
+    end
+    
+    assert @document.parent.approved?
+    assert @document.revise!
+    assert @document.approve!
+    assert @document.parent.reload.obsolete?
+  end
+  
   test 'read tag list' do
     @document = Fabricate(:document) do
       tags!(count: 2) { |a, i| Fabricate(:tag, name: "Test #{i}") }
