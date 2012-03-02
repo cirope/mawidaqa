@@ -9,7 +9,7 @@ class Document < ActiveRecord::Base
   
   # Scopes
   scope :approved, where('status = ?', 'approved')
-  scope :ordered_list, approved.order('code ASC')
+  scope :ordered_list, order('code ASC')
   
   # Attributes without persistence
   attr_accessor :skip_code_uniqueness
