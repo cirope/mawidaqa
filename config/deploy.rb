@@ -5,7 +5,7 @@ set :repository,  'https://github.com/francocatena/mawidaqa.git'
 set :deploy_to, '/var/rails/mawidaqa'
 set :user, 'deployer'
 set :group_writable, false
-set :shared_children, %w(system log pids private public config)
+set :shared_children, %w(system log pids public)
 set :use_sudo, false
 
 set :scm, :git
