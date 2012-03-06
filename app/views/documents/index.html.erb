@@ -15,7 +15,13 @@
       <tbody>
         <% @documents.each do |document| %>
           <tr>
-            <td><%= link_to document.code, document %></td>
+            <td>
+              <%= link_to(
+                document.code, document, title: t('label.show'),
+                data: {'show-tooltip' => true}
+              ) %> |
+              <%= link_to_download document.file_url %>
+            </td>
             <td><%= document.name %></td>
             <td class="disposable"><%= document_status_text document %></td>
             <td class="disposable"><%= document.version %></td>

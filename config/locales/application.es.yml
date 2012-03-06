@@ -47,6 +47,7 @@
     'no': 'No'
     close: 'Cerrar'
     delete: 'Eliminar'
+    download: 'Descargar'
     edit: 'Editar'
     list: 'Listado'
     new: 'Nuevo'
