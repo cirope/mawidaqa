@@ -15,6 +15,7 @@ gem 'awesome_nested_set'
 gem 'aasm'
 gem 'paper_trail'
 gem 'capistrano'
+gem 'newrelic_rpm'
 
 group :assets do
   gem 'sass-rails'
