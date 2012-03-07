@@ -1,7 +1,7 @@
 Fabricator(:document) do
   name { "Document #{sequence(:document_name)}" }
   code { "DT #{'%.3d' % sequence(:document_code)}" }
-  version { rand(5).next }
+  version { "#{Time.now.year}.#{'%.2d' % Time.now.month}" }
   notes { Faker::Lorem.sentences(3).join("\n") }
   version_comments { Faker::Lorem.sentences(3).join("\n") }
   file {

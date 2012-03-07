@@ -31,7 +31,7 @@ class DocumentTest < ActiveSupport::TestCase
     @document.name = ''
     @document.code = ''
     @document.status = nil
-    @document.version = nil
+    @document.version = ' '
     @document.remove_file!
     
     assert @document.invalid?
@@ -48,15 +48,6 @@ class DocumentTest < ActiveSupport::TestCase
       @document.errors[:file]
   end
   
-  test 'validates well formated attributes' do
-    @document.version = '1x.2'
-    
-    assert @document.invalid?
-    assert_equal 1, @document.errors.size
-    assert_equal [error_message_from_model(@document, :version, :not_a_number)],
-      @document.errors[:version]
-  end
-  
   test 'validates unique attributes' do
     new_document = Fabricate(:document)
     @document.code = new_document.code
@@ -67,28 +58,22 @@ class DocumentTest < ActiveSupport::TestCase
       @document.errors[:code]
   end
   
-  test 'validates attributes are in range' do
-    @document.version = '0'
-    
-    assert @document.invalid?
-    assert_equal 1, @document.errors.count
-    assert_equal [
-      error_message_from_model(@document, :version, :greater_than, count: 0)
-    ], @document.errors[:version]
-  end
-  
   test 'validates length of _long_ attributes' do
     @document.name = 'abcde' * 52
     @document.code = 'abcde' * 52
+    @document.version = 'abcde' * 52
     
     assert @document.invalid?
-    assert_equal 2, @document.errors.count
+    assert_equal 3, @document.errors.count
     assert_equal [
       error_message_from_model(@document, :name, :too_long, count: 255)
     ], @document.errors[:name]
     assert_equal [
       error_message_from_model(@document, :code, :too_long, count: 255)
     ], @document.errors[:code]
+    assert_equal [
+      error_message_from_model(@document, :version, :too_long, count: 255)
+    ], @document.errors[:version]
   end
   
   test 'states transitions from on_revision' do

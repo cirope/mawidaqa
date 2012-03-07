@@ -50,12 +50,10 @@ class Document < ApplicationModel
   
   # Restrictions
   validates :name, :code, :status, :version, :file, presence: true
-  validates :name, :code, length: { maximum: 255 }, allow_nil: true,
+  validates :name, :code, :version, length: { maximum: 255 }, allow_nil: true,
     allow_blank: true
   validates :code, uniqueness: { case_sensitive: false },
     allow_nil: true, allow_blank: true, unless: :skip_code_uniqueness
-  validates :version, numericality: { only_integer: true, greater_than: 0 },
-    allow_nil: true, allow_blank: true
   
   # Relations
   has_and_belongs_to_many :tags
