@@ -26,8 +26,8 @@
             <td class="disposable"><%= document_status_text document %></td>
             <td class="disposable"><%= document.version %></td>
             <td class="disposable"><%= l document.updated_at.to_date %></td>
-            <td><%= link_to_edit edit_document_path(document) %></td>
-            <td><%= link_to_destroy document %></td>
+            <td><%= link_to_edit edit_document_path(document) if can? :update, document %></td>
+            <td><%= link_to_destroy document if can? :destroy, document %></td>
           </tr>
         <% end %>
       </tbody>

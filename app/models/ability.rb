@@ -18,33 +18,33 @@ class Ability
   end
   
   def regular_rules
-    can :create, :all
-    can :update, :all
-    can :destroy, :all
+    can :create, Document
+    can :update, Document
+    can :destroy, Document
     can :edit_profile, User
     can :update_profile, User
   end
   
   def approver_rules
-    can :create, :all
-    can :update, :all
-    can :destroy, :all
-    can :edit_profile, User
-    can :update_profile, User
+    can :create, Document
+    can :update, Document
+    can :destroy, Document
     can :approve, Document
     can :reject, Document
+    can :edit_profile, User
+    can :update_profile, User
   end
   
   def reviewer_rules
-    can :create, :all
-    can :update, :all
-    can :destroy, :all
+    can :create, Document
+    can :update, Document
+    can :destroy, Document
+    can :revise, Document
     can :edit_profile, User
     can :update_profile, User
-    can :revise, Document
   end
   
   def default_rules
-    can :read, :all
+    can :read, Document
   end
 end
