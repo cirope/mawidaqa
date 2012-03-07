@@ -1,4 +1,4 @@
-class Document < ActiveRecord::Base
+class Document < ApplicationModel
   include AASM
   
   mount_uploader :file, FileUploader
@@ -9,7 +9,6 @@ class Document < ActiveRecord::Base
   
   # Scopes
   scope :approved, where('status = ?', 'approved')
-  scope :ordered_list, order('code ASC')
   
   # Attributes without persistence
   attr_accessor :skip_code_uniqueness
@@ -112,5 +111,16 @@ class Document < ActiveRecord::Base
         self.tags << Tag.all_by_name(tag).first_or_create!(name: tag)
       end
     end
+  end
+  
+  def self.magick_columns
+    [
+      {field: 'code', operator: :like, mask: '%%%{t}%%', condition: %r{.*}},
+      {field: 'name', operator: :like, mask: '%%%{t}%%', condition: %r{.*}}
+    ]
+  end
+  
+  def self.filtered_list(query)
+    query.present? ? magick_search(query).order('code ASC') : order('code ASC')
   end
 end

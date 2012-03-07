@@ -202,4 +202,36 @@ class DocumentTest < ActiveSupport::TestCase
     
     assert_equal '', @document.reload.tag_list
   end
+  
+  test 'magick search' do
+    5.times { |i| Fabricate(:document, code: "magick_code_#{i}") }
+    3.times { |i| Fabricate(:document, name: "magick_name_#{i}") }
+    Fabricate(:document, code: 'magick_code_x', name: 'magick_name_x')
+    
+    documents = Document.magick_search('magick')
+    
+    assert_equal 9, documents.count
+    assert documents.all? { |d| d.to_s =~ /magick/ }
+    
+    documents = Document.magick_search('magick_code')
+    
+    assert_equal 6, documents.count
+    assert documents.all? { |d| d.to_s =~ /magick_code/ }
+    
+    documents = Document.magick_search('magick_code magick_name')
+    
+    assert_equal 1, documents.count
+    assert documents.all? { |d| d.to_s =~ /magick_code.*magick_name/ }
+    
+    documents = Document.magick_search(
+      "magick_code #{I18n.t('query.or')} magick_name"
+    )
+    
+    assert_equal 9, documents.count
+    assert documents.all? { |d| d.to_s =~ /magick_code|magick_name/ }
+    
+    documents = Document.magick_search('nothing')
+    
+    assert documents.empty?
+  end
 end

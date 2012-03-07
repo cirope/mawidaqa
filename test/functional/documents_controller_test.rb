@@ -14,6 +14,22 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_select '#unexpected_error', false
     assert_template 'documents/index'
   end
+  
+  test 'should get filtered index' do
+    sign_in Fabricate(:user)
+    
+    Fabricate(:document, name: 'excluded_from_filter')
+    3.times { Fabricate(:document, name: 'in_filtered_index') }
+    
+    get :index, q: 'filtered_index'
+    assert_response :success
+    assert_not_nil assigns(:documents)
+    assert_equal 3, assigns(:documents).size
+    assert assigns(:documents).all? { |d| d.to_s =~ /filtered_index/ }
+    assert_not_equal assigns(:documents).size, Document.count
+    assert_select '#unexpected_error', false
+    assert_template 'documents/index'
+  end
 
   test 'should get new' do
     sign_in Fabricate(:user)

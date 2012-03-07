@@ -8,7 +8,8 @@ class DocumentsController < ApplicationController
   # GET /documents.json
   def index
     @title = t 'view.documents.index_title'
-    @documents = @documents.ordered_list.paginate(
+    @searchable = true
+    @documents = @documents.filtered_list(params[:q]).paginate(
       page: params[:page], per_page: LINES_PER_PAGE
     )
 
