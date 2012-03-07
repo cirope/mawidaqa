@@ -28,5 +28,5 @@
 <%= pagination_links(@users) %>
 
 <nav class="form-actions">
-  <%= link_to t('label.new'), new_user_path, class: 'btn btn-primary' %>
+  <%= link_to t('label.new'), new_user_path, class: 'btn btn-primary' if can? :create, User %>
 </nav>

@@ -38,5 +38,5 @@
 <%= pagination_links(@documents) %>
 
 <nav class="form-actions">
-  <%= link_to t('label.new'), new_document_path, class: 'btn btn-primary' %>
+  <%= link_to t('label.new'), new_document_path, class: 'btn btn-primary' if can? :create, Document %>
 </nav>
