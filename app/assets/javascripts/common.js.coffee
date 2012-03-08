@@ -5,7 +5,7 @@ window.State = {
 
 window.Helper = {
   showMessage: (message, expired)->
-    $('#time_left').find('span.message').html(message)
+    $('#time_left').find('h3.alert-heading').html(message)
     $('#time_left:not(:visible)').stop().fadeIn()
 
     State.sessionExpire = State.sessionExpire || expired
