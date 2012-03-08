@@ -1,3 +1,16 @@
+window.State = {
+  showMessages: [],
+  sessionExpire: false
+}
+
+window.Helper = {
+  showMessage: (message, expired)->
+    $('#time_left').find('span.message').html(message)
+    $('#time_left:not(:visible)').stop().fadeIn()
+
+    State.sessionExpire = State.sessionExpire || expired
+}
+
 jQuery ($)->
   # For browsers with no autofocus support
   $('*[autofocus]:not([readonly]):not([disabled]):visible:first').focus()
@@ -13,3 +26,23 @@ jQuery ($)->
       setTimeout(
         (-> $(a).find('a.close').trigger('click')), $(a).data('close-after')
       )
+  
+  if $.isArray(State.showMessages)
+    $.each State.showMessages, ->
+      this.timerId = window.setTimeout(
+        "Helper.showMessage('#{this.message}', #{this.expired})",
+        this.time * 1000
+      )
+      
+  $(document).bind
+    # Restart timers
+    ajaxStart: ->
+      $.each State.showMessages, ->
+        if !State.sessionExpire
+          window.clearTimeout this.timerId
+          $('#time_left').hide()
+
+          this.timerId = window.setTimeout(
+            "Helper.showMessage('#{this.message}', #{this.expired})",
+            this.time * 1000
+          )

@@ -62,6 +62,9 @@
     
   messages:
     confirmation: '¿Está seguro?'
+    session:
+      expires_in_less_than_two_minutes: 'Su sesión expira en menos de dos minutos'
+      time_expired: 'Su sesión ha expirado'
     
   query:
     and: 'y'

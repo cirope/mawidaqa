@@ -16,6 +16,7 @@
 </head>
 <body id="c_<%= controller_name %>" data-action="<%= action_name %>" <%= raw 'class="logged_in"' if user_signed_in? %>>
   <%= render 'shared/menu' if user_signed_in? %>
+  <%= render 'shared/time_left' if user_signed_in? %>
   <div class="container">
     <div class="content"><%= yield %></div>
   </div>

@@ -6,7 +6,7 @@ class User < ApplicationModel
   has_paper_trail
   
   devise :database_authenticatable, :recoverable, :rememberable, :trackable,
-    :validatable
+    :validatable, :lockable, :timeoutable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :lastname, :email, :password, :password_confirmation,
