@@ -37,10 +37,11 @@ jQuery ($)->
   $(document).bind
     # Restart timers
     ajaxStart: ->
-      $.each State.showMessages, ->
-        if !State.sessionExpire
+      if !State.sessionExpire
+        $('#time_left').fadeOut()
+        
+        $.each State.showMessages, ->  
           window.clearTimeout this.timerId
-          $('#time_left').hide()
 
           this.timerId = window.setTimeout(
             "Helper.showMessage('#{this.message}', #{this.expired})",
