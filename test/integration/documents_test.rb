@@ -34,7 +34,7 @@ class DocumentsTest < ActionDispatch::IntegrationTest
     fill_in 'document_version_comments', with: document.version_comments
     
     assert_difference 'Document.count' do
-      find('input.btn.btn-primary').click
+      find('.btn.btn-primary').click
     end
     
     document = Document.find_by_code(document.code)

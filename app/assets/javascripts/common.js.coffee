@@ -17,6 +17,8 @@ jQuery ($)->
   
   $('*[data-show-tooltip]').tooltip()
   
+  $('a.submit').click -> $('form').submit(); return false
+  
   $('form').submit ->
     $(this).find('input[type="submit"], input[name="utf8"]')
     .attr 'disabled', true

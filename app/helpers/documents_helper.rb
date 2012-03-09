@@ -9,7 +9,13 @@ module DocumentsHelper
   
   def document_actions(f)
     document = f.object
-    main_action = f.button :submit, class: 'btn btn-primary'
+    action = document.new_record? ? 'create' : 'update'
+    main_action_label = t(
+      "helpers.submit.#{action}", model: Document.model_name.human
+    )
+    main_action = link_to(
+      main_action_label, '#', class: 'btn btn-primary submit'
+    )
     extra_actions = []
     actions = document.new_record? ? [] : [
       [:approve, approve_document_path(document)],
