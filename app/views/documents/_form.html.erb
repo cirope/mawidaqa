@@ -25,10 +25,10 @@
     </div>
   </div>
 
-  <div class="form-actions">
+  <div class="form-actions clearfix">
     <%= f.input :lock_version, as: :hidden %>
     <%= render partial: 'shared/hidden_submit', locals: { f: f } %>
-    <div class="pull-right"><%= yield :form_actions %></div>
     <%= document_actions(f) %>
+    <div class="pull-right"><%= yield :form_actions %></div>
   </div>
 <% end %>
