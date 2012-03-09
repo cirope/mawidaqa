@@ -83,6 +83,9 @@
       approved: 'El documento se aprobó.'
       revised: 'El documento se revisó.'
       rejected: 'El documento se rechazó.'
+      all: 'Todos'
+      with_tag:
+        html: 'Documentos con la etiqueta <span class="label label-info">%{tag}</span>'
       actions:
         approve: 'Aprobar'
         revise: 'Revisar'

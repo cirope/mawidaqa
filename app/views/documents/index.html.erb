@@ -1,6 +1,12 @@
 <div class="row">
   <div class="span12">
     <table class="table resource-list">
+      <% if @tag %>
+        <caption>
+          <h4><%= t('view.documents.with_tag.html', tag: @tag.to_s) %></h4>
+          <br />
+        </caption>
+      <% end %>
       <thead>
         <tr>
           <th><%= Document.human_attribute_name 'code' %></th>

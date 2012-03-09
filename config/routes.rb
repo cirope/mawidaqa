@@ -1,5 +1,7 @@
 MawidaQA::Application.routes.draw do
-  resources :tags, only: [ :index ]
+  resources :tags, only: [ :index ] do
+    resources :documents, only: [ :index ]
+  end
   
   resources :documents do
     member do

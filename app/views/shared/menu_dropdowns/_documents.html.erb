@@ -1,0 +1,22 @@
+<% document_controller = controller_name == 'documents' %>
+<li class="dropdown<%= ' active' if document_controller %>">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    <%= t('menu.documents') %>
+    <b class="caret"></b>
+  </a>
+  <ul class="dropdown-menu">
+    <li <%= raw 'class="active"' if document_controller && @tag.blank? %>>
+      <%= link_to t('view.documents.all'), documents_path %>
+    </li>
+    <% unless document_tag_list.empty? %>
+      <li class="divider"></li>
+      <li class="nav-header"><%= Tag.model_name.human count: 0 %></li>
+      <% tag_icon = content_tag(:span, '&#xe02b;'.html_safe, class: 'iconic') %>
+      <% document_tag_list.each do |tag| %>
+        <li <%= raw 'class="active"' if document_controller && @tag == tag %>>
+          <%= link_to "#{tag_icon} #{h tag}".html_safe, tag_documents_path(tag) %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</li>

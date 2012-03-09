@@ -48,6 +48,10 @@ module ApplicationHelper
     result + page_entries
   end
   
+  def document_tag_list
+    @_document_tag_list ||= Tag.order('name ASC')
+  end
+  
   def link_to_edit(*args)
     options = args.extract_options!
     

@@ -10,6 +10,7 @@ class DocumentsTest < ActionDispatch::IntegrationTest
     
     within '.navbar .container' do
       click_link I18n.t('menu.documents')
+      find('ul.dropdown-menu li a').click
     end
     
     assert_equal documents_path, current_path

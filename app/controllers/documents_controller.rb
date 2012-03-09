@@ -1,5 +1,6 @@
 class DocumentsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :load_tag, only: [:index]
   
   check_authorization
   load_and_authorize_resource
@@ -124,5 +125,12 @@ class DocumentsController < ApplicationController
       format.html { redirect_to @document, notice: t('view.documents.rejected') }
       format.json { head :no_content }
     end
+  end
+  
+  private
+  
+  def load_tag
+    @tag = Tag.find(params[:tag_id]) if params[:tag_id].present?
+    @documents = @tag ? @tag.documents : Document.scoped
   end
 end

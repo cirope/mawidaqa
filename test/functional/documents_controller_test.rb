@@ -30,6 +30,32 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_select '#unexpected_error', false
     assert_template 'documents/index'
   end
+  
+  test 'get index with tag' do
+    tag_with = Fabricate(:tag)
+    tag_without = Fabricate(:tag)
+    
+    3.times { Fabricate(:document) { tags!(count: 1) { tag_with } } }
+    Fabricate(:document)
+    
+    sign_in Fabricate(:user)
+    
+    get :index, tag_id: tag_with.to_param
+    assert_response :success
+    assert_not_nil assigns(:documents)
+    assert_equal 3, assigns(:documents).size
+    assert assigns(:documents).all? { |d| d.tags.include?(tag_with) }
+    assert_not_equal assigns(:documents).size, Document.count
+    assert_select '#unexpected_error', false
+    assert_template 'documents/index'
+    
+    get :index, tag_id: tag_without.to_param
+    assert_response :success
+    assert_not_nil assigns(:documents)
+    assert_equal 0, assigns(:documents).size
+    assert_select '#unexpected_error', false
+    assert_template 'documents/index'
+  end
 
   test 'should get new' do
     sign_in Fabricate(:user)
