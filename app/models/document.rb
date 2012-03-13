@@ -1,9 +1,11 @@
-class Document < ApplicationModel
+class Document < ActiveRecord::Base
   include AASM
   
   mount_uploader :file, FileUploader
   
   has_paper_trail version: :paper_trail_version
+  
+  has_magick_columns name: :string, code: :string
   
   acts_as_nested_set
   
@@ -109,13 +111,6 @@ class Document < ApplicationModel
         self.tags << Tag.all_by_name(tag).first_or_create!(name: tag)
       end
     end
-  end
-  
-  def self.magick_columns
-    [
-      {field: 'code', operator: :like, mask: '%%%{t}%%', condition: %r{.*}},
-      {field: 'name', operator: :like, mask: '%%%{t}%%', condition: %r{.*}}
-    ]
   end
   
   def self.filtered_list(query)

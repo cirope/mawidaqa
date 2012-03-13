@@ -1,4 +1,4 @@
-class Tag < ApplicationModel
+class Tag < ActiveRecord::Base
   include Comparable
   
   has_paper_trail
