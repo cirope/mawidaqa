@@ -9,7 +9,7 @@
         <%= f.input :password_confirmation %>
       </div>
 
-      <div class="form-actions clearfix">
+      <div class="form-actions">
         <%= render partial: 'shared/hidden_submit', locals: { f: f } %>
         <%= show_button_dropdown(
           link_to('Registrarse', '#', class: 'btn btn-primary submit'),

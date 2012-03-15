@@ -9,7 +9,7 @@
         <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
       </div>
     
-      <div class="form-actions clearfix">
+      <div class="form-actions">
         <%= render partial: 'shared/hidden_submit', locals: { f: f } %>
         <%= show_button_dropdown(
           link_to('Ingresar', '#', class: 'btn btn-primary submit'),

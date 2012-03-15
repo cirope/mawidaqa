@@ -11,9 +11,9 @@
         <tr>
           <th><%= Document.human_attribute_name 'code' %></th>
           <th><%= Document.human_attribute_name 'name' %></th>
-          <th class="disposable"><%= Document.human_attribute_name 'status' %></th>
-          <th class="disposable"><%= Document.human_attribute_name 'version' %></th>
-          <th class="disposable"><%= Document.human_attribute_name 'updated_at' %></th>
+          <th class="visible-desktop"><%= Document.human_attribute_name 'status' %></th>
+          <th class="visible-desktop"><%= Document.human_attribute_name 'version' %></th>
+          <th class="visible-desktop"><%= Document.human_attribute_name 'updated_at' %></th>
           <th colspan="2"></th>
         </tr>
       </thead>
@@ -29,9 +29,9 @@
               <%= link_to_download document.file_url %>
             </td>
             <td><%= document.name %></td>
-            <td class="disposable"><%= document_status_text document %></td>
-            <td class="disposable"><%= document.version %></td>
-            <td class="disposable"><%= l document.updated_at.to_date %></td>
+            <td class="visible-desktop"><%= document_status_text document %></td>
+            <td class="visible-desktop"><%= document.version %></td>
+            <td class="visible-desktop"><%= l document.updated_at.to_date %></td>
             <td><%= link_to_edit edit_document_path(document) if can? :update, document %></td>
             <td><%= link_to_destroy document if can? :destroy, document %></td>
           </tr>
