@@ -209,7 +209,7 @@ class DocumentTest < ActiveSupport::TestCase
     assert documents.all? { |d| d.to_s =~ /magick_code.*magick_name/ }
     
     documents = Document.magick_search(
-      "magick_code #{I18n.t('magick_columns.or')} magick_name"
+      "magick_code #{I18n.t('magick_columns.or').first} magick_name"
     )
     
     assert_equal 9, documents.count
