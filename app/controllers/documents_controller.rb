@@ -10,9 +10,7 @@ class DocumentsController < ApplicationController
   def index
     @title = t 'view.documents.index_title'
     @searchable = true
-    @documents = @documents.filtered_list(params[:q]).paginate(
-      page: params[:page], per_page: LINES_PER_PAGE
-    )
+    @documents = @documents.filtered_list(params[:q]).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
