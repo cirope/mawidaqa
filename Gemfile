@@ -1,6 +1,6 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
-gem 'rails', '3.2.2'
+gem 'rails', '3.2.3'
 
 gem 'pg'
 gem 'jquery-rails'
@@ -26,7 +26,6 @@ group :assets do
 end
 
 group :development do
-  gem 'ruby-debug19', require: 'ruby-debug'
   gem 'thin'
 end
 

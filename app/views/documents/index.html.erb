@@ -1,47 +1,51 @@
-<div class="row">
-  <div class="span12">
-    <table class="table resource-list">
-      <% if @tag %>
-        <caption>
-          <h4><%= t('view.documents.with_tag.html', tag: @tag.to_s) %></h4>
-          <br />
-        </caption>
-      <% end %>
-      <thead>
-        <tr>
-          <th><%= Document.human_attribute_name 'code' %></th>
-          <th><%= Document.human_attribute_name 'name' %></th>
-          <th class="visible-desktop"><%= Document.human_attribute_name 'status' %></th>
-          <th class="visible-desktop"><%= Document.human_attribute_name 'version' %></th>
-          <th class="visible-desktop"><%= Document.human_attribute_name 'updated_at' %></th>
-          <th colspan="2"></th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @documents.each do |document| %>
-          <tr>
-            <td>
-              <%= link_to(
-                document.code, document, title: t('label.show'),
-                data: {'show-tooltip' => true}
-              ) %> |
-              <%= link_to_download document.file_url %>
-            </td>
-            <td><%= document.name %></td>
-            <td class="visible-desktop"><%= document_status_text document %></td>
-            <td class="visible-desktop"><%= document.version %></td>
-            <td class="visible-desktop"><%= l document.updated_at.to_date %></td>
-            <td><%= link_to_edit edit_document_path(document) if can? :update, document %></td>
-            <td><%= link_to_destroy document if can? :destroy, document %></td>
-          </tr>
+<% if @documents.empty? %>
+  <%= render 'shared/empty_index' %>
+<% else %>
+  <div class="row">
+    <div class="span12">
+      <table class="table resource-list">
+        <% if @tag %>
+          <caption>
+            <h4><%= t('view.documents.with_tag.html', tag: @tag.to_s) %></h4>
+            <br />
+          </caption>
         <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
+        <thead>
+          <tr>
+            <th><%= Document.human_attribute_name 'code' %></th>
+            <th><%= Document.human_attribute_name 'name' %></th>
+            <th class="visible-desktop"><%= Document.human_attribute_name 'status' %></th>
+            <th class="visible-desktop"><%= Document.human_attribute_name 'version' %></th>
+            <th class="visible-desktop"><%= Document.human_attribute_name 'updated_at' %></th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
 
-<%= pagination_links(@documents) %>
+        <tbody>
+          <% @documents.each do |document| %>
+            <tr>
+              <td>
+                <%= link_to(
+                  document.code, document, title: t('label.show'),
+                  data: {'show-tooltip' => true}
+                ) %> |
+                <%= link_to_download document.file_url %>
+              </td>
+              <td><%= document.name %></td>
+              <td class="visible-desktop"><%= document_status_text document %></td>
+              <td class="visible-desktop"><%= document.version %></td>
+              <td class="visible-desktop"><%= l document.updated_at.to_date %></td>
+              <td><%= link_to_edit edit_document_path(document) if can? :update, document %></td>
+              <td><%= link_to_destroy document if can? :destroy, document %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <%= pagination_links(@documents) %>
+<% end %>
 
 <nav class="form-actions">
   <%= link_to t('label.new'), new_document_path, class: 'btn btn-primary' if can? :create, Document %>

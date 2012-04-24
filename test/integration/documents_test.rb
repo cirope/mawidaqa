@@ -1,18 +1,15 @@
 require 'test_helper'
 
 class DocumentsTest < ActionDispatch::IntegrationTest
-  setup do
-    Capybara.current_driver = Capybara.javascript_driver
-  end
-  
   test 'creates a new document' do
-    login!
+    login
     
     within '.navbar .container' do
       click_link I18n.t('menu.documents')
       find('ul.dropdown-menu li a').click
     end
     
+    sleep 0.5
     assert_equal documents_path, current_path
     
     assert_page_has_no_errors!
@@ -21,6 +18,7 @@ class DocumentsTest < ActionDispatch::IntegrationTest
       click_link I18n.t('label.new')
     end
     
+    sleep 0.5
     assert_equal new_document_path, current_path
     
     assert_page_has_no_errors!

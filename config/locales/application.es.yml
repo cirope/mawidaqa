@@ -35,7 +35,9 @@
         email: 'Correo'
         password: 'Contraseña'
         password_confirmation: 'Confirmación'
-        roles: 'Perfiles'
+        roles:
+          one: 'Perfil'
+          other: 'Perfiles'
         remember_me: 'Recordarme'
         
   errors:
@@ -50,8 +52,9 @@
     download: 'Descargar'
     edit: 'Editar'
     list: 'Listado'
+    loading: 'Cargando...'
     new: 'Nuevo'
-    search: 'Buscar...'
+    search: 'Buscar'
     show: 'Ver'
     
   menu:
@@ -67,6 +70,12 @@
       time_expired: 'Su sesión ha expirado'
     
   view:
+    generic:
+      empty_index:
+        html: 'No hay ningún elemento por el momento'
+      empty_search:
+        title:
+          html: 'La búsqueda de <span class="label label-inverse">%{search}</span> no obtuvo ningún resultado.'
     documents:
       index_title: 'Listado de documentos'
       show_title: 'Detalle de documento'
@@ -75,6 +84,8 @@
       correctly_created: 'Documento agregado correctamente.'
       correctly_updated: 'Documento actualizado correctamente.'
       stale_object_error: 'El documento no pudo ser actualizado, intente nuevamente.'
+      empty_index:
+        html: 'No se ha creado ningún documento hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo documento</span>'
       non_existent: 'Archivo inexistente'
       approved: 'El documento se aprobó.'
       revised: 'El documento se revisó.'
@@ -100,6 +111,9 @@
       correctly_created: 'Usuario agregado correctamente.'
       correctly_updated: 'Usuario actualizado correctamente.'
       stale_object_error: 'El usuario no pudo ser actualizado, intente nuevamente.'
+      empty_index:
+        html: 'No se ha creado ningún usuario hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo usuario</span>'
+      new: 'Nuevo usuario'
       update_profile: 'Actualizar datos'
       update_password: 'Actualizar contraseña'
       profile_correctly_updated: 'Actualizaste tus datos correctamente.'

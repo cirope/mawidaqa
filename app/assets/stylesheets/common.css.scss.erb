@@ -11,14 +11,27 @@
   font-style: normal;
 }
 
+footer.alert {
+  position: fixed;
+  bottom: 0em;
+  left: 4em;
+  right: 4em;
+}
+
 html, body {
   background-color: #eee;
 }
 
-table.resource-list {
-  a.iconic {
-    text-decoration: none;
-  }
+#loading_caption {
+  position: fixed;
+  top: 0%;
+  left: 50%;
+  width: 10em;
+  margin: 0em 0em 0em -5em;
+  padding: .25em 1em;
+  text-align: center;
+  line-height: 30px;
+  z-index: 1100;
 }
 
 #time_left {
@@ -31,16 +44,11 @@ table.resource-list {
   font-size: 1.25em;
 }
 
-.alert {
-  position: fixed;
-  bottom: 0em;
-  left: 4em;
-  right: 4em;
-}
-
 .iconic {
   font-family: "IconicStroke";
   display: inline-block;
+  font-size: 1.25em;
+  text-decoration: none !important;
 }
 
 .logged_in {

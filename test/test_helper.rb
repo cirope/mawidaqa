@@ -26,6 +26,10 @@ class ActionDispatch::IntegrationTest
 
   # Stop ActiveRecord from wrapping tests in transactions
   self.use_transactional_fixtures = false
+  
+  setup do
+    Capybara.default_driver = :selenium
+  end
 
   teardown do
     # Truncate the database
@@ -40,7 +44,7 @@ class ActionDispatch::IntegrationTest
     assert page.has_no_css?('#unexpected_error')
   end
   
-  def login!
+  def login
     user = Fabricate(:user, password: '123456')
     
     visit new_user_session_path
@@ -55,9 +59,9 @@ class ActionDispatch::IntegrationTest
     assert_equal root_path, current_path
     
     assert_page_has_no_errors!
-    assert page.has_css?('.alert')
+    assert page.has_css?('footer.alert')
     
-    within '.alert' do
+    within 'footer.alert' do
       assert page.has_content?(I18n.t('devise.sessions.signed_in'))
     end
   end

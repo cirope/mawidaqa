@@ -3,10 +3,6 @@
 require 'test_helper'
 
 class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
-  setup do
-    Capybara.current_driver = Capybara.javascript_driver
-  end
-  
   test 'should ask for login' do
     visit root_path
     
@@ -29,6 +25,7 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
     
     click_link '¿Olvidaste tu contraseña?'
     
+    sleep 0.5
     assert_equal new_user_password_path, current_path
     assert_page_has_no_errors!
     
@@ -49,7 +46,7 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
   end
   
   test 'should be able to login and logout' do
-    login!
+    login
     
     click_link 'logout'
     
