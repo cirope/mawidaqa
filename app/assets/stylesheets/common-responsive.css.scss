@@ -29,10 +29,6 @@
 }
 
 @media (min-width: 980px) {
-  /* TODO: remove when this issue get fixed: https://github.com/twitter/bootstrap/issues/2564 */
-  td.visible-desktop, th.visible-desktop {
-    display: table-cell;
-  }
 }
 
 @media (min-width: 1200px) {
