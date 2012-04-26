@@ -4,7 +4,7 @@ class Tag < ActiveRecord::Base
   has_paper_trail
   
   # Scopes
-  scope :ordered_list, order('name ASC')
+  default_scope order('name ASC')
   
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name
@@ -29,6 +29,6 @@ class Tag < ActiveRecord::Base
   end
   
   def self.all_by_name(name)
-    where('LOWER(name) LIKE ?', "#{name}%".downcase)
+    where('name ILIKE ?', "#{name}%")
   end
 end

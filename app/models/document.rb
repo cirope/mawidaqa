@@ -10,7 +10,8 @@ class Document < ActiveRecord::Base
   acts_as_nested_set
   
   # Scopes
-  scope :approved, where('status = ?', 'approved')
+  default_scope order("#{table_name}.code ASC")
+  scope :approved, where("#{table_name}.status = ?", 'approved')
   
   # Attributes without persistence
   attr_accessor :skip_code_uniqueness
@@ -114,6 +115,6 @@ class Document < ActiveRecord::Base
   end
   
   def self.filtered_list(query)
-    query.present? ? magick_search(query).order('code ASC') : order('code ASC')
+    query.present? ? magick_search(query) : scoped
   end
 end

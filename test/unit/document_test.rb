@@ -169,7 +169,7 @@ class DocumentTest < ActiveSupport::TestCase
       )
     end
     
-    assert_equal 'Test,Multi word tag,NewTag', @document.reload.tag_list
+    assert_equal 'Multi word tag,NewTag,Test', @document.reload.tag_list
     
     assert_difference '@document.tags.count', -2 do
       assert_no_difference 'Tag.count' do
