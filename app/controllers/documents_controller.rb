@@ -1,6 +1,7 @@
 class DocumentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :load_tag, only: [:index]
+  before_filter :new_document_with_parent, only: [:new_revision]
   
   check_authorization
   load_and_authorize_resource
@@ -125,10 +126,25 @@ class DocumentsController < ApplicationController
     end
   end
   
+  # GET /documents/1/new_revision
+  # GET /documents/1/new_revision.json
+  def new_revision
+    @title = t 'view.documents.new_title'
+
+    respond_to do |format|
+      format.html { render action: 'new' } # new.html.erb
+      format.json { render json: @document }
+    end
+  end
+  
   private
   
   def load_tag
     @tag = Tag.find(params[:tag_id]) if params[:tag_id].present?
     @documents = @tag ? @tag.documents : Document.scoped
+  end
+  
+  def new_document_with_parent
+    @document = Document.new(parent_id: params[:id])
   end
 end

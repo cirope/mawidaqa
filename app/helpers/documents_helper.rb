@@ -18,15 +18,16 @@ module DocumentsHelper
     )
     extra_actions = []
     actions = document.new_record? ? [] : [
-      [:approve, approve_document_path(document)],
-      [:revise, revise_document_path(document)],
-      [:reject, reject_document_path(document)]
+      [:create_new_revision, true, new_revision_document_path(document), :get],
+      [:approve, false, approve_document_path(document), :put],
+      [:revise, false, revise_document_path(document), :put],
+      [:reject, false, reject_document_path(document), :put]
     ]
     
-    actions.each do |action, path|
-      if can?(action, document) && document.send("may_#{action}?")
+    actions.each do |action, skip_may, path, method|
+      if can?(action, document) && (skip_may || document.send("may_#{action}?"))
         extra_actions << link_to(
-          t("view.documents.actions.#{action}"), path, method: :put
+          t("view.documents.actions.#{action}"), path, method: method
         )
       end
     end

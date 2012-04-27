@@ -8,6 +8,7 @@ MawidaQA::Application.routes.draw do
       put :revise
       put :reject
       put :approve
+      get :new_revision
     end
   end
 

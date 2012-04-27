@@ -192,4 +192,14 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_redirected_to root_path
     assert !document.reload.rejected?
   end
+  
+  test 'should get new revision' do
+    sign_in Fabricate(:user)
+    
+    get :new_revision, document: @document
+    assert_response :success
+    assert_not_nil assigns(:document)
+    assert_select '#unexpected_error', false
+    assert_template 'documents/new'
+  end
 end

@@ -76,6 +76,17 @@ class DocumentTest < ActiveSupport::TestCase
     ], @document.errors[:version]
   end
   
+  test 'should copy parent attributes in new' do
+    new_document = Document.new(parent_id: @document.id)
+    
+    assert_equal new_document.name, @document.name
+    assert_equal new_document.code, @document.code
+    assert_equal new_document.version, @document.version
+    assert_equal new_document.notes, @document.notes
+    assert_equal new_document.version_comments, @document.version_comments
+    assert new_document.file.blank? # We do not want the file copied
+  end
+  
   test 'states transitions from on_revision' do
     assert @document.on_revision?
     assert !@document.may_approve?

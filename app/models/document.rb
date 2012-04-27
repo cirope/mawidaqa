@@ -18,7 +18,7 @@ class Document < ActiveRecord::Base
   
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :code, :version, :notes, :version_comments, :file,
-    :file_cache, :tag_list, :lock_version
+    :file_cache, :tag_list, :parent_id, :lock_version
   
   # Callbacks
   before_validation :check_code_changes
@@ -60,6 +60,20 @@ class Document < ActiveRecord::Base
   
   # Relations
   has_and_belongs_to_many :tags
+  
+  def initialize(attributes = {}, options = {})
+    super
+    
+    if self.parent
+      self.parent.attributes.slice(*self.class.accessible_attributes).each do |a, v|
+        self.send("#{a}=", v) if self.send(a).blank?
+      end
+      
+      self.tag_list = self.parent.tag_list
+      
+      self.skip_code_uniqueness = (self.parent.code == self.code)
+    end
+  end
   
   def to_s
     "[#{self.code}] #{self.name}"
