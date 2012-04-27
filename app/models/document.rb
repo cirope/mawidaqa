@@ -47,7 +47,7 @@ class Document < ActiveRecord::Base
     end
     
     event :reset_status do
-      transitions to: :on_revision, from: [:approved]
+      transitions to: :on_revision, from: :approved
     end
   end
   
@@ -71,29 +71,6 @@ class Document < ActiveRecord::Base
   
   def mark_related_as_obsolete
     self.ancestors.approved.all?(&:mark_as_obsolete!)
-  end
-  
-  def file=(file)
-    if self.persisted? && self.file.try(:path) && File.exist?(self.file.path)
-      old_file = self.file.path
-      new_file = file.respond_to?(:path) ? file.path : file
-      
-      if File.exists?(new_file) && !FileUtils.compare_file(old_file, new_file)
-        self.build_parent(
-          self.attributes.slice(*self.class.accessible_attributes)
-        )
-
-        if self.approved?
-          self.parent.status = self.status
-          self.reset_status
-        end
-        
-        self.parent.file = File.open(old_file)
-        self.parent.skip_code_uniqueness = !self.code_changed?
-      end
-    end
-    
-    super(file)
   end
   
   def tag_list

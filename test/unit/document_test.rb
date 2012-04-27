@@ -102,47 +102,10 @@ class DocumentTest < ActiveSupport::TestCase
     assert !@document.may_approve?
   end
   
-  test 'create parent when file change' do
-    assert @document.revise!
-    assert @document.approve!
-    
-    assert_difference 'Document.count' do
-      assert @document.update_attributes(
-        file: Rack::Test::UploadedFile.new(
-          File.join(Rails.root, 'test', 'fixtures', 'files', 'test_2.txt'),
-          'text/plain',
-          false
-        )
-      )
-    end
-    
-    assert_not_nil @document.reload.parent
-    assert @document.parent.approved?
-    assert @document.on_revision?
-  end
-  
-  test 'do not create parent when the same file is uploaded' do
-    assert_no_difference 'Document.count' do
-      assert @document.update_attributes(
-        file: Fabricate.attributes_for(:document)['file']
-      )
-    end
-    
-    assert_nil @document.parent
-  end
-  
   test 'mark related as obsolete' do
-    assert_difference 'Document.count', 2 do
-      @document = Fabricate(:document) { status 'approved' }
-      
-      assert @document.update_attributes(
-        file: Rack::Test::UploadedFile.new(
-          File.join(Rails.root, 'test', 'fixtures', 'files', 'test_2.txt'),
-          'text/plain',
-          false
-        )
-      )
-    end
+    @document = Fabricate(:document) {
+      parent_id { Fabricate(:document, status: 'approved').id }
+    }
     
     assert @document.parent.approved?
     assert @document.revise!
