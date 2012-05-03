@@ -36,8 +36,11 @@
 </div>
 
 <nav class="form-actions">
-  <%= link_to t('label.edit'), edit_document_path(@document), class: 'btn btn-primary' %>
+  <% main_action = link_to(
+    t('label.edit'), edit_document_path(@document), class: 'btn btn-primary'
+  ) if can? :update, @document %>
+  <%= document_context_actions(@document, main_action) %>
   <div class="pull-right">
-    <%= link_to t('label.list'), documents_path %>
+    <%= link_to t('label.list'), documents_path if can? :read, Document %>
   </div>
 </nav>

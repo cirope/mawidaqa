@@ -162,6 +162,22 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal '', @document.reload.tag_list
   end
   
+  test 'on revision with parent' do
+    assert @document.revise!
+    assert @document.approve!
+    assert @document.save
+    
+    new_revision = Document.on_revision_with_parent(@document.id)
+    
+    assert new_revision.new_record?
+    new_revision.file = @document.file
+    assert new_revision.save, new_revision.errors.full_messages.join('; ')
+    
+    revision = Document.on_revision_with_parent(@document.id)
+    
+    assert revision.persisted?
+  end
+  
   test 'magick search' do
     5.times { |i| Fabricate(:document, code: "magick_code_#{i}") }
     3.times { |i| Fabricate(:document, name: "magick_name_#{i}") }

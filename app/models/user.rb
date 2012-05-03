@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
     allow_blank: true
   
   def initialize(attributes = nil, options = {})
-    super(attributes, options)
+    super
     
     self.role ||= :regular
   end

@@ -12,6 +12,14 @@ class Document < ActiveRecord::Base
   # Scopes
   default_scope order("#{table_name}.code ASC")
   scope :approved, where("#{table_name}.status = ?", 'approved')
+  scope :on_revision, where("#{table_name}.status = ?", 'on_revision')
+  scope :visible, where(
+    [
+      "#{table_name}.parent_id IS NULL",
+      "#{table_name}.status = :status"
+    ].join(' OR '),
+    status: 'approved'
+  )
   
   # Attributes without persistence
   attr_accessor :skip_code_uniqueness
@@ -105,7 +113,13 @@ class Document < ActiveRecord::Base
     end
   end
   
+  def self.on_revision_with_parent(parent_id)
+    Document.on_revision.where(
+      "#{table_name}.parent_id = ?", parent_id
+    ).first || Document.new(parent_id: parent_id)
+  end
+  
   def self.filtered_list(query)
-    query.present? ? magick_search(query) : scoped
+    query.present? ? visible.magick_search(query) : visible
   end
 end

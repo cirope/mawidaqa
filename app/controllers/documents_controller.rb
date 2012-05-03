@@ -132,7 +132,7 @@ class DocumentsController < ApplicationController
     @title = t 'view.documents.new_title'
 
     respond_to do |format|
-      format.html { render action: 'new' } # new.html.erb
+      format.html { render action: (@document.new_record? ? 'new' : 'edit') }
       format.json { render json: @document }
     end
   end
@@ -145,6 +145,6 @@ class DocumentsController < ApplicationController
   end
   
   def new_document_with_parent
-    @document = Document.new(parent_id: params[:id])
+    @document = Document.on_revision_with_parent(params[:id])
   end
 end

@@ -181,9 +181,7 @@ class DocumentsControllerTest < ActionController::TestCase
   end
   
   test 'should not reject document if is not allowed to' do
-    sign_in Fabricate(:user) {
-      roles { User.valid_roles.map(&:to_s) - ['approver', 'admin'] }
-    }
+    sign_in Fabricate(:user, role: :regular)
     
     document = Fabricate(:document)
     
@@ -195,11 +193,28 @@ class DocumentsControllerTest < ActionController::TestCase
   
   test 'should get new revision' do
     sign_in Fabricate(:user)
+    @document = Fabricate(:document, status: 'approved')
     
-    get :new_revision, document: @document
+    get :new_revision, id: @document
     assert_response :success
     assert_not_nil assigns(:document)
     assert_select '#unexpected_error', false
     assert_template 'documents/new'
+  end
+  
+  test 'should get _new_ revision from existing revision' do
+    sign_in Fabricate(:user)
+    @document = Fabricate(:document, status: 'approved')
+    new_revision = Document.on_revision_with_parent(@document.id)
+    
+    assert new_revision.new_record?
+    new_revision.file = @document.file
+    assert new_revision.save
+    
+    get :new_revision, id: @document
+    assert_response :success
+    assert_not_nil assigns(:document)
+    assert_select '#unexpected_error', false
+    assert_template 'documents/edit'
   end
 end

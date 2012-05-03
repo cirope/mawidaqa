@@ -16,7 +16,12 @@ module DocumentsHelper
     main_action = link_to(
       main_action_label, '#', class: 'btn btn-primary submit'
     )
-    extra_actions = []
+    
+    document_context_actions(document, main_action)
+  end
+  
+  def document_context_actions(document, main_action)
+    extra_actions = [main_action].compact
     actions = document.new_record? ? [] : [
       [:create_new_revision, true, new_revision_document_path(document), :get],
       [:approve, false, approve_document_path(document), :put],
@@ -27,16 +32,17 @@ module DocumentsHelper
     actions.each do |action, skip_may, path, method|
       if can?(action, document) && (skip_may || document.send("may_#{action}?"))
         extra_actions << link_to(
-          t("view.documents.actions.#{action}"), path, method: method
+          t("view.documents.actions.#{action}"), path,
+          method: method, class: ('btn btn-primary' if extra_actions.empty?)
         )
       end
     end
-    
-    if extra_actions.empty?
-      main_action
+      
+    if extra_actions.size == 1
+      extra_actions.first
     else
       render partial: 'shared/button_dropdown', locals: {
-        main_action: main_action, extra_actions: extra_actions
+        main_action: extra_actions.shift, extra_actions: extra_actions
       }
     end
   end
