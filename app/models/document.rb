@@ -21,10 +21,14 @@ class Document < ActiveRecord::Base
   )
   scope :visible, where(
     [
-      "#{table_name}.parent_id IS NULL",
-      "#{table_name}.status = :status"
-    ].join(' OR '),
-    status: 'approved'
+      [
+        "#{table_name}.parent_id IS NULL",
+        "#{table_name}.status = :approved"
+      ].join(' OR '),
+      "#{table_name}.status NOT IN (:hidden_status)"
+    ].map { |c| "(#{c})" }.join(' AND '),
+    approved: 'approved',
+    hidden_status: ['obsolete', 'rejected']
   )
   
   # Attributes without persistence
