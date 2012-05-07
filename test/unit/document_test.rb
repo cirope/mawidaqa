@@ -171,7 +171,7 @@ class DocumentTest < ActiveSupport::TestCase
     
     assert new_revision.new_record?
     new_revision.file = @document.file
-    assert new_revision.save, new_revision.errors.full_messages.join('; ')
+    assert new_revision.save
     
     revision = Document.on_revision_with_parent(@document.id)
     
