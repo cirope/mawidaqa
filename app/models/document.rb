@@ -65,6 +65,15 @@ class Document < ActiveRecord::Base
     allow_blank: true
   validates :code, uniqueness: { case_sensitive: false },
     allow_nil: true, allow_blank: true, unless: :skip_code_uniqueness
+  validates_each :status do |record, attr, value|
+    if record.on_revision?
+      any_other_on_revision = record.root.self_and_descendants.any? do |d|
+        d.on_revision? && d != record
+      end
+      
+      record.errors.add attr, :taken if any_other_on_revision
+    end
+  end
   
   # Relations
   has_and_belongs_to_many :tags

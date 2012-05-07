@@ -76,6 +76,20 @@ class DocumentTest < ActiveSupport::TestCase
     ], @document.errors[:version]
   end
   
+  test 'validates only one status can be on_revision' do
+    assert_difference 'Document.count', 2 do
+      @document = Fabricate(:document, status: 'approved')
+      @document.children.create(Fabricate.attributes_for(:document))
+    end
+    
+    document = @document.children.build(Fabricate.attributes_for(:document))
+    
+    assert document.invalid?
+    assert_equal 1, document.errors.size
+    assert_equal [error_message_from_model(document, :status, :taken)],
+      document.errors[:status]
+  end
+  
   test 'should copy parent attributes in new' do
     new_document = Document.new(parent_id: @document.id)
     
