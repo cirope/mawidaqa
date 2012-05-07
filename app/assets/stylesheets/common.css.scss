@@ -33,11 +33,14 @@ html, body {
   font-size: 1.25em;
 }
 
+a.iconic {
+  text-decoration: none;
+}
+
 .iconic {
   font-family: "IconicStroke";
   display: inline-block;
   font-size: 1.25em;
-  text-decoration: none !important;
 }
 
 .logged_in {
@@ -72,4 +75,8 @@ html, body {
   .readonly_data {
     margin-left: 20px;
   }
+}
+
+.nowrap {
+  white-space: nowrap;
 }

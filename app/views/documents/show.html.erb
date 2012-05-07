@@ -1,8 +1,8 @@
 <div class="readonly_data">
-  <h2><%= @document %> <span class="iconic">&#xe000;</span></h2>
+  <h2><span class="iconic">&#xe000;</span> <%= @document %></h2>
   
   <p>
-    <%= link_to Document.human_attribute_name('file'), @document.file_url %>
+    <%= link_to t('view.documents.download.html'), @document.file_url %>
   </p>
 
   <p>

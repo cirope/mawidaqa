@@ -138,6 +138,29 @@ class DocumentTest < ActiveSupport::TestCase
     assert @document.parent.reload.obsolete?
   end
   
+  test 'is on revision' do
+    @document = Fabricate(:document, status: 'approved')
+    
+    assert !@document.is_on_revision?
+    
+    @document.children.create(Fabricate.attributes_for(:document))
+    
+    assert @document.is_on_revision?
+  end
+  
+  test 'may create new revision' do
+    assert @document.on_revision?
+    assert !@document.may_create_new_revision?
+    
+    @document = Fabricate(:document, status: 'approved')
+    
+    assert @document.may_create_new_revision?
+    
+    @document.children.create(Fabricate.attributes_for(:document))
+    
+    assert !@document.may_create_new_revision?
+  end
+  
   test 'read tag list' do
     @document = Fabricate(:document) do
       tags!(count: 2) { |a, i| Fabricate(:tag, name: "Test #{i}") }

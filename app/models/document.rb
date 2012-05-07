@@ -104,6 +104,14 @@ class Document < ActiveRecord::Base
     self.ancestors.approved.all?(&:mark_as_obsolete!)
   end
   
+  def is_on_revision?
+    self.children.any?(&:on_revision?)
+  end
+  
+  def may_create_new_revision?
+    self.approved? && !self.is_on_revision?
+  end
+  
   def tag_list
     self.tags.map(&:to_s).join(',')
   end

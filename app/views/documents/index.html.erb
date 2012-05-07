@@ -24,12 +24,8 @@
         <tbody>
           <% @documents.each do |document| %>
             <tr>
-              <td>
-                <%= link_to(
-                  document.code, document, title: t('label.show'),
-                  data: {'show-tooltip' => true}
-                ) %> |
-                <%= link_to_download document.file_url %>
+              <td class="nowrap">
+                <%= show_document_code_with_links(document) %>
               </td>
               <td><%= document.name %></td>
               <td class="visible-desktop"><%= document_status_text document %></td>

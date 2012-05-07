@@ -91,6 +91,10 @@
       revised: 'El documento se revisó.'
       rejected: 'El documento se rechazó.'
       all: 'Todos'
+      show_revision: 'Ver la revisión propuesta del documento'
+      edit_current_revision: 'Editar la revisión actual'
+      download:
+        html: 'Descargar archivo <span class="iconic">&#xe042;</span>'
       with_tag:
         html: 'Documentos con la etiqueta <span class="label label-info">%{tag}</span>'
       actions:
