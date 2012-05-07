@@ -12,7 +12,13 @@ class Document < ActiveRecord::Base
   # Scopes
   default_scope order("#{table_name}.code ASC")
   scope :approved, where("#{table_name}.status = ?", 'approved')
-  scope :on_revision, where("#{table_name}.status = ?", 'on_revision')
+  scope :on_revision_or_revised, where(
+    [
+      "#{table_name}.status = :on_revision",
+      "#{table_name}.status = :revised",
+    ].join(' OR '),
+    on_revision: 'on_revision', revised: 'revised'
+  )
   scope :visible, where(
     [
       "#{table_name}.parent_id IS NULL",
@@ -105,7 +111,11 @@ class Document < ActiveRecord::Base
   end
   
   def is_on_revision?
-    self.children.any?(&:on_revision?)
+    self.children.on_revision_or_revised.count > 0
+  end
+  
+  def current_revision
+    self.children.on_revision_or_revised.first
   end
   
   def may_create_new_revision?
@@ -131,7 +141,7 @@ class Document < ActiveRecord::Base
   end
   
   def self.on_revision_with_parent(parent_id)
-    Document.on_revision.where(
+    Document.on_revision_or_revised.where(
       "#{table_name}.parent_id = ?", parent_id
     ).first || Document.new(parent_id: parent_id)
   end

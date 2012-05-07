@@ -40,8 +40,7 @@ module DocumentsHelper
     
     if document.is_on_revision?
       extra_actions << link_to(
-        t('view.documents.edit_current_revision'),
-        document.children.on_revision.first
+        t('view.documents.edit_current_revision'), document.current_revision
       )
     end
       
@@ -66,12 +65,21 @@ module DocumentsHelper
     
     if document.is_on_revision?
       links << link_to(
-        '&#xe025;'.html_safe, document.children.on_revision.first,
+        '&#xe025;'.html_safe, document.current_revision,
         class: 'iconic', title: t('view.documents.show_revision'),
         data: {'show-tooltip' => true}
       )
     end
     
     raw(links.join(' | '))
+  end
+  
+  def link_to_related_document(document)
+    link_to(
+      t(
+        'view.documents.related.html',
+        code: document.code, status: document_status_text(document)
+      ), document
+    )
   end
 end

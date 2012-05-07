@@ -4,7 +4,7 @@
   <p>
     <%= link_to t('view.documents.download.html'), @document.file_url %>
   </p>
-
+  
   <p>
     <b><%= Document.human_attribute_name 'status' %>:</b>
     <%= document_status_text(@document) %>
@@ -30,6 +30,22 @@
     <ul>
       <% @document.tags.each do |tag| %>
         <li><%= content_tag :span, tag, class: 'label' %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  
+  <% if @document.parent %>
+    <hr />
+    <h3><%= Document.human_attribute_name 'parent' %></h3>
+    <%= link_to_related_document @document.parent %>
+  <% end %>
+  
+  <% unless @document.children.empty? %>
+    <hr />
+    <h3><%= Document.human_attribute_name 'children', count: @document.children.size %></h3>
+    <ul>
+      <% @document.children.each do |child| %>
+        <li><%= link_to_related_document child %></li>
       <% end %>
     </ul>
   <% end %>

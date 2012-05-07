@@ -148,6 +148,27 @@ class DocumentTest < ActiveSupport::TestCase
     assert @document.is_on_revision?
   end
   
+  test 'current revision' do
+    @document = Fabricate(:document, status: 'approved')
+    
+    assert_nil @document.current_revision
+    
+    @document.children.create(Fabricate.attributes_for(:document))
+    
+    assert_not_nil @document.current_revision
+    
+    @document.current_revision.tap do |old_revision|
+      old_revision.reject!
+      
+      assert_nil @document.current_revision
+      
+      @document.children.create(Fabricate.attributes_for(:document))
+      
+      assert_not_nil @document.current_revision
+      assert_not_equal old_revision, @document.current_revision
+    end
+  end
+  
   test 'may create new revision' do
     assert @document.on_revision?
     assert !@document.may_create_new_revision?

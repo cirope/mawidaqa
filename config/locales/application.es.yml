@@ -27,6 +27,10 @@
         version_comments: 'Comentarios de la versión'
         tag_list: 'Etiquetas'
         file: 'Archivo'
+        parent: 'Versión anterior'
+        children:
+          one: 'Bifuración'
+          other: 'Bifurcaciones'
       tag:
         name: 'Nombre'
       user:
@@ -95,6 +99,8 @@
       edit_current_revision: 'Editar la revisión actual'
       download:
         html: 'Descargar archivo <span class="iconic">&#xe042;</span>'
+      related:
+        html: '%{code} (%{status})'
       with_tag:
         html: 'Documentos con la etiqueta <span class="label label-info">%{tag}</span>'
       actions:
