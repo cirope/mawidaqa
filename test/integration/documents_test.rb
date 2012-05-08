@@ -24,6 +24,7 @@ class DocumentsTest < ActionDispatch::IntegrationTest
     assert_page_has_no_errors!
     
     document = Fabricate.build(:document)
+    comment = Fabricate.build(:comment, commentable: document)
     
     fill_in 'document_name', with: document.name
     fill_in 'document_code', with: document.code
@@ -31,8 +32,10 @@ class DocumentsTest < ActionDispatch::IntegrationTest
     attach_file 'document_file', document.file.path
     fill_in 'document_notes', with: document.notes
     fill_in 'document_version_comments', with: document.version_comments
+    fill_in 'document_comments_attributes_0_content', with: comment.content
+    attach_file 'document_comments_attributes_0_file', comment.file.path
     
-    assert_difference 'Document.count' do
+    assert_difference ['Document.count', 'Comment.count'] do
       find('.btn.btn-primary').click
     end
     

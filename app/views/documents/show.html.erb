@@ -1,53 +1,67 @@
 <div class="readonly_data">
-  <h2><span class="iconic">&#xe000;</span> <%= @document %></h2>
+  <div class="page-header">
+    <h1>
+      <span class="iconic">&#xe000;</span> <%= @document %>
+      <small>| <%= link_to t('label.download'), @document.file_url %></small>
+    </h1>
+  </div>
   
-  <p>
-    <%= link_to t('view.documents.download.html'), @document.file_url %>
-  </p>
-  
-  <p>
-    <b><%= Document.human_attribute_name 'status' %>:</b>
-    <%= document_status_text(@document) %>
-  </p>
+  <div class="row-fluid">
+    <div class="span6">
+      <p>
+        <b><%= Document.human_attribute_name 'status' %>:</b>
+        <%= document_status_text(@document) %>
+      </p>
 
-  <p>
-    <b><%= Document.human_attribute_name 'version' %>:</b>
-    <%= @document.version %>
-  </p>
+      <p>
+        <b><%= Document.human_attribute_name 'version' %>:</b>
+        <%= @document.version %>
+      </p>
 
-  <p>
-    <b><%= Document.human_attribute_name 'notes' %>:</b>
-  </p>
-  <%= simple_format @document.notes %>
+      <p>
+        <b><%= Document.human_attribute_name 'notes' %>:</b>
+      </p>
+      <%= simple_format @document.notes %>
 
-  <p>
-    <b><%= Document.human_attribute_name 'version_comments' %>:</b>
-  </p>
-  <%= simple_format @document.version_comments %>
-  
-  <% unless @document.tags.empty? %>
-    <h3><%= Document.human_attribute_name 'tag_list' %></h3>
-    <ul>
-      <% @document.tags.each do |tag| %>
-        <li><%= content_tag :span, tag, class: 'label' %></li>
+      <p>
+        <b><%= Document.human_attribute_name 'version_comments' %>:</b>
+      </p>
+      <%= simple_format @document.version_comments %>
+    </div>
+    
+    <div class="span6">
+      <% unless @document.tags.empty? %>
+        <h3><%= Document.human_attribute_name 'tag_list' %></h3>
+        <ul>
+          <% @document.tags.each do |tag| %>
+            <li><%= content_tag :span, tag, class: 'label' %></li>
+          <% end %>
+        </ul>
       <% end %>
-    </ul>
-  <% end %>
-  
-  <% if @document.parent %>
-    <hr />
-    <h3><%= Document.human_attribute_name 'parent' %></h3>
-    <%= link_to_related_document @document.parent %>
-  <% end %>
-  
-  <% unless @document.children.empty? %>
-    <hr />
-    <h3><%= Document.human_attribute_name 'children', count: @document.children.size %></h3>
-    <ul>
-      <% @document.children.each do |child| %>
-        <li><%= link_to_related_document child %></li>
+
+      <% if @document.parent %>
+        <h3><%= Document.human_attribute_name 'parent' %></h3>
+        <%= link_to_related_document @document.parent %>
       <% end %>
-    </ul>
+
+      <% unless @document.children.empty? %>
+        <h3>
+          <%= Document.human_attribute_name 'children', count: @document.children.size %>
+        </h3>
+        <ul>
+          <% @document.children.each do |child| %>
+            <li><%= link_to_related_document child %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+  
+  <% unless @document.comments.empty? %>
+    <div class="page-header">
+      <h3><%= Comment.model_name.human count: @document.comments.size %></h3>
+    </div>
+    <%= render 'comments', comments: @document.comments %>
   <% end %>
 </div>
 

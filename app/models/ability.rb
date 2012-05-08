@@ -18,6 +18,7 @@ class Ability
   end
   
   def regular_rules
+    can :create, Comment
     can :edit_profile, User
     can :update_profile, User
     
@@ -25,6 +26,7 @@ class Ability
   end
   
   def approver_rules
+    can :create, Comment
     can :edit_profile, User
     can :update_profile, User
     
@@ -35,6 +37,7 @@ class Ability
   end
   
   def reviewer_rules
+    can :create, Comment
     can :create, Document
     can :update, Document
     can :destroy, Document
@@ -50,6 +53,7 @@ class Ability
   
   def default_rules
     can :read, Document
+    can :read, Comment
   end
   
   def common_document_rules

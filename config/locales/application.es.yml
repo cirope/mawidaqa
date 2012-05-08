@@ -4,9 +4,13 @@
   attributes:
     created_at: 'Creación'
     updated_at: 'Actualización'
+    whodunnit: 'Autor'
     
   activerecord:
     models:
+      comment:
+        one: 'Comentario'
+        other: 'Comentarios'
       document:
         one: 'Documento'
         other: 'Documentos'
@@ -18,6 +22,9 @@
         other: 'Usuarios'
       
     attributes:
+      comment:
+        content: 'Comentario'
+        file: 'Archivo'
       document:
         name: 'Nombre'
         code: 'Código'
@@ -97,8 +104,6 @@
       all: 'Todos'
       show_revision: 'Ver la revisión propuesta del documento'
       edit_current_revision: 'Editar la revisión actual'
-      download:
-        html: 'Descargar archivo <span class="iconic">&#xe042;</span>'
       related:
         html: '%{code} (%{status})'
       with_tag:
