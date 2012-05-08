@@ -1,11 +1,11 @@
-<div class="row-fluid comment">
+<div class="row-fluid hidden-phone">
   <div class="span2">
     <h5><%= Comment.human_attribute_name 'whodunnit' %></h5>
   </div>
   <div class="span6">
     <h5><%= Comment.human_attribute_name 'content' %></h5>
   </div>
-  <div class="span2">
+  <div class="span4">
     <h5><%= Comment.human_attribute_name 'file' %></h5>
   </div>
 </div>
@@ -16,7 +16,7 @@
       <strong><%= User.find(comment.originator) rescue '-' %></strong>
     </div>
     <div class="span6"><%= simple_format comment.content %></div>
-    <div class="span2">
+    <div class="span4">
       <%= link_to(t('label.download'), comment.file_url) unless comment.file.blank? %>
     </div>
   </div>

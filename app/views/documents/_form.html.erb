@@ -26,10 +26,14 @@
   </div>
 
   <div id="comments" class="form-inputs">
-    <%= render 'comments', comments: @document.comments.reject(&:new_record?) %>
+    <div class="page-header">
+      <h3><%= Comment.model_name.human count: @document.comments.size %></h3>
+    </div>
     
+    <%= render 'comments', comments: @document.comments.reject(&:new_record?) %>
+
     <% comment = @document.comments.detect(&:new_record?) || @document.comments.build %>
-    <%= f.simple_fields_for :comments, [comment], defaults: { input_html: { class: 'span11' } } do |c_f| %>
+    <%= f.simple_fields_for :comments, [comment], defaults: { input_html: { class: 'span10' } } do |c_f| %>
       <%= render partial: 'comment', locals: { f: c_f } %>
     <% end %>
   </div>

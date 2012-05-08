@@ -1,17 +1,17 @@
 <div class="row-fluid comment">
   <div class="span2">
-    <strong><%= User.find(f.object.originator || current_user.id) %></strong>
+    <p>
+      <strong><%= User.find(f.object.originator || current_user.id) %></strong>
+    </p>
   </div>
   <div class="span6">
     <%= f.input :content, label: false, input_html: {
-      placeholder: Comment.human_attribute_name('content'), rows: 3
+      placeholder: Comment.human_attribute_name('content'), rows: 3, cols: 30
     } %>
   </div>
-  <div class="span2">
+  <div class="span4">
     <%= f.input :file, label: false, hint: comment_file_identifier(f.object) %>
     <%= f.input :file_cache, as: :hidden %>
-  </div>
-  <div class="span2">
     <%= f.input :id, as: :hidden %>
     <%= f.input :lock_version, as: :hidden %>
   </div>
