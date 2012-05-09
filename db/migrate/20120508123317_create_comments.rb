@@ -3,7 +3,7 @@ class CreateComments < ActiveRecord::Migration
     create_table :comments do |t|
       t.text :content, null: false
       t.string :file
-      t.integer :lock_version
+      t.integer :lock_version, null: false, default: 0
       t.references :commentable, polymorphic: true
 
       t.timestamps

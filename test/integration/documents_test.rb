@@ -25,6 +25,7 @@ class DocumentsTest < ActionDispatch::IntegrationTest
     
     document = Fabricate.build(:document)
     comment = Fabricate.build(:comment, commentable: document)
+    change = Fabricate.build(:change, document: document)
     
     fill_in 'document_name', with: document.name
     fill_in 'document_code', with: document.code
@@ -32,10 +33,17 @@ class DocumentsTest < ActionDispatch::IntegrationTest
     attach_file 'document_file', document.file.path
     fill_in 'document_notes', with: document.notes
     fill_in 'document_version_comments', with: document.version_comments
+    # Comments
     fill_in 'document_comments_attributes_0_content', with: comment.content
     attach_file 'document_comments_attributes_0_file', comment.file.path
+    # Changes
+    click_link Change.model_name.human(count: 0)
     
-    assert_difference ['Document.count', 'Comment.count'] do
+    fill_in 'document_changes_attributes_0_made_at',
+      with: I18n.l(change.made_at)
+    fill_in 'document_changes_attributes_0_content', with: change.content
+    
+    assert_difference ['Document.count', 'Comment.count', 'Change.count'] do
       find('.btn.btn-primary').click
     end
     

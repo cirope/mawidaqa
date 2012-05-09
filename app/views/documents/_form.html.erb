@@ -25,17 +25,41 @@
     </div>
   </div>
 
-  <div id="comments" class="form-inputs">
-    <div class="page-header">
-      <h3><%= Comment.model_name.human count: @document.comments.size %></h3>
-    </div>
-    
-    <%= render 'comments', comments: @document.comments.reject(&:new_record?) %>
+  <div class="form-inputs">
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <%= link_to(
+          Comment.model_name.human(count: @document.comments.size), '#comments',
+          data: { toggle: 'tab' }
+        ) %>
+      </li>
+      <li>
+        <%= link_to(
+          Change.model_name.human(count: @document.changes.size), '#changes',
+          data: { toggle: 'tab' }
+        ) %>
+      </li>
+    </ul>
 
-    <% comment = @document.comments.detect(&:new_record?) || @document.comments.build %>
-    <%= f.simple_fields_for :comments, [comment], defaults: { input_html: { class: 'span10' } } do |c_f| %>
-      <%= render partial: 'comment', locals: { f: c_f } %>
-    <% end %>
+    <div class="tab-content">
+      <div id="comments" class="tab-pane active">
+        <%= render 'comments', comments: @document.comments.reject(&:new_record?) %>
+
+        <% comment = @document.comments.detect(&:new_record?) || @document.comments.build %>
+        <%= f.simple_fields_for :comments, [comment], defaults: { input_html: { class: 'span10' } } do |c_f| %>
+          <%= render partial: 'comment', locals: { f: c_f } %>
+        <% end %>
+      </div>
+
+      <div id="changes" class="tab-pane">
+        <%= render 'changes', changes: @document.changes.reject(&:new_record?) %>
+
+        <% change = @document.changes.detect(&:new_record?) || @document.changes.build %>
+        <%= f.simple_fields_for :changes, [change], defaults: { input_html: { class: 'span10' } } do |ch_f| %>
+          <%= render partial: 'change', locals: { f: ch_f } %>
+        <% end %>
+      </div>
+    </div>
   </div>
 
   <div class="form-actions">

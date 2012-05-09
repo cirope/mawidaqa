@@ -83,6 +83,18 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_select '#unexpected_error', false
     assert_template 'documents/show'
   end
+  
+  test 'should show document with relations' do
+    sign_in Fabricate(:user)
+    
+    @document = Fabricate(:document_with_relations)
+    
+    get :show, id: @document
+    assert_response :success
+    assert_not_nil assigns(:document)
+    assert_select '#unexpected_error', false
+    assert_template 'documents/show'
+  end
 
   test 'should get edit' do
     sign_in Fabricate(:user)

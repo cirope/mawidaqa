@@ -8,6 +8,9 @@
     
   activerecord:
     models:
+      change:
+        one: 'Cambio'
+        other: 'Cambios'
       comment:
         one: 'Comentario'
         other: 'Comentarios'
@@ -22,6 +25,9 @@
         other: 'Usuarios'
       
     attributes:
+      change:
+        content: 'Detalle'
+        made_at: 'Fecha'
       comment:
         content: 'Comentario'
         file: 'Archivo'

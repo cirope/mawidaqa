@@ -36,7 +36,8 @@ class Document < ActiveRecord::Base
   
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :code, :version, :notes, :version_comments, :file,
-    :file_cache, :tag_list, :parent_id, :lock_version, :comments_attributes
+    :file_cache, :tag_list, :parent_id, :lock_version, :comments_attributes,
+    :changes_attributes
   
   # Callbacks
   before_validation :check_code_changes
@@ -86,11 +87,15 @@ class Document < ActiveRecord::Base
   end
   
   # Relations
+  has_many :changes, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
   has_and_belongs_to_many :tags
   
   accepts_nested_attributes_for :comments, reject_if: ->(attributes) {
-    attributes['content'].blank? && attributes['file'].blank?
+    ['content', 'file', 'file_cache'].all? { |a| attributes[a].blank? }
+  }
+  accepts_nested_attributes_for :changes, reject_if: ->(attributes) {
+    ['made_at', 'content'].all? { |a| attributes[a].blank? }
   }
   
   def initialize(attributes = {}, options = {})

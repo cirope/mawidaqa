@@ -17,6 +17,7 @@
 //= require jquery/tag-it
 //= require twitter/bootstrap
 //= require common
+//= require date_pickers
 //= require documents
 //= require files
 //= require mobile

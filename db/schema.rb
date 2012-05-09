@@ -11,16 +11,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120508123317) do
+ActiveRecord::Schema.define(:version => 20120509133826) do
+
+  create_table "changes", :force => true do |t|
+    t.text     "content",                     :null => false
+    t.date     "made_at",                     :null => false
+    t.integer  "lock_version", :default => 0, :null => false
+    t.integer  "document_id"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
+  add_index "changes", ["document_id"], :name => "index_changes_on_document_id"
 
   create_table "comments", :force => true do |t|
-    t.text     "content",          :null => false
+    t.text     "content",                         :null => false
     t.string   "file"
-    t.integer  "lock_version"
+    t.integer  "lock_version",     :default => 0, :null => false
     t.integer  "commentable_id"
     t.string   "commentable_type"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   add_index "comments", ["commentable_type", "commentable_id"], :name => "index_comments_on_commentable_type_and_commentable_id"

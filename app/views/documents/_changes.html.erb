@@ -1,0 +1,15 @@
+<div class="row-fluid hidden-phone">
+  <div class="span2">
+    <h5><%= Change.human_attribute_name 'made_at' %></h5>
+  </div>
+  <div class="span10">
+    <h5><%= Change.human_attribute_name 'content' %></h5>
+  </div>
+</div>
+
+<% changes.each do |change| %>
+  <div class="row-fluid change">
+    <div class="span2"><%= l change.made_at %></div>
+    <div class="span10"><%= simple_format change.content %></div>
+  </div>
+<% end %>

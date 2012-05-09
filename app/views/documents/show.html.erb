@@ -63,6 +63,13 @@
     </div>
     <%= render 'comments', comments: @document.comments %>
   <% end %>
+  
+  <% unless @document.changes.empty? %>
+    <div class="page-header">
+      <h3><%= Change.model_name.human count: @document.changes.size %></h3>
+    </div>
+    <%= render 'changes', changes: @document.changes %>
+  <% end %>
 </div>
 
 <nav class="form-actions">
