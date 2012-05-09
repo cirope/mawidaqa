@@ -9,7 +9,7 @@ footer.alert {
 
 form {
   .alert {
-    margin: 0px 20px;
+    margin: 0px 20px 1em 20px;
   }
 }
 
@@ -30,6 +30,7 @@ html, body {
 }
 
 #time_left {
+  position: fixed;
   top: 40px;
   bottom: auto;
   left: 0px;
