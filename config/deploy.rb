@@ -5,7 +5,7 @@ set :repository,  'https://github.com/francocatena/mawidaqa.git'
 set :deploy_to, '/var/rails/mawidaqa'
 set :user, 'deployer'
 set :group_writable, false
-set :shared_children, %w(system log pids public)
+set :shared_children, %w(system log pids private)
 set :use_sudo, false
 
 set :scm, :git
@@ -27,7 +27,7 @@ namespace :deploy do
 
   desc 'Creates the symlinks for the shared folders'
   task :create_shared_symlinks, roles: :app, except: { no_release: true } do
-    shared_paths = [['private'], ['config', 'app_config.yml']]
+    shared_paths = [['config', 'app_config.yml']]
 
     shared_paths.each do |path|
       shared_files_path = File.join(shared_path, *path)
