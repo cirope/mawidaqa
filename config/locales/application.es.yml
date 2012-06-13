@@ -30,7 +30,6 @@
         made_at: 'Fecha'
       comment:
         content: 'Comentario'
-        file: 'Archivo'
       document:
         name: 'Nombre'
         code: 'Código'
@@ -39,7 +38,6 @@
         notes: 'Notas'
         version_comments: 'Comentarios de la versión'
         tag_list: 'Etiquetas'
-        file: 'Archivo'
         parent: 'Versión anterior'
         children:
           one: 'Bifuración'
@@ -66,7 +64,6 @@
     'no': 'No'
     close: 'Cerrar'
     delete: 'Eliminar'
-    download: 'Descargar'
     edit: 'Editar'
     list: 'Listado'
     loading: 'Cargando...'
@@ -112,6 +109,9 @@
       edit_current_revision: 'Editar la revisión actual'
       related:
         html: '%{code} (%{status})'
+      tabs:
+        data: 'Datos'
+        document: 'Documento'
       with_tag:
         html: 'Documentos con la etiqueta <span class="label label-info">%{tag}</span>'
       actions:

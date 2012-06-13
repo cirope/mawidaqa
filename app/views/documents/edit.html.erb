@@ -3,4 +3,24 @@
   <%= link_to t('label.list'), documents_path %>
 <% end %>
 
-<%= render 'form' %>
+<ul class="nav nav-tabs">
+  <li class="active">
+    <%= link_to(
+      t('view.documents.tabs.data'), '#document_data', data: { toggle: 'tab' }
+    ) %>
+  </li>
+  <li>
+    <%= link_to(
+      t('view.documents.tabs.document'), '#document_edit', data: { toggle: 'tab' }
+    ) %>
+  </li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="document_data">
+    <%= render 'form' %>
+  </div>
+  <div class="tab-pane" id="document_edit">
+    <%= content_tag :iframe, 'iframe not supported', src: document_edit_url(@document) %>
+  </div>
+</div>

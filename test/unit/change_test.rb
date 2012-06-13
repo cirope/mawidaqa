@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ChangeTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @change = Fabricate(:change)
   end
   

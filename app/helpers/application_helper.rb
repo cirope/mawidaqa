@@ -78,14 +78,4 @@ module ApplicationHelper
     
     link_to '&#xe05a;'.html_safe, *args, options
   end
-  
-  def link_to_download(*args)
-    options = args.extract_options!
-    
-    options['class'] ||= 'iconic'
-    options['title'] ||= t('label.download')
-    options['data-show-tooltip'] ||= true
-    
-    link_to '&#xe042;'.html_safe, *args, options
-  end
 end

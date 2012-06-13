@@ -35,7 +35,7 @@ class DocumentsControllerTest < ActionController::TestCase
     tag_with = Fabricate(:tag)
     tag_without = Fabricate(:tag)
     
-    3.times { Fabricate(:document) { tags!(count: 1) { tag_with } } }
+    3.times { Fabricate(:document) { tags(count: 1) { tag_with } } }
     Fabricate(:document)
     
     sign_in Fabricate(:user)
@@ -67,12 +67,15 @@ class DocumentsControllerTest < ActionController::TestCase
     assert_template 'documents/new'
   end
 
-# TODO: review this test in some point, there is a problem with carrier_wave and
-# the validation of presence apparently. For now this is tested as an
-# integration test
-# 
-#  test 'should create document' do
-#  end
+  test 'should create document' do
+    sign_in Fabricate(:user)
+    
+    assert_difference('Document.count') do
+      post :create, document: Fabricate.attributes_for(:document)
+    end
+
+    assert_redirected_to document_url(assigns(:document))
+  end
 
   test 'should show document' do
     sign_in Fabricate(:user)
@@ -220,7 +223,6 @@ class DocumentsControllerTest < ActionController::TestCase
     new_revision = Document.on_revision_with_parent(@document.id)
     
     assert new_revision.new_record?
-    new_revision.file = @document.file
     assert new_revision.save
     
     get :new_revision, id: @document

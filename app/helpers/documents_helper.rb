@@ -3,10 +3,6 @@ module DocumentsHelper
     t("view.documents.status.#{document.status}")
   end
   
-  def document_file_identifier(document)
-    document.file.identifier || document.file_identifier if document.file?
-  end
-  
   def document_actions(f)
     document = f.object
     action = document.new_record? ? 'create' : 'update'
@@ -61,8 +57,6 @@ module DocumentsHelper
       data: {'show-tooltip' => true}
     )
     
-    links << link_to_download(document.file_url)
-    
     if document.is_on_revision?
       links << link_to(
         '&#xe025;'.html_safe, document.current_revision,
@@ -81,5 +75,21 @@ module DocumentsHelper
         code: document.code, status: document_status_text(document)
       ), document
     )
+  end
+  
+  def document_edit_url(document)
+    if document.on_revision?
+      "#{GdataExtension::Parser.edit_url(document.xml_reference)}?embedded=true"
+    elsif document.revision_url.present?
+      document_preview_url(document)
+    end
+  end
+  
+  def document_preview_url(document)
+    base_url = document.revision_url ||
+      GdataExtension::Base.new.last_revision_url(document.xml_reference)
+    url = "#{base_url}&exportFormat=pdf&format=pdf"
+    
+    "https://docs.google.com/viewer?embedded=true&url=#{u url}"
   end
 end

@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<entry xmlns:batch='http://schemas.google.com/gdata/batch' xmlns:docs='http://schemas.google.com/docs/2007' gd:etag='&quot;W1MGFw9YFCt7ImBk&quot;' xmlns:gd='http://schemas.google.com/g/2005' xmlns='http://www.w3.org/2005/Atom'>
+  <id>https://docs.google.com/feeds/id/document%3A12BqnhYOImokokBqbG4k2dYL7ygJtp2ocDwkAI6m68qE</id>
+  <published>2012-05-30T12:50:15.752Z</published>
+  <updated>2012-05-30T12:50:16.197Z</updated>
+  <app:edited xmlns:app='http://www.w3.org/2007/app'>2012-05-30T12:50:16.200Z</app:edited>
+  <category label='document' scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/docs/2007#document'/>
+  <category label='viewed' scheme='http://schemas.google.com/g/2005/labels' term='http://schemas.google.com/g/2005/labels#viewed'/>
+  <category label='modified-by-me' scheme='http://schemas.google.com/g/2005/labels' term='http://schemas.google.com/g/2005/labels#modified-by-me'/>
+  <title>Test File</title>
+  <content src='https://docs.google.com/feeds/download/documents/export/Export?id=12BqnhYOImokokBqbG4k2dYL7ygJtp2ocDwkAI6m68qE' type='text/html'/>
+  <link href='https://docs.google.com/a/mawidaqa.com/document/d/12BqnhYOImokokBqbG4k2dYL7ygJtp2ocDwkAI6m68qE/edit' rel='alternate' type='text/html'/>
+  <link href='https://docs.google.com/a/mawidaqa.com/document/d/12BqnhYOImokokBqbG4k2dYL7ygJtp2ocDwkAI6m68qE/preview' rel='http://schemas.google.com/docs/2007#embed' type='text/html'/>
+  <link href='https://ssl.gstatic.com/docs/doclist/images/icon_10_document_list.png' rel='http://schemas.google.com/docs/2007#icon' type='image/png'/>
+  <link href='https://docs.google.com/feeds/upload/create-session/default/private/full/document%3A12BqnhYOImokokBqbG4k2dYL7ygJtp2ocDwkAI6m68qE' rel='http://schemas.google.com/g/2005#resumable-edit-media' type='application/atom+xml'/>
+  <link href='https://docs.google.com/feeds/upload/file/default/private/full/document%3A12BqnhYOImokokBqbG4k2dYL7ygJtp2ocDwkAI6m68qE' rel='http://schemas.google.com/docs/2007#alt-edit-media' type='application/atom+xml'/>
+  <link href='https://docs.google.com/feeds/default/private/full/document%3A12BqnhYOImokokBqbG4k2dYL7ygJtp2ocDwkAI6m68qE' rel='self' type='application/atom+xml'/>
+  <link href='https://docs.google.com/feeds/default/private/full/document%3A12BqnhYOImokokBqbG4k2dYL7ygJtp2ocDwkAI6m68qE' rel='edit' type='application/atom+xml'/>
+  <link href='https://docs.google.com/feeds/default/media/document%3A12BqnhYOImokokBqbG4k2dYL7ygJtp2ocDwkAI6m68qE' rel='edit-media' type='text/html'/>
+  <author>
+    <name>soporte</name>
+    <email>soporte@mawidaqa.com</email>
+  </author>
+  <gd:resourceId>document:12BqnhYOImokokBqbG4k2dYL7ygJtp2ocDwkAI6m68qE</gd:resourceId>
+  <docs:modifiedByMeDate>2012-05-30T12:50:16.197Z</docs:modifiedByMeDate>
+  <gd:lastModifiedBy>
+    <name>soporte</name>
+    <email>soporte@mawidaqa.com</email>
+  </gd:lastModifiedBy>
+  <gd:lastViewed>2012-05-30T12:50:15.972Z</gd:lastViewed>
+  <gd:quotaBytesUsed>0</gd:quotaBytesUsed>
+  <docs:writersCanInvite value='true'/>
+  <gd:feedLink href='https://docs.google.com/feeds/default/private/full/document%3A12BqnhYOImokokBqbG4k2dYL7ygJtp2ocDwkAI6m68qE/acl' rel='http://schemas.google.com/acl/2007#accessControlList'/>
+  <gd:feedLink href='https://docs.google.com/feeds/default/private/full/document%3A12BqnhYOImokokBqbG4k2dYL7ygJtp2ocDwkAI6m68qE/revisions' rel='http://schemas.google.com/docs/2007/revisions'/>
+</entry>

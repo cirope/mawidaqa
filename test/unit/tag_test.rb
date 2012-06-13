@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class TagTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @tag = Fabricate(:tag)
   end
   

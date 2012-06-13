@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<entry xmlns:gd="http://schemas.google.com/g/2005"
+    xmlns:gAcl='http://schemas.google.com/acl/2007'
+    gd:etag='W/"CUUNSXYyfCp7ImA9WxRVGUo."'>
+  <id>https://docs.google.com/feeds/default/private/full/document:1234abcd/acl/user:new_writer@example.com</id>
+  <updated>2008-09-11T03:10:00.913Z</updated>
+  <category scheme='http://schemas.google.com/g/2005#kind'
+        term='http://schemas.google.com/acl/2007#accessRule'/>
+  <title type='text'>Document Permission - new_writer@example.com</title>
+  <link rel='self' type='application/atom+xml'
+        href='https://docs.google.com/feeds/acl/private/full/document:1234abcd/acl/user:new_writer@example.com'/>
+  <link rel='edit' type='application/atom+xml'
+        href='https://docs.google.com/feeds/acl/private/full/document:1234abcd/acl/user:new_writer@example.com'/>
+  <gAcl:role value='writer'/>
+  <gAcl:scope type='user' value='new_writer@example.com'/>
+</entry>

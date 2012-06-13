@@ -2,11 +2,8 @@
   <div class="span2">
     <h5><%= Comment.human_attribute_name 'whodunnit' %></h5>
   </div>
-  <div class="span6">
+  <div class="span10">
     <h5><%= Comment.human_attribute_name 'content' %></h5>
-  </div>
-  <div class="span4">
-    <h5><%= Comment.human_attribute_name 'file' %></h5>
   </div>
 </div>
 
@@ -15,9 +12,6 @@
     <div class="span2">
       <strong><%= User.find(comment.originator) rescue '-' %></strong>
     </div>
-    <div class="span6"><%= simple_format comment.content %></div>
-    <div class="span4">
-      <%= link_to(t('label.download'), comment.file_url) unless comment.file.blank? %>
-    </div>
+    <div class="span10"><%= simple_format comment.content %></div>
   </div>
 <% end %>

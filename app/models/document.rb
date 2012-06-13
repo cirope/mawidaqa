@@ -1,8 +1,6 @@
 class Document < ActiveRecord::Base
   include AASM
   
-  mount_uploader :file, FileUploader
-  
   has_paper_trail version: :paper_trail_version
   
   has_magick_columns name: :string, code: :string
@@ -35,12 +33,12 @@ class Document < ActiveRecord::Base
   attr_accessor :skip_code_uniqueness
   
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :code, :version, :notes, :version_comments, :file,
-    :file_cache, :tag_list, :parent_id, :lock_version, :comments_attributes,
-    :changes_attributes
+  attr_accessible :name, :code, :version, :notes, :version_comments, :tag_list,
+    :parent_id, :lock_version, :comments_attributes, :changes_attributes
   
   # Callbacks
   before_validation :check_code_changes
+  before_save :create_doc, on: :create
   
   aasm column: :status do
     state :on_revision, initial: true
@@ -49,7 +47,7 @@ class Document < ActiveRecord::Base
     state :obsolete
     state :rejected
     
-    event :revise do
+    event :revise, before: :retrieve_revision_url do
       transitions to: :revised, from: :on_revision
     end
     
@@ -71,7 +69,7 @@ class Document < ActiveRecord::Base
   end
   
   # Restrictions
-  validates :name, :code, :status, :version, :file, presence: true
+  validates :name, :code, :status, :version, presence: true
   validates :name, :code, :version, length: { maximum: 255 }, allow_nil: true,
     allow_blank: true
   validates :code, uniqueness: { case_sensitive: false },
@@ -92,7 +90,7 @@ class Document < ActiveRecord::Base
   has_and_belongs_to_many :tags
   
   accepts_nested_attributes_for :comments, reject_if: ->(attributes) {
-    ['content', 'file', 'file_cache'].all? { |a| attributes[a].blank? }
+    ['content'].all? { |a| attributes[a].blank? }
   }
   accepts_nested_attributes_for :changes, reject_if: ->(attributes) {
     ['made_at', 'content'].all? { |a| attributes[a].blank? }
@@ -106,6 +104,7 @@ class Document < ActiveRecord::Base
         self.send("#{a}=", v) if self.send(a).blank?
       end
       
+      self.xml_reference = self.parent.xml_reference
       self.tag_list = self.parent.tag_list
       
       self.skip_code_uniqueness = (self.parent.code == self.code)
@@ -116,8 +115,22 @@ class Document < ActiveRecord::Base
     "[#{self.code}] #{self.name}"
   end
   
+  def create_doc
+    if self.parent.blank? # only create for the new ones...
+      self.xml_reference = GdataExtension::Base.new.create_and_share_document(
+        "#{Rails.env.upcase} - #{self.code}"
+      ).to_s
+    end
+  end
+  
   def check_code_changes
     self.skip_code_uniqueness = true unless self.code_changed?
+  end
+  
+  def retrieve_revision_url
+    self.revision_url = GdataExtension::Base.new.last_revision_url(
+      self.xml_reference
+    )
   end
   
   def mark_related_as_obsolete

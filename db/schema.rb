@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120509133826) do
+ActiveRecord::Schema.define(:version => 20120604134643) do
 
   create_table "changes", :force => true do |t|
     t.text     "content",                     :null => false
@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(:version => 20120509133826) do
 
   create_table "comments", :force => true do |t|
     t.text     "content",                         :null => false
-    t.string   "file"
     t.integer  "lock_version",     :default => 0, :null => false
     t.integer  "commentable_id"
     t.string   "commentable_type"
@@ -43,7 +42,6 @@ ActiveRecord::Schema.define(:version => 20120509133826) do
     t.string   "version",                             :null => false
     t.text     "notes"
     t.text     "version_comments"
-    t.string   "file"
     t.boolean  "current",          :default => false, :null => false
     t.integer  "lock_version",     :default => 0,     :null => false
     t.datetime "created_at",                          :null => false
@@ -52,6 +50,8 @@ ActiveRecord::Schema.define(:version => 20120509133826) do
     t.integer  "lft"
     t.integer  "rgt"
     t.integer  "depth"
+    t.text     "xml_reference"
+    t.text     "revision_url"
   end
 
   add_index "documents", ["code"], :name => "index_documents_on_code"

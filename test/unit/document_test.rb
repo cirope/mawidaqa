@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class DocumentTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @document = Fabricate(:document)
   end
   
@@ -9,6 +9,9 @@ class DocumentTest < ActiveSupport::TestCase
     assert_difference ['Document.count', 'Version.count'] do
       @document = Document.create(Fabricate.attributes_for(:document))
     end
+    
+    # create_doc callback
+    assert @document.xml_reference.present?
   end
   
   test 'update' do
@@ -32,10 +35,9 @@ class DocumentTest < ActiveSupport::TestCase
     @document.code = ''
     @document.status = nil
     @document.version = ' '
-    @document.remove_file!
     
     assert @document.invalid?
-    assert_equal 5, @document.errors.size
+    assert_equal 4, @document.errors.size
     assert_equal [error_message_from_model(@document, :name, :blank)],
       @document.errors[:name]
     assert_equal [error_message_from_model(@document, :code, :blank)],
@@ -44,8 +46,6 @@ class DocumentTest < ActiveSupport::TestCase
       @document.errors[:status]
     assert_equal [error_message_from_model(@document, :version, :blank)],
       @document.errors[:version]
-    assert_equal [error_message_from_model(@document, :file, :blank)],
-      @document.errors[:file]
   end
   
   test 'validates unique attributes' do
@@ -98,7 +98,6 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal new_document.version, @document.version
     assert_equal new_document.notes, @document.notes
     assert_equal new_document.version_comments, @document.version_comments
-    assert new_document.file.blank? # We do not want the file copied
   end
   
   test 'states transitions from on_revision' do
@@ -108,8 +107,11 @@ class DocumentTest < ActiveSupport::TestCase
     assert @document.may_reject?
     assert !@document.may_mark_as_obsolete?
     
+    assert @document.revision_url.blank?
     assert @document.revise
     assert @document.revised?
+    # retrieve_revision_url callback
+    assert @document.revision_url.present?
     assert @document.may_approve?
     assert @document.may_reject?
     assert !@document.may_mark_as_obsolete?
@@ -184,7 +186,7 @@ class DocumentTest < ActiveSupport::TestCase
   
   test 'read tag list' do
     @document = Fabricate(:document) do
-      tags!(count: 2) { |a, i| Fabricate(:tag, name: "Test #{i}") }
+      tags(count: 2) { |attrs, i| Fabricate(:tag, name: "Test #{i}") }
     end
     
     assert_equal 'Test 1,Test 2', @document.tag_list
@@ -192,7 +194,7 @@ class DocumentTest < ActiveSupport::TestCase
   
   test 'write tag list' do
     @document = Fabricate(:document) do
-      tags!(count: 1) { |a, i| Fabricate(:tag, name: 'Test') }
+      tags(count: 1) { |attrs, i| Fabricate(:tag, name: 'Test') }
     end
     
     assert_difference ['Tag.count', '@document.tags.count'], 2 do
@@ -228,7 +230,6 @@ class DocumentTest < ActiveSupport::TestCase
     new_revision = Document.on_revision_with_parent(@document.id)
     
     assert new_revision.new_record?
-    new_revision.file = @document.file
     assert new_revision.save
     
     revision = Document.on_revision_with_parent(@document.id)
