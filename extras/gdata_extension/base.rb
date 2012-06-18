@@ -24,6 +24,11 @@ module GdataExtension
       end
     end
     
+    def list_root_folders
+      self.connect
+      Parser.folder_names(@client.get(URL_FOLDER_LIST).to_xml.to_s)
+    end
+    
     def share(uri)
       self.connect
       @client.post(uri, RequestTemplates::XML_ACL_SHARE).to_xml

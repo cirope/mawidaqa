@@ -21,6 +21,10 @@
     <%= render 'form' %>
   </div>
   <div class="tab-pane" id="document_edit">
-    <%= content_tag :iframe, 'iframe not supported', src: document_edit_url(@document) %>
+    <% document_url = document_edit_url(@document) %>
+    <div class="well hidden-desktop">
+      <%= link_to t('label.edit'), document_url, class: 'btn btn-primary' %>
+    </div>
+    <%= content_tag :iframe, 'iframe not supported', src: document_url %>
   </div>
 </div>

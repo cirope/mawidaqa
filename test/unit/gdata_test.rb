@@ -33,4 +33,19 @@ class GdataTest < ActiveSupport::TestCase
       response
     )
   end
+  
+  test 'create folder' do
+    xml_response = @gdata.create_folder('Test folder')
+    
+    assert_equal(
+      GdataExtension::ResponseExamples::XML_CREATE_FOLDER.lines.to_a[1..-1].join,
+      xml_response.to_s
+    )
+  end
+  
+  test 'retrieve root collection list' do
+    folders = @gdata.list_root_folders
+    
+    assert_equal ['TEST', 'DEVELOPMENT', 'PRODUCTION'], folders
+  end
 end

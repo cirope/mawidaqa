@@ -19,8 +19,16 @@ Auth=DQAAAGgAdk3fA5N
   EOF
 )
 
-stub_request(:post, GdataExtension::URL_CREATE).to_return(
+stub_request(
+  :post, GdataExtension::URL_CREATE
+).with(body: /2007#document/).to_return(
   body: GdataExtension::ResponseExamples::XML_CREATE
+)
+
+stub_request(
+  :post, GdataExtension::URL_CREATE
+).with(body: /2007#folder/).to_return(
+  body: GdataExtension::ResponseExamples::XML_CREATE_FOLDER
 )
 
 stub_request(
@@ -37,4 +45,8 @@ stub_request(
   )
 ).to_return(
   body: GdataExtension::ResponseExamples::XML_ACL
+)
+
+stub_request(:get, GdataExtension::URL_FOLDER_LIST).to_return(
+  body: GdataExtension::ResponseExamples::XML_FOLDER_LIST
 )

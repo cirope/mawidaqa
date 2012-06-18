@@ -45,6 +45,17 @@ module GdataExtension
       url
     end
     
+    def self.folder_names(revision_xml)
+      xml = REXML::Document.new(revision_xml)
+      folders = []
+      
+      xml.root.elements.each('entry') do |entry|
+        folders << entry.elements['title'].text
+      end
+
+      folders
+    end
+    
     private
     
     def self.extract(options)

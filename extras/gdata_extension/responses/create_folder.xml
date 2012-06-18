@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<entry xmlns:batch='http://schemas.google.com/gdata/batch' xmlns:docs='http://schemas.google.com/docs/2007' gd:etag='&quot;WkFWE08JEyt7ImBk&quot;' xmlns:gd='http://schemas.google.com/g/2005' xmlns='http://www.w3.org/2005/Atom'>
+  <id>https://docs.google.com/feeds/id/folder%3A0B8HfZ54MrCTwNXZBenFsZTRYems</id>
+  <published>2012-06-14T18:05:36.217Z</published>
+  <updated>2012-06-14T18:05:36.217Z</updated>
+  <app:edited xmlns:app='http://www.w3.org/2007/app'>2012-06-14T18:05:36.217Z</app:edited>
+  <category label='folder' scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/docs/2007#folder'/>
+  <title>Test Folder</title>
+  <content src='https://docs.google.com/feeds/default/private/full/folder%3A0B8HfZ54MrCTwNXZBenFsZTRYems/contents' type='application/atom+xml;type=feed'/>
+  <link href='https://docs.google.com/a/mawidaqa.com/#folders/folder.0.0B8HfZ54MrCTwNXZBenFsZTRYems' rel='alternate' type='text/html'/>
+  <link href='https://ssl.gstatic.com/docs/doclist/images/icon_9_collection_list.png' rel='http://schemas.google.com/docs/2007#icon' type='image/png'/>
+  <link href='https://docs.google.com/feeds/upload/create-session/default/private/full/folder%3A0B8HfZ54MrCTwNXZBenFsZTRYems/contents' rel='http://schemas.google.com/g/2005#resumable-create-media' type='application/atom+xml'/>
+  <link href='https://docs.google.com/feeds/upload/file/default/private/full/folder%3A0B8HfZ54MrCTwNXZBenFsZTRYems/contents' rel='http://schemas.google.com/docs/2007#alt-post' type='application/atom+xml'/>
+  <link href='https://docs.google.com/feeds/default/private/full/folder%3A0B8HfZ54MrCTwNXZBenFsZTRYems' rel='self' type='application/atom+xml'/>
+  <link href='https://docs.google.com/feeds/default/private/full/folder%3A0B8HfZ54MrCTwNXZBenFsZTRYems' rel='edit' type='application/atom+xml'/>
+  <author>
+    <name>xx</name>
+    <email>xx@mawidaqa.com</email>
+  </author>
+  <gd:resourceId>folder:0B8HfZ54MrCTwNXZBenFsZTRYems</gd:resourceId>
+  <gd:lastModifiedBy>
+    <name>xx</name>
+    <email>xx@mawidaqa.com</email>
+  </gd:lastModifiedBy>
+  <gd:quotaBytesUsed>0</gd:quotaBytesUsed>
+  <docs:writersCanInvite value='true'/>
+  <gd:feedLink href='https://docs.google.com/feeds/default/private/full/folder%3A0B8HfZ54MrCTwNXZBenFsZTRYems/acl' rel='http://schemas.google.com/acl/2007#accessControlList'/>
+</entry>

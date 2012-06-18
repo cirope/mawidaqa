@@ -118,7 +118,7 @@ class Document < ActiveRecord::Base
   def create_doc
     if self.parent.blank? # only create for the new ones...
       self.xml_reference = GdataExtension::Base.new.create_and_share_document(
-        "#{Rails.env.upcase} - #{self.code}"
+        Rails.env.production? ? self.code : "#{Rails.env.upcase} - #{self.code}"
       ).to_s
     end
   end
