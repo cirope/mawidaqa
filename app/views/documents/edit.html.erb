@@ -4,12 +4,12 @@
 <% end %>
 
 <ul class="nav nav-tabs">
-  <li class="active">
+  <li>
     <%= link_to(
       t('view.documents.tabs.data'), '#document_data', data: { toggle: 'tab' }
     ) %>
   </li>
-  <li>
+  <li class="active">
     <%= link_to(
       t('view.documents.tabs.document'), '#document_edit', data: { toggle: 'tab' }
     ) %>
@@ -17,10 +17,10 @@
 </ul>
 
 <div class="tab-content">
-  <div class="tab-pane active" id="document_data">
+  <div class="tab-pane" id="document_data">
     <%= render 'form' %>
   </div>
-  <div class="tab-pane" id="document_edit">
+  <div class="tab-pane active" id="document_edit">
     <% document_url = document_edit_url(@document) %>
     <div class="well hidden-desktop">
       <%= link_to t('label.edit'), document_url, class: 'btn btn-primary' %>

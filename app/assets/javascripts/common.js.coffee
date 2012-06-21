@@ -8,7 +8,9 @@ window.Helper = {
     $('#time_left').find('h3.alert-heading').html(message)
     $('#time_left:not(:visible)').stop().fadeIn()
 
-    State.sessionExpire = State.sessionExpire || expired
+    State.sessionExpired = State.sessionExpired || expired
+    
+    $('iframe').remove() if State.sessionExpired
 }
 
 jQuery ($)->
@@ -45,7 +47,7 @@ jQuery ($)->
   $(document).bind
     # Restart timers
     ajaxStart: ->
-      if !State.sessionExpire
+      if !State.sessionExpired
         $('#time_left').fadeOut()
         
         $.each State.showMessages, ->  
