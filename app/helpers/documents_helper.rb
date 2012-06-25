@@ -79,7 +79,9 @@ module DocumentsHelper
   
   def document_edit_url(document)
     if document.on_revision?
-      "#{GdataExtension::Parser.edit_url(document.xml_reference)}?embedded=true"
+      document_url = GdataExtension::Parser.edit_url(document.xml_reference)
+      
+      "#{document_url}?embedded=true&hl=#{locale}"
     elsif document.revision_url.present?
       document_preview_url(document)
     end
@@ -90,6 +92,6 @@ module DocumentsHelper
       GdataExtension::Base.new.last_revision_url(document.xml_reference)
     url = "#{base_url}&exportFormat=pdf&format=pdf"
     
-    "https://docs.google.com/viewer?embedded=true&url=#{u url}"
+    "https://docs.google.com/viewer?embedded=true&hl=#{locale}&url=#{u url}"
   end
 end
