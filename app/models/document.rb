@@ -145,7 +145,7 @@ class Document < ActiveRecord::Base
     self.children.on_revision_or_revised.first
   end
   
-  def may_create_new_revision?
+  def may_new_revision?
     self.approved? && !self.is_on_revision?
   end
   
