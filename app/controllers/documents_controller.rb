@@ -1,7 +1,7 @@
 class DocumentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :load_tag, only: [:index]
-  before_filter :new_document_with_parent, only: [:new_revision]
+  before_filter :new_document_with_parent, only: [:create_revision]
   
   check_authorization
   load_and_authorize_resource
@@ -126,9 +126,9 @@ class DocumentsController < ApplicationController
     end
   end
   
-  # GET /documents/1/new_revision
-  # GET /documents/1/new_revision.json
-  def new_revision
+  # GET /documents/1/create_revision
+  # GET /documents/1/create_revision.json
+  def create_revision
     @title = t 'view.documents.new_title'
 
     respond_to do |format|

@@ -173,15 +173,15 @@ class DocumentTest < ActiveSupport::TestCase
   
   test 'may new revision' do
     assert @document.on_revision?
-    assert !@document.may_new_revision?
+    assert !@document.may_create_revision?
     
     @document = Fabricate(:document, status: 'approved')
     
-    assert @document.may_new_revision?
+    assert @document.may_create_revision?
     
     @document.children.create(Fabricate.attributes_for(:document))
     
-    assert !@document.may_new_revision?
+    assert !@document.may_create_revision?
   end
   
   test 'read tag list' do

@@ -115,7 +115,7 @@
       with_tag:
         html: 'Documentos con la etiqueta <span class="label label-info">%{tag}</span>'
       actions:
-        new_revision: 'Crear una nueva revisión'
+        create_revision: 'Crear nueva revisión'
         approve: 'Aprobar'
         revise: 'Revisar'
         reject: 'Rechazar'

@@ -19,7 +19,7 @@ module DocumentsHelper
   def document_context_actions(document, main_action)
     extra_actions = [main_action].compact
     actions = document.new_record? ? [] : [
-      [:new_revision, new_revision_document_path(document), :get],
+      [:create_revision, create_revision_document_path(document), :get],
       [:approve, approve_document_path(document), :put],
       [:revise, revise_document_path(document), :put],
       [:reject, reject_document_path(document), :put]

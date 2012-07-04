@@ -61,6 +61,6 @@ class Ability
     can :create, Document
     can :update, Document, status: 'on_revision'
     can :destroy, Document, status: 'on_revision'
-    can :new_revision, Document, status: 'approved'
+    can :create_revision, Document
   end
 end

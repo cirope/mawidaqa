@@ -206,18 +206,18 @@ class DocumentsControllerTest < ActionController::TestCase
     assert !document.reload.rejected?
   end
   
-  test 'should get new revision' do
+  test 'should get create revision' do
     sign_in Fabricate(:user)
     @document = Fabricate(:document, status: 'approved')
     
-    get :new_revision, id: @document
+    get :create_revision, id: @document
     assert_response :success
     assert_not_nil assigns(:document)
     assert_select '#unexpected_error', false
     assert_template 'documents/new'
   end
   
-  test 'should get _new_ revision from existing revision' do
+  test 'should get _create_ revision from existing revision' do
     sign_in Fabricate(:user)
     @document = Fabricate(:document, status: 'approved')
     new_revision = Document.on_revision_with_parent(@document.id)
@@ -225,7 +225,7 @@ class DocumentsControllerTest < ActionController::TestCase
     assert new_revision.new_record?
     assert new_revision.save
     
-    get :new_revision, id: @document
+    get :create_revision, id: @document
     assert_response :success
     assert_not_nil assigns(:document)
     assert_select '#unexpected_error', false
