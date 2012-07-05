@@ -27,9 +27,13 @@ module DocumentsHelper
     
     actions.each do |action, path, method|
       if can?(action, document) && document.send("may_#{action}?")
+        options = {}
+        options['method'] = method
+        options['class'] = 'btn btn-primary' if extra_actions.empty?
+        options['data-confirm'] = t('messages.confirmation') if method != :get
+
         extra_actions << link_to(
-          t("view.documents.actions.#{action}"), path,
-          method: method, class: ('btn btn-primary' if extra_actions.empty?)
+          t("view.documents.actions.#{action}"), path, options
         )
       end
     end
@@ -43,9 +47,10 @@ module DocumentsHelper
     if extra_actions.size == 1
       extra_actions.first
     else
-      render partial: 'shared/button_dropdown', locals: {
-        main_action: extra_actions.shift, extra_actions: extra_actions
-      }
+      render 'shared/button_dropdown',
+        main_action: extra_actions.shift,
+        extra_actions: extra_actions,
+        dropup: true
     end
   end
   

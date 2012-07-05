@@ -10,9 +10,8 @@ module ApplicationHelper
       out = ''.html_safe
       
       out << render(
-        partial: 'shared/button_dropdown', locals: {
-          main_action: main_action, extra_actions: extra_actions
-        }
+        'shared/button_dropdown',
+        main_action: main_action, extra_actions: extra_actions, dropup: false
       )
     end
   end
