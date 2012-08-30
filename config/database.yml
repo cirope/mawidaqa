@@ -43,8 +43,8 @@ test:
   encoding: unicode
   database: mawidaqa_test
   pool: 5
-  username: mawidaqa
-  password: mawidaqa
+  username: <%= ENV['TRAVIS'] ? 'postgres' : 'mawidaqa' %>
+  password: <%= ENV['TRAVIS'] ? '' : 'mawidaqa' %>
 
 production:
   adapter: postgresql
