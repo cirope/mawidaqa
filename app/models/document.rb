@@ -26,7 +26,7 @@ class Document < ActiveRecord::Base
       "#{table_name}.status NOT IN (:hidden_status)"
     ].map { |c| "(#{c})" }.join(' AND '),
     approved: 'approved',
-    hidden_status: ['obsolete', 'rejected']
+    hidden_status: ['obsolete']
   )
   
   # Attributes without persistence
@@ -45,7 +45,6 @@ class Document < ActiveRecord::Base
     state :approved
     state :revised
     state :obsolete
-    state :rejected
     
     event :revise, before: :retrieve_revision_url do
       transitions to: :revised, from: :on_revision
@@ -56,7 +55,7 @@ class Document < ActiveRecord::Base
     end
     
     event :reject do
-      transitions to: :rejected, from: [:on_revision, :revised]
+      transitions to: :on_revision, from: [:revised]
     end
     
     event :mark_as_obsolete do

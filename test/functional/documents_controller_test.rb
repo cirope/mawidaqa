@@ -187,23 +187,23 @@ class DocumentsControllerTest < ActionController::TestCase
   test 'should reject document' do
     sign_in Fabricate(:user)
     
-    document = Fabricate(:document)
+    document = Fabricate(:document, status: 'revised')
     
     put :reject, id: document
     
     assert_redirected_to document_path(document)
-    assert document.reload.rejected?
+    assert document.reload.on_revision?
   end
   
   test 'should not reject document if is not allowed to' do
     sign_in Fabricate(:user, role: :regular)
     
-    document = Fabricate(:document)
+    document = Fabricate(:document, status: 'revised')
     
     put :reject, id: document
     
     assert_redirected_to root_path
-    assert !document.reload.rejected?
+    assert !document.reload.on_revision?
   end
   
   test 'should get create revision' do

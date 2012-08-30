@@ -104,7 +104,7 @@ class DocumentTest < ActiveSupport::TestCase
     assert @document.on_revision?
     assert !@document.may_approve?
     assert @document.may_revise?
-    assert @document.may_reject?
+    assert !@document.may_reject?
     assert !@document.may_mark_as_obsolete?
     
     assert @document.revision_url.blank?
@@ -151,24 +151,11 @@ class DocumentTest < ActiveSupport::TestCase
   end
   
   test 'current revision' do
-    @document = Fabricate(:document, status: 'approved')
-    
-    assert_nil @document.current_revision
-    
-    @document.children.create(Fabricate.attributes_for(:document))
-    
-    assert_not_nil @document.current_revision
-    
-    @document.current_revision.tap do |old_revision|
-      old_revision.reject!
-      
-      assert_nil @document.current_revision
-      
-      @document.children.create(Fabricate.attributes_for(:document))
-      
-      assert_not_nil @document.current_revision
-      assert_not_equal old_revision, @document.current_revision
-    end
+    @document = Fabricate(:document, status: 'revised')
+
+    assert @document.revised?
+    assert @document.reject!
+    assert @document.on_revision?
   end
   
   test 'may new revision' do
