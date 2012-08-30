@@ -213,6 +213,7 @@ DEPENDENCIES
   pg
   puma
   rails (= 3.2.8)
+  rake
   rocket_tag
   role_model
   sass-rails

@@ -31,6 +31,7 @@ group :development do
 end
 
 group :test do
+  gem 'rake' # Travis require this
   gem 'turn', require: false
   gem 'minitest', require: false
   gem 'capybara', require: false
