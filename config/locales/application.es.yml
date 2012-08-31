@@ -107,6 +107,8 @@
       all: 'Todos'
       show_revision: 'Ver la revisión propuesta del documento'
       edit_current_revision: 'Editar la revisión actual'
+      download_pdf: 'Descargar PDF'
+      download_source: 'Descargar editable'
       related:
         html: '%{code} (%{status})'
       tabs:

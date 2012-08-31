@@ -56,6 +56,9 @@ module DocumentsHelper
   
   def show_document_code_with_links(document)
     links = []
+
+    links << link_to_download_source_document(document)
+    links << link_to_download_pdf(document)
     
     links << link_to(
       document.code, document, title: t('label.show'),
@@ -91,12 +94,32 @@ module DocumentsHelper
       document_preview_url(document)
     end
   end
+
+  def document_base_url(document)
+    document.revision_url || GdataExtension::Base.new.last_revision_url(
+      document.xml_reference
+    )
+  end
   
   def document_preview_url(document)
-    base_url = document.revision_url ||
-      GdataExtension::Base.new.last_revision_url(document.xml_reference)
-    url = "#{base_url}&exportFormat=pdf&format=pdf"
+    url = "#{document_base_url(document)}&exportFormat=pdf&format=pdf"
     
     "https://docs.google.com/viewer?embedded=true&hl=#{locale}&url=#{u url}"
+  end
+
+  def link_to_download_source_document(document)
+    url = "#{document_base_url(document)}&exportFormat=doc&format=doc"
+
+    link_to '&#xe000;'.html_safe, url, class: 'iconic',
+      title: t('view.documents.download_source'),
+      data: { 'show-tooltip' => true }
+  end
+
+  def link_to_download_pdf(document)
+    url = "#{document_base_url(document)}&exportFormat=pdf&format=pdf"
+
+    link_to '&#xe042;'.html_safe, url, class: 'iconic',
+      title: t('view.documents.download_pdf'),
+      data: { 'show-tooltip' => true }
   end
 end
