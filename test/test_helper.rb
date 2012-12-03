@@ -58,7 +58,7 @@ class ActionDispatch::IntegrationTest
     fill_in 'user_email', with: user.email
     fill_in 'user_password', with: '123456'
     
-    find('.btn.btn-primary').click
+    find('.btn.btn-primary.submit').click
     
     assert_equal root_path, current_path
     
