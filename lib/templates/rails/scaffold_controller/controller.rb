@@ -5,7 +5,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   # GET <%= route_url %>.json
   def index
     @title = t('view.<%= plural_table_name %>.index_title')
-    @<%= plural_table_name %> = <%= orm_class.all(class_name) %>.page(params[:page])
+    @<%= plural_table_name %> = <%= class_name %>.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -39,7 +39,7 @@ class <%= controller_class_name %>Controller < ApplicationController
 
   # GET <%= route_url %>/1/edit
   def edit
-    @title = t('view.<%= plural_table_name %>.new_title')
+    @title = t('view.<%= plural_table_name %>.edit_title')
     @<%= singular_table_name %> = <%= orm_class.find(class_name, "params[:id]") %>
   end
 
