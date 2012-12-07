@@ -1,0 +1,17 @@
+<div class="readonly-data">
+  <h2><%= @organization %></h2>
+
+  <p>
+    <strong><%= Organization.human_attribute_name 'name' %></strong>:
+    <%= @organization.name %>
+  </p>
+  <p>
+    <strong><%= Organization.human_attribute_name 'identification' %></strong>:
+    <%= @organization.identification %>
+  </p>
+  
+</div>
+<div class="form-actions">
+  <%= link_to t('label.edit'), edit_organization_path(@organization) if can? :update, @organization %> |
+  <%= link_to t('label.list'), organizations_path %>
+</div>

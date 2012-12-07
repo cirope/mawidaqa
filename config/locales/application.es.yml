@@ -17,6 +17,9 @@
       document:
         one: 'Documento'
         other: 'Documentos'
+      organization:
+        one: 'Organización'
+        other: 'Organizaciones' 
       tag:
         one: 'Etiqueta'
         other: 'Etiquetas'
@@ -42,6 +45,14 @@
         children:
           one: 'Bifuración'
           other: 'Bifurcaciones'
+      job:
+        job: 'Trabajo'
+        organization_id: 'Organización'
+        user_id: 'Usuario'
+      organization:
+        name: 'Nombre'
+        identification: 'Identificación'
+        workers: 'Personal'
       tag:
         name: 'Nombre'
       user:
@@ -50,6 +61,9 @@
         email: 'Correo'
         password: 'Contraseña'
         password_confirmation: 'Confirmación'
+        jobs:
+          one: 'Trabajo'
+          other: 'Trabajos'
         roles:
           one: 'Perfil'
           other: 'Perfiles'
@@ -75,6 +89,7 @@
     actions:
       logout: 'Salir de la aplicación'
     documents: 'Documentos'
+    organizations: 'Organizaciones'
     users: 'Usuarios'
     
   messages:
@@ -90,6 +105,12 @@
       empty_search:
         title:
           html: 'La búsqueda de <span class="label label-inverse">%{search}</span> no obtuvo ningún resultado.'
+    jobs:
+      types:
+        approver: 'Aprobador'
+        reviewer: 'Revisor'
+    launchad:
+      index_title: 'Organizaciones'
     documents:
       index_title: 'Listado de documentos'
       show_title: 'Detalle de documento'
@@ -127,6 +148,22 @@
         revised: 'Revisado'
         obsolete: 'Obsoleto'
         rejected: 'Rechazado'
+    organizations:
+      index_title: 'Listado de organizaciones'
+      show_title: 'Detalle de organización'
+      new_title: 'Nueva organización'
+      edit_title: 'Modificar organización'
+      correctly_created: 'Organización agregada correctamente.'
+      correctly_updated: 'Organización actualizada correctamente.'
+      stale_object_error: 'La organización no pudo ser actualizada, intente nuevamente.'
+      empty_index:
+        html: 'No se ha creado ninguna organización hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva organización</span>'
+      new: 'Nueva organización'
+      worker_role:
+        html: '%{worker} es %{role}'
+      hints:
+        identification:
+          html: 'Ejemplo: <strong>nombre-organización</strong>.%{domain}'
     users:
       index_title: 'Listado de usuarios'
       show_title: 'Detalle de usuario'
@@ -142,8 +179,8 @@
       update_password: 'Actualizar contraseña'
       profile_correctly_updated: 'Actualizaste tus datos correctamente.'
       edit_profile: 'Editar perfil'
+      job_role:
+        html: '%{role} de %{organization}'
       roles:
         admin: 'Administrador'
-        approver: 'Aprobador'
         regular: 'Normal'
-        reviewer: 'Revisor'

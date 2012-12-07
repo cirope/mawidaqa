@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120604134643) do
+ActiveRecord::Schema.define(:version => 20121205023745) do
 
   create_table "changes", :force => true do |t|
     t.text     "content",                     :null => false
@@ -66,6 +66,29 @@ ActiveRecord::Schema.define(:version => 20120604134643) do
   end
 
   add_index "documents_tags", ["document_id", "tag_id"], :name => "index_documents_tags_on_document_id_and_tag_id", :unique => true
+
+  create_table "jobs", :force => true do |t|
+    t.string   "job",                            :null => false
+    t.integer  "lock_version",    :default => 0, :null => false
+    t.integer  "user_id",                        :null => false
+    t.integer  "organization_id",                :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "jobs", ["organization_id"], :name => "index_jobs_on_organization_id"
+  add_index "jobs", ["user_id"], :name => "index_jobs_on_user_id"
+
+  create_table "organizations", :force => true do |t|
+    t.string   "name",                          :null => false
+    t.string   "identification"
+    t.integer  "lock_version",   :default => 0, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "organizations", ["identification"], :name => "index_organizations_on_identification", :unique => true
+  add_index "organizations", ["name"], :name => "index_organizations_on_name"
 
   create_table "tags", :force => true do |t|
     t.string   "name",                        :null => false

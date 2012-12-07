@@ -10,6 +10,7 @@
       <% if user_signed_in? %>
         <div class="nav-collapse">
           <ul class="nav">
+            <%= render 'shared/menu_dropdowns/organizations' if current_user.organizations.count > 1 %>
             <%= content_tag(
               :li, link_to(t('menu.users'), users_path),
               class: ('active' if controller_name == 'users')
