@@ -30,7 +30,8 @@ MawidaQA::Application.routes.draw do
   
     match 'private/:path', to: 'files#download', constraints: { path: /.+/ }
   
-    root to: 'documents#index'
+    #root to: 'documents#index'
+    root to: redirect('/users/sign_in')
   end
 
   constraints(OrganizationSubdomain) do
@@ -64,7 +65,15 @@ MawidaQA::Application.routes.draw do
   
     match 'private/:path', to: 'files#download', constraints: { path: /.+/ }
   
-    root to: 'documents#index'
+    #root to: 'documents#index'
+    root to: redirect('/users/sign_in')
+  end
+
+  match '/dashboard(.:format)' => 'dashboard#index', as: 'dashboard', via: :get
+
+  Job::TYPES.each do |job_type|
+    match "/dashboard/#{job_type}(.:format)" => "dashboard##{job_type}",
+      as: "#{job_type}_dashboard", via: :get
   end
 
   get 'errors/error_404'

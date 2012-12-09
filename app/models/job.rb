@@ -1,7 +1,7 @@
 class Job < ActiveRecord::Base
   has_paper_trail
 
-  TYPES = ['approver', 'reviewer', 'proponet']
+  TYPES = ['approver', 'reviewer', 'author']
 
   attr_accessible :job, :user_id, :organization_id, :lock_version
 

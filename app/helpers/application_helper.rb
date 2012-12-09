@@ -1,8 +1,28 @@
 module ApplicationHelper
+  def title
+    [t('app_name'), @title].compact.join(' | ')
+  end
+
+  def markdown(text)
+    MARKDOWN_RENDERER.render(text).html_safe
+  end
+
   def show_error_messages_for(model)
     render 'shared/error_messages', model: model unless model.errors.empty?
   end
-  
+ 
+  def show_menu_link(options = {})
+    name = t("menu.#{options[:name]}")
+    classes = []
+                     
+    classes << 'active' if [*options[:controllers]].include?(controller_name)
+                        
+    content_tag(
+      :li, link_to(name, options[:path]),
+      class: (classes.empty? ? nil : classes.join(' '))
+    )       
+  end 
+
   def show_button_dropdown(main_action, extra_actions = [], options = {})
     if extra_actions.blank?
       main_action
@@ -56,6 +76,16 @@ module ApplicationHelper
     @_document_tag_list ||= Tag.order('name ASC')
   end
   
+  def link_to_show(*args)
+    options = args.extract_options!
+
+    options['class'] ||= 'iconic'
+    options['title'] ||= t('label.show')
+    options['data-show-tooltip'] ||= true
+
+    link_to '&#xe074;'.html_safe, *args, options
+  end
+
   def link_to_edit(*args)
     options = args.extract_options!
     
@@ -76,5 +106,11 @@ module ApplicationHelper
     options['data-show-tooltip'] ||= true
     
     link_to '&#xe05a;'.html_safe, *args, options
+  end
+
+  Job::TYPES.each do |type|
+    define_method("current_user_is_#{type}?") do
+      current_organization && current_user.jobs.in_organization(current_organization).any?(&:"#{type}?")
+      end
   end
 end

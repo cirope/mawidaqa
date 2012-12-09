@@ -7,7 +7,6 @@
         <thead>
           <tr>
             <th><%= Organization.human_attribute_name 'name' %></th>
-            <th><%= Organization.human_attribute_name 'identification' %></th>
             <th colspan="3"></th>
           </tr>
         </thead>
@@ -15,9 +14,8 @@
         <tbody>
           <% @organizations.each do |organization| %>
             <tr>
-              <td><%= organization.name %></td>
-              <td><%= organization.identification %></td>
-              <td><%= link_to_show organization %></td>
+              <td><%= link_to_if current_user.has_job_in?(organization), organization, root_url(subdomain: organization.identification) %></td>
+              <td><%= link_to_show organization if can? :read, organization %></td>
               <td><%= link_to_edit edit_organization_path(organization) if can? :update, organization %></td>
               <td><%= link_to_destroy organization if can? :destroy, organization %></td>
             </tr>
@@ -30,9 +28,9 @@
   <%= pagination_links(@organizations) %>
 <% end %>
 
-<div class="form-actions">
+<nav class="form-actions">
   <%= link_to(
     t('view.organizations.new', default: :'label.new'),
     new_organization_path, class: 'btn btn-primary'
   ) if can? :create, Organization %>
-</div>
+</nav>
