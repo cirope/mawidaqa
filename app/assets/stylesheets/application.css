@@ -20,5 +20,9 @@
  *= require devise
  *= require documents
  *= require files
+ *= require dashboard
+ *= require errors
+ *= require organizations
+ *= require launchpad
  *= require users
 */

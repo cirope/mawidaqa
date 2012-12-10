@@ -1,3 +1,15 @@
-// Place all the styles related to the Dashboard controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.logged_in#c_dashboard {
+  .readonly-data {
+    margin: 0px 20px;
+  }
+  
+  .teach-header {
+    position: relative;
+
+    span.label {
+      position: absolute;
+      top: 1em;
+      right: 0px;
+    }
+  }
+}

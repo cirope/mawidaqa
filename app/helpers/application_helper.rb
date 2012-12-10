@@ -108,6 +108,12 @@ module ApplicationHelper
     link_to '&#xe05a;'.html_safe, *args, options
   end
 
+  def copy_attribute_errors(from, to, form_builder)
+    form_builder.object.errors[from].each do |message|
+      form_builder.object.errors.add(to, message)
+    end
+  end
+
   Job::TYPES.each do |type|
     define_method("current_user_is_#{type}?") do
       current_organization && current_user.jobs.in_organization(current_organization).any?(&:"#{type}?")

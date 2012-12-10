@@ -1,4 +1,4 @@
-<div class="navbar navbar-fixed-top">
+<div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -30,16 +30,16 @@
             <li>
               <%= link_to(
                 current_user.email, edit_profile_user_path(current_user),
-                'title' => t('view.users.edit_profile'),
-                'data-show-tooltip' => true, 'data-placement' => 'bottom'
+                title: t('view.users.edit_profile'),
+                data: { 'show-tooltip' => true, 'placement' => 'bottom' }
               ) %>
             </li>
             <li>
               <%= link_to(
                 '&#x2192;'.html_safe, destroy_user_session_path,
-                'title' => t('menu.actions.logout'), 'class' => 'iconic',
-                'id' => 'logout', 'data-show-tooltip' => true,
-                'data-placement' => 'bottom', 'method' => :delete
+                title: t('menu.actions.logout'), class: 'iconic', id: 'logout', 
+                method: :delete,
+                data: { 'show-tooltip' => true, 'placement' => 'bottom' }
               ) %>
             </li>
           </ul>

@@ -88,6 +88,7 @@
   menu:
     actions:
       logout: 'Salir de la aplicación'
+    dashboard: 'Tablero'
     documents: 'Documentos'
     organizations: 'Organizaciones'
     users: 'Usuarios'
@@ -111,6 +112,12 @@
         reviewer: 'Revisor'
     launchad:
       index_title: 'Organizaciones'
+    dashboard:
+      generic_title: 'Tablero'
+      footer:
+        html: 'Ingresa al contenido del dictado haciendo <strong>clic en su nombre</strong>. No es necesario completar todo en una sola visita.'
+      greetings:
+        html: 'Hola %{user}<small>, este es tu resumen en <strong>%{organization}</strong></small>'
     documents:
       index_title: 'Listado de documentos'
       show_title: 'Detalle de documento'
@@ -175,6 +182,7 @@
       empty_index:
         html: 'No se ha creado ningún usuario hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo usuario</span>'
       new: 'Nuevo usuario'
+      new_job: 'Agregar nuevo trabajo'
       update_profile: 'Actualizar datos'
       update_password: 'Actualizar contraseña'
       profile_correctly_updated: 'Actualizaste tus datos correctamente.'

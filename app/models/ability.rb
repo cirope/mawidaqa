@@ -54,6 +54,13 @@ class Ability
     can :revise, Document, status: 'on_revision'
     can :reject, Document, status: ['on_revision', 'revised']
   end
+
+  def author_rules(user, organization)
+    can :edit_profile, User
+    can :update_profile, User
+    
+    common_document_rules
+  end
   
   def default_rules(user, organization)
     can :read, Document

@@ -1,0 +1,38 @@
+<% id = f.object.object_id %>
+<% if current_organization %>
+  <%= f.input :organization_id, as: :hidden, input_html: { value: current_organization.id } %>
+<% end %>
+<fieldset class="row-fluid">
+  <% unless current_organization %>
+    <div class="span5">
+      <% field_classes = ['autocomplete_field', 'span10'] %>
+      <% copy_attribute_errors(:organization_id, :auto_organization_name, f) %>
+      <%= f.input :auto_organization_name, label: false,
+        placeholder: Job.human_attribute_name('organization_id'),
+        input_html: {
+          id: "auto_organization_#{id}",
+          class: field_classes.join(' '),
+          value: f.object.organization.try(:label),
+          autofocus: true,
+          data: {
+            'autocomplete-url' => organizations_path(format: :json),
+            'autocomplete-id-target' => "#auto_organization_id_#{id}"
+          }
+        }
+      %>
+      <%= f.input :organization_id, as: :hidden,
+        input_html: { class: 'autocomplete_id', id: "auto_organization_id_#{id}" }
+      %>
+    </div>
+  <% end %>
+  <div class="<%= current_organization ? 'span10' : 'span5' %>">
+    <%= show_user_job_options(f) %>
+  </div>
+  <div class="span2 nested-actions">
+    <%= f.input :id, as: :hidden %>
+    <%= f.input :lock_version, as: :hidden %>
+    <% if current_organization.nil? || f.object.organization_id == current_organization.id %>
+      <%= link_to_remove_nested_item(f) %>
+    <% end %>
+  </div>
+</fieldset>

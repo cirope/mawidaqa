@@ -8,6 +8,7 @@ class OrganizationsController < ApplicationController
   # GET /organizations.json
   def index
     @title = t 'view.organizations.index_title'
+    @searchable = true
     @organizations = @organizations.filtered_list(params[:q]).page(params[:page]).uniq('id')
 
     respond_to do |format|

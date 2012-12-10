@@ -84,6 +84,14 @@ a.iconic {
   }
 }
 
+.ui-autocomplete {
+  small {
+    display: block;
+    font-size: .75em;
+    color: #999999;
+  }
+}
+
 .nowrap {
   white-space: nowrap;
 }

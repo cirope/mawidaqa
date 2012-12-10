@@ -5,6 +5,9 @@ class Organization < ActiveRecord::Base
 
   attr_accessible :name, :identification, :lock_version
 
+  alias_attribute :label, :name
+  alias_attribute :informal, :identification
+
   # Default order
   default_scope order("#{table_name}.name ASC")
 
@@ -31,6 +34,19 @@ class Organization < ActiveRecord::Base
     [
       ("[#{self.identification}]" if self.identification.present?), self.name
     ].compact.join(' ')
+  end
+
+  def as_json(options = nil)
+    default_options = {
+      only: [:id],
+      methods: [:label, :informal]
+    }
+
+    super(default_options.merge(options || {}))
+  end
+
+  def organization
+    self
   end
 
   def self.filtered_list(query)
