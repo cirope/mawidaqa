@@ -219,7 +219,6 @@ DEPENDENCIES
   paper_trail
   pg
   rails (= 3.2.9)
-  rake
   rocket_tag
   role_model
   sass-rails

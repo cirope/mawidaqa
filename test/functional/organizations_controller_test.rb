@@ -28,6 +28,25 @@ class OrganizationsControllerTest < ActionController::TestCase
     assert_template 'organizations/index'
   end
 
+  test 'should get filtered index in json' do
+    3.times { Fabricate(:organization, name: 'in_filtered_index') }
+
+    get :index, q: 'filtered_index', format: 'json'
+    assert_response :success
+
+    organizations = ActiveSupport::JSON.decode(@response.body)
+
+    assert_equal 3, organizations.size
+    assert organizations.all? { |s| s['label'].match /filtered_index/i }
+
+    get :index, q: 'no_organization', format: 'json'
+    assert_response :success
+
+    organizations = ActiveSupport::JSON.decode(@response.body)
+
+    assert_equal 0, organizations.size
+  end
+
   test "should get new" do
     get :new
     assert_response :success

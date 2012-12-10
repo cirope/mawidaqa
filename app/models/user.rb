@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
     allow_blank: true
  
   #Relations
+  has_many :logins, dependent: :destroy
   has_many :jobs, dependent: :destroy
   has_many :organizations, through: :jobs
 

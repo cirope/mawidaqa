@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121205023745) do
+ActiveRecord::Schema.define(:version => 20121210195133) do
 
   create_table "changes", :force => true do |t|
     t.text     "content",                     :null => false
@@ -78,6 +78,15 @@ ActiveRecord::Schema.define(:version => 20121205023745) do
 
   add_index "jobs", ["organization_id"], :name => "index_jobs_on_organization_id"
   add_index "jobs", ["user_id"], :name => "index_jobs_on_user_id"
+
+  create_table "logins", :force => true do |t|
+    t.string   "ip",         :null => false
+    t.text     "user_agent"
+    t.datetime "created_at", :null => false
+    t.integer  "user_id",    :null => false
+  end
+
+  add_index "logins", ["user_id"], :name => "index_logins_on_user_id"
 
   create_table "organizations", :force => true do |t|
     t.string   "name",                          :null => false

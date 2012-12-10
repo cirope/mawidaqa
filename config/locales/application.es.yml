@@ -110,7 +110,7 @@
       types:
         approver: 'Aprobador'
         reviewer: 'Revisor'
-    launchad:
+    launchpad:
       index_title: 'Organizaciones'
     dashboard:
       generic_title: 'Tablero'
