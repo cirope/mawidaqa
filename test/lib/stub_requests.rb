@@ -50,3 +50,12 @@ stub_request(
 stub_request(:get, GdataExtension::URL_FOLDER_LIST).to_return(
   body: GdataExtension::ResponseExamples::XML_FOLDER_LIST
 )
+
+stub_request(
+  :post, 
+  GdataExtension::Parser.resource_url(
+    GdataExtension::ResponseExamples::XML_CREATE_FOLDER
+  )
+).with(body: /2007#document/).to_return(
+    body: GdataExtension::ResponseExamples::XML_CREATE
+)

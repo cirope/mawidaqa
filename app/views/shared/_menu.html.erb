@@ -17,7 +17,7 @@
             <%= show_menu_link(
               name: 'users', controllers: 'users', path: users_path
             ) if can?(:read, User) && current_user.is?(:admin) && !current_organization %>
-            <% if can? :read, Document %>
+            <% if can?(:read, Document) %>
               <%= render partial: 'shared/menu_dropdowns/documents' %>
             <% end %>
             <%= show_menu_link(

@@ -128,6 +128,7 @@
       stale_object_error: 'El documento no pudo ser actualizado, intente nuevamente.'
       empty_index:
         html: 'No se ha creado ningún documento hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo documento</span>'
+      new: 'Nuevo documento'
       non_existent: 'Archivo inexistente'
       approved: 'El documento se aprobó.'
       revised: 'El documento se revisó.'

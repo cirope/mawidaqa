@@ -11,6 +11,10 @@ class Organization < ActiveRecord::Base
   # Default order
   default_scope order("#{table_name}.name ASC")
 
+  #callbacks
+  before_validation :downcase_identification
+  before_save :create_folder, on: :create
+
   #Validations
   validates :name, :identification, presence: true
   validates :name, :identification, length: { maximum: 255 }, allow_nil: true,
@@ -23,11 +27,21 @@ class Organization < ActiveRecord::Base
     allow_nil: true, allow_blank: true
 
   #Relations
+  has_many :documents, dependent: :destroy
   has_many :workers, dependent: :destroy, class_name: 'Job'
   has_many :users, through: :workers
+  has_many :tags, through: :documents
 
   def to_s
     self.name
+  end
+
+  def create_folder
+    if self.xml_reference.blank?
+      self.xml_reference = GdataExtension::Base.new.create_and_share_folder(
+        Rails.env.production? ? self.identification : "#{Rails.env.upcase} - #{self.identification}"
+      ).to_s
+    end
   end
 
   def inspect
@@ -51,5 +65,11 @@ class Organization < ActiveRecord::Base
 
   def self.filtered_list(query)
     query.present? ? magick_search(query) : scoped
+  end
+
+  private
+
+  def downcase_identification
+    self.identification.try(:downcase!)
   end
 end

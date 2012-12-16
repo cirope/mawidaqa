@@ -9,6 +9,8 @@ class OrganizationTest < ActiveSupport::TestCase
     assert_difference ['Organization.count', 'Version.count'] do
       @organization = Organization.create(Fabricate.attributes_for(:organization))
     end 
+
+    assert @organization.xml_reference.present?
   end
     
   test 'update' do

@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :set_current_organization
+  before_filter :set_current_organization, :validate_organization
   after_filter -> { expires_now if user_signed_in? }
   
   helper_method :current_organization
@@ -82,5 +82,10 @@ class ApplicationController < ActionController::Base
         request.subdomains.first
       )
     end
+  end
+
+  def validate_organization
+    raise 'You can not do this =)' if current_user and
+      current_organization and !current_user.has_job_in?(current_organization)
   end
 end

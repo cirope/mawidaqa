@@ -19,59 +19,49 @@ class Ability
   
   def regular_rules(user, organization)
     if @job
-      approver_rules(user, organization) if @job.approver?
-      reviewer_rules(user, organization) if @job.reviewer?
-      author_rules(user, organization)   if @job.author?
+      approver_rules(organization) if @job.approver?
+      reviewer_rules(organization) if @job.reviewer?
+      author_rules                 if @job.author?
     end
     
-    common_document_rules
-
-    default_rules(user, organization) if organization
+    if organization
+      common_document_rules(organization)
+      default_rules(user, organization)
+    end
   end
   
-  def approver_rules(user, organization)
+  def approver_rules(organization)
     can :create, Comment
-    can :edit_profile, User
-    can :update_profile, User
     
-    common_document_rules
-    
-    can :approve, Document, status: 'revised'
-    can :reject, Document, status: ['on_revision', 'revised']
+    can :approve, Document, status: 'revised', organization_id: organization.id
+    can :reject, Document, status: ['on_revision', 'revised'], organization_id: organization.id
   end
   
-  def reviewer_rules(user, organization)
+  def reviewer_rules(organization)
     can :create, Comment
-    can :create, Document
-    can :update, Document
-    can :destroy, Document
-    can :revise, Document
-    can :edit_profile, User
-    can :update_profile, User
     
-    common_document_rules
-    
-    can :revise, Document, status: 'on_revision'
-    can :reject, Document, status: ['on_revision', 'revised']
+    can :revise, Document, status: 'on_revision', organization_id: organization.id
+    can :reject, Document, status: ['on_revision', 'revised'], organization_id: organization.id
   end
 
-  def author_rules(user, organization)
-    can :edit_profile, User
-    can :update_profile, User
-    
-    common_document_rules
+  def author_rules
+    # Defaults rules
   end
   
   def default_rules(user, organization)
-    can :read, Document
+    can :edit_profile, User
+    can :update_profile, User
+
+    can :read, Organization, workers: { user_id: user.id }
     can :read, Comment
   end
   
-  def common_document_rules
-    cannot :manage, Document # Permissions reset
-    can :create, Document
-    can :update, Document, status: 'on_revision'
-    can :destroy, Document, status: 'on_revision'
-    can :create_revision, Document
+  def common_document_rules(organization)
+    #cannot :manage, Document # Permissions reset
+    can :read, Document, organization_id: organization.id
+    can :create, Document, organization_id: organization.id
+    can :update, Document, status: 'on_revision', organization_id: organization.id
+    can :destroy, Document, status: 'on_revision', organization_id: organization.id
+    can :create_revision, Document, organization_id: organization.id
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121210195133) do
+ActiveRecord::Schema.define(:version => 20121213174152) do
 
   create_table "changes", :force => true do |t|
     t.text     "content",                     :null => false
@@ -52,11 +52,13 @@ ActiveRecord::Schema.define(:version => 20121210195133) do
     t.integer  "depth"
     t.text     "xml_reference"
     t.text     "revision_url"
+    t.integer  "organization_id"
   end
 
   add_index "documents", ["code"], :name => "index_documents_on_code"
   add_index "documents", ["current"], :name => "index_documents_on_current"
   add_index "documents", ["name"], :name => "index_documents_on_name"
+  add_index "documents", ["organization_id"], :name => "index_documents_on_organization_id"
   add_index "documents", ["parent_id"], :name => "index_documents_on_parent_id"
   add_index "documents", ["status"], :name => "index_documents_on_status"
 
@@ -91,6 +93,7 @@ ActiveRecord::Schema.define(:version => 20121210195133) do
   create_table "organizations", :force => true do |t|
     t.string   "name",                          :null => false
     t.string   "identification"
+    t.text     "xml_reference"
     t.integer  "lock_version",   :default => 0, :null => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false

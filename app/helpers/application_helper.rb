@@ -73,7 +73,8 @@ module ApplicationHelper
   end
   
   def document_tag_list
-    @_document_tag_list ||= Tag.order('name ASC')
+    tags = current_user.admin? ? Tag : current_organization.tags
+    @_document_tag_list ||= tags.order('name ASC')
   end
   
   def link_to_show(*args)
@@ -117,6 +118,6 @@ module ApplicationHelper
   Job::TYPES.each do |type|
     define_method("current_user_is_#{type}?") do
       current_organization && current_user.jobs.in_organization(current_organization).any?(&:"#{type}?")
-      end
+    end
   end
 end

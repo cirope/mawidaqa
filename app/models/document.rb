@@ -34,7 +34,8 @@ class Document < ActiveRecord::Base
   
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :code, :version, :notes, :version_comments, :tag_list,
-    :parent_id, :lock_version, :comments_attributes, :changes_attributes
+    :parent_id, :lock_version, :comments_attributes, :changes_attributes, 
+    :organization_id
   
   # Callbacks
   before_validation :check_code_changes
@@ -71,7 +72,7 @@ class Document < ActiveRecord::Base
   validates :name, :code, :status, :version, presence: true
   validates :name, :code, :version, length: { maximum: 255 }, allow_nil: true,
     allow_blank: true
-  validates :code, uniqueness: { case_sensitive: false },
+  validates :code, uniqueness: { scope: :organization_id, case_sensitive: false },
     allow_nil: true, allow_blank: true, unless: :skip_code_uniqueness
   validates_each :status do |record, attr, value|
     if record.on_revision?
@@ -84,6 +85,7 @@ class Document < ActiveRecord::Base
   end
   
   # Relations
+  belongs_to :organization
   has_many :changes, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
   has_and_belongs_to_many :tags
@@ -116,8 +118,9 @@ class Document < ActiveRecord::Base
   
   def create_doc
     if self.xml_reference.blank? # only create for the new ones...
-      self.xml_reference = GdataExtension::Base.new.create_and_share_document(
-        Rails.env.production? ? self.code : "#{Rails.env.upcase} - #{self.code}"
+      name = Rails.env.production? ? self.code : "#{Rails.env.upcase} - #{self.code}"
+      self.xml_reference = GdataExtension::Base.new.create_resource_document(
+        name, self.organization.xml_reference
       ).to_s
     end
   end

@@ -14,9 +14,9 @@
           <tr>
             <th><%= Document.human_attribute_name 'code' %></th>
             <th><%= Document.human_attribute_name 'name' %></th>
-            <th class="visible-desktop"><%= Document.human_attribute_name 'status' %></th>
-            <th class="visible-desktop"><%= Document.human_attribute_name 'version' %></th>
-            <th class="visible-desktop"><%= Document.human_attribute_name 'updated_at' %></th>
+            <th><span class="visible-desktop"><%= Document.human_attribute_name 'status' %></span></th>
+            <th><span class="visible-desktop"><%= Document.human_attribute_name 'version' %></span></th>
+            <th><span class="visible-desktop"><%= Document.human_attribute_name 'updated_at' %></span></th>
             <th colspan="2"></th>
           </tr>
         </thead>
@@ -28,9 +28,9 @@
                 <%= show_document_code_with_links(document) %>
               </td>
               <td><%= document.name %></td>
-              <td class="visible-desktop"><%= document_status_text document %></td>
-              <td class="visible-desktop"><%= document.version %></td>
-              <td class="visible-desktop"><%= l document.updated_at.to_date %></td>
+              <td><span class="visible-desktop"><%= document_status_text document %></span></td>
+              <td><span class="visible-desktop"><%= document.version %></span></td>
+              <td><span class="visible-desktop"><%= l document.updated_at.to_date %></span></td>
               <td><%= link_to_edit edit_document_path(document) if can? :update, document %></td>
               <td><%= link_to_destroy document if can? :destroy, document %></td>
             </tr>
@@ -44,5 +44,8 @@
 <% end %>
 
 <nav class="form-actions">
-  <%= link_to t('label.new'), new_document_path, class: 'btn btn-primary' if can? :create, Document %>
+  <%= link_to(
+    t('view.documents.new', default: :'label.new'), 
+    new_document_path, class: 'btn btn-primary' 
+  ) if can? :create, Document %>
 </nav>

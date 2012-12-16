@@ -5,13 +5,14 @@ class DocumentsController < ApplicationController
   
   check_authorization
   load_and_authorize_resource
-  
+
   # GET /documents
   # GET /documents.json
   def index
     @title = t 'view.documents.index_title'
     @searchable = true
-    @documents = @documents.filtered_list(params[:q]).page(params[:page])
+    @documents = @documents.accessible_by(current_ability).
+      filtered_list(params[:q]).page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -138,10 +139,12 @@ class DocumentsController < ApplicationController
   end
   
   private
-  
+
   def load_tag
     @tag = Tag.find(params[:tag_id]) if params[:tag_id].present?
-    @documents = @tag ? @tag.documents : Document.scoped
+    if @tag
+      @documents = current_user.admin? ? @tag.documents : current_organization.tags.find( @tag ).documents
+    end
   end
   
   def new_document_with_parent

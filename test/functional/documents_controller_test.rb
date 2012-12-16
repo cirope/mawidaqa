@@ -3,12 +3,13 @@ require 'test_helper'
 class DocumentsControllerTest < ActionController::TestCase
   setup do
     @document = Fabricate(:document)
+    @organization = @document.organization
+
+    sign_in Fabricate(:user)
   end
 
   test 'should get index' do
-    sign_in Fabricate(:user)
-    
-    get :index
+    get :index, organization_id: @organization.to_param
     assert_response :success
     assert_not_nil assigns(:documents)
     assert_select '#unexpected_error', false
@@ -16,8 +17,6 @@ class DocumentsControllerTest < ActionController::TestCase
   end
   
   test 'should get filtered index' do
-    sign_in Fabricate(:user)
-    
     Fabricate(:document, name: 'excluded_from_filter')
     3.times { Fabricate(:document, name: 'in_filtered_index') }
     

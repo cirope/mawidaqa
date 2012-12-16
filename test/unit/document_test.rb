@@ -6,8 +6,12 @@ class DocumentTest < ActiveSupport::TestCase
   end
   
   test 'create' do
+    @organization = Fabricate(:organization)
+
     assert_difference ['Document.count', 'Version.count'] do
-      @document = Document.create(Fabricate.attributes_for(:document))
+      @document = Document.create(
+        Fabricate.attributes_for(:basic_document).merge( { organization_id: @organization.id } )
+      )
     end
     
     # create_doc callback
@@ -49,7 +53,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
   
   test 'validates unique attributes' do
-    new_document = Fabricate(:document)
+    new_document = Fabricate(:document, organization_id: @document.organization_id)
     @document.code = new_document.code
     
     assert @document.invalid?
