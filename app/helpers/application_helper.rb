@@ -73,8 +73,7 @@ module ApplicationHelper
   end
   
   def document_tag_list
-    tags = current_user.admin? ? Tag : current_organization.tags
-    @_document_tag_list ||= tags.order('name ASC')
+    @_document_tag_list ||= current_organization.tags.order('name ASC')
   end
   
   def link_to_show(*args)

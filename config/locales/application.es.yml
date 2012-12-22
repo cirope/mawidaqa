@@ -110,6 +110,7 @@
       types:
         approver: 'Aprobador'
         reviewer: 'Revisor'
+        author:   'Autor'
     launchpad:
       index_title: 'Organizaciones'
     dashboard:

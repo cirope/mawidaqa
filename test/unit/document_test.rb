@@ -39,9 +39,10 @@ class DocumentTest < ActiveSupport::TestCase
     @document.code = ''
     @document.status = nil
     @document.version = ' '
+    @document.organization_id = nil
     
     assert @document.invalid?
-    assert_equal 4, @document.errors.size
+    assert_equal 5, @document.errors.size
     assert_equal [error_message_from_model(@document, :name, :blank)],
       @document.errors[:name]
     assert_equal [error_message_from_model(@document, :code, :blank)],
@@ -50,6 +51,8 @@ class DocumentTest < ActiveSupport::TestCase
       @document.errors[:status]
     assert_equal [error_message_from_model(@document, :version, :blank)],
       @document.errors[:version]
+    assert_equal [error_message_from_model(@document, :organization_id, :blank)],
+      @document.errors[:organization_id]
   end
   
   test 'validates unique attributes' do
@@ -176,16 +179,24 @@ class DocumentTest < ActiveSupport::TestCase
   end
   
   test 'read tag list' do
-    @document = Fabricate(:document) do
-      tags(count: 2) { |attrs, i| Fabricate(:tag, name: "Test #{i}") }
+    organization = Fabricate(:organization)
+
+    @document = Fabricate(:document, organization_id: organization.id) do
+      tags(count: 2) do |attrs, i| 
+        Fabricate(:tag, name: "Test #{i}", organization_id: organization.id) 
+      end
     end
     
     assert_equal 'Test 1,Test 2', @document.tag_list
   end
   
   test 'write tag list' do
-    @document = Fabricate(:document) do
-      tags(count: 1) { |attrs, i| Fabricate(:tag, name: 'Test') }
+    organization = Fabricate(:organization)
+
+    @document = Fabricate(:document, organization_id: organization.id) do
+      tags(count: 1) do |attrs, i| 
+        Fabricate(:tag, name: 'Test', organization_id: organization.id)
+      end
     end
     
     assert_difference ['Tag.count', '@document.tags.count'], 2 do

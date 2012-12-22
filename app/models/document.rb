@@ -3,7 +3,7 @@ class Document < ActiveRecord::Base
   
   has_paper_trail version: :paper_trail_version
   
-  has_magick_columns name: :string, code: :string
+  has_magick_columns 'documents.name' => :string, code: :string
   
   acts_as_nested_set
   
@@ -30,16 +30,18 @@ class Document < ActiveRecord::Base
   )
   
   # Attributes without persistence
+  attr_accessor :tag_list_cache
   attr_accessor :skip_code_uniqueness
   
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :code, :version, :notes, :version_comments, :tag_list,
-    :parent_id, :lock_version, :comments_attributes, :changes_attributes, 
+    :parent_id, :lock_version, :comments_attributes, :changes_attributes,
     :organization_id
   
   # Callbacks
   before_validation :check_code_changes
   before_save :create_doc, on: :create
+  before_save :tag_list_asign
   
   aasm column: :status do
     state :on_revision, initial: true
@@ -69,7 +71,7 @@ class Document < ActiveRecord::Base
   end
   
   # Restrictions
-  validates :name, :code, :status, :version, presence: true
+  validates :name, :code, :status, :version, :organization_id, presence: true
   validates :name, :code, :version, length: { maximum: 255 }, allow_nil: true,
     allow_blank: true
   validates :code, uniqueness: { scope: :organization_id, case_sensitive: false },
@@ -99,7 +101,7 @@ class Document < ActiveRecord::Base
   
   def initialize(attributes = {}, options = {})
     super
-    
+
     if self.parent
       self.parent.attributes.slice(*self.class.accessible_attributes).each do |a, v|
         self.send("#{a}=", v) if self.send(a).blank?
@@ -154,17 +156,23 @@ class Document < ActiveRecord::Base
   def tag_list
     self.tags.map(&:to_s).join(',')
   end
-  
+
   def tag_list=(tags)
-    tags = tags.to_s.split(/\s*,\s*/).reject(&:blank?)
-    
-    # Remove the removed =)
-    self.tags.delete *self.tags.reject { |t| tags.include?(t.name) }
-    
-    # Add or create and add the new ones
-    tags.each do |tag|
-      unless self.tags.map(&:name).include?(tag)
-        self.tags << Tag.all_by_name(tag).first_or_create!(name: tag)
+    self.tag_list_cache = tags.to_s.split(/\s*,\s*/).reject(&:blank?)
+  end
+  
+  def tag_list_asign
+    if self.tag_list_cache
+      # Remove the removed =)
+      self.tags.delete *self.tags.reject { |t| self.tag_list_cache.include?(t.name) }
+
+      # Add or create and add the new ones
+      self.tag_list_cache.each do |tag|
+        unless self.tags.map(&:name).include?(tag)
+          self.tags << Tag.where(
+            name: tag, organization_id: self.organization_id
+          ).first_or_create!
+        end
       end
     end
   end

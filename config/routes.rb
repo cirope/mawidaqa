@@ -6,19 +6,6 @@ MawidaQA::Application.routes.draw do
       resources :users
     end
 
-    resources :tags, only: [ :index ] do
-      resources :documents, only: [ :index ]
-    end
-  
-    resources :documents do
-      member do
-        put :revise
-        put :reject
-        put :approve
-        get :create_revision
-      end
-    end
-
     devise_for :users
   
     resources :users do
@@ -30,7 +17,6 @@ MawidaQA::Application.routes.draw do
   
     match 'private/:path', to: 'files#download', constraints: { path: /.+/ }
   
-    #root to: 'documents#index'
     root to: redirect('/users/sign_in')
   end
 
@@ -41,10 +27,6 @@ MawidaQA::Application.routes.draw do
       resources :users
     end
 
-    resources :tags, only: [ :index ] do
-      resources :documents, only: [ :index ]
-    end
-  
     resources :documents do
       member do
         put :revise
@@ -52,6 +34,10 @@ MawidaQA::Application.routes.draw do
         put :approve
         get :create_revision
       end
+    end
+
+    resources :tags, only: [ :index ] do
+      resources :documents, only: [ :index ]
     end
 
     devise_for :users
@@ -65,7 +51,6 @@ MawidaQA::Application.routes.draw do
   
     match 'private/:path', to: 'files#download', constraints: { path: /.+/ }
   
-    #root to: 'documents#index'
     root to: redirect('/users/sign_in')
   end
 

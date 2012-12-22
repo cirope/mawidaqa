@@ -2,10 +2,10 @@ class TagsController < ApplicationController
   before_filter :authenticate_user!
   
   check_authorization
-  load_and_authorize_resource
+  load_and_authorize_resource through: :current_organization
   
   def index
-    @tags = @tags.all_by_name(params[:q]).limit(10)
+    @tags = @tags.where("#{Tag.table_name}.name ILIKE ?", "#{params[:q]}%").limit(10)
     
     respond_to do |format|
       format.json { render json: @tags }

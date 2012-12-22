@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_filter :load_current_user, only: [:edit_profile, :update_profile]
   
   check_authorization
-  load_and_authorize_resource through: :current_institution, shallow: true
+  load_and_authorize_resource through: :current_organization, shallow: true
   
   # GET /users
   # GET /users.json

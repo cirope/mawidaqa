@@ -7,13 +7,15 @@ class Tag < ActiveRecord::Base
   default_scope order('name ASC')
   
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name
+  attr_accessible :name, :organization_id
   
   # Validations
-  validates :name, presence: true, uniqueness: { case_sensitive: false },
+  validates :name, :organization_id, presence: true
+  validates :name, uniqueness: { scope: :organization_id, case_sensitive: false },
     length: { maximum: 255 }
   
   # Relations
+  belongs_to :organization
   has_and_belongs_to_many :documents
   
   def to_s
@@ -26,9 +28,5 @@ class Tag < ActiveRecord::Base
   
   def as_json(options = nil)
     super({ only: [:name] }.merge(options || {}))
-  end
-  
-  def self.all_by_name(name)
-    where('name ILIKE ?', "#{name}%")
-  end
+  end  
 end

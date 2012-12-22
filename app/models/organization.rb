@@ -12,14 +12,13 @@ class Organization < ActiveRecord::Base
   default_scope order("#{table_name}.name ASC")
 
   #callbacks
-  before_validation :downcase_identification
   before_save :create_folder, on: :create
 
   #Validations
   validates :name, :identification, presence: true
   validates :name, :identification, length: { maximum: 255 }, allow_nil: true,
     allow_blank: true
-  validates :identification, format: { with: /\A[a-z\d]+(-[a-z\d]+)*\z/i },
+  validates :identification, format: { with: /\A[a-z\d]+(-[a-z\d]+)*\z/ },
     allow_nil: true, allow_blank: true
   validates :identification, uniqueness: { case_sensitive: false },
     allow_nil: true, allow_blank: true
@@ -30,7 +29,7 @@ class Organization < ActiveRecord::Base
   has_many :documents, dependent: :destroy
   has_many :workers, dependent: :destroy, class_name: 'Job'
   has_many :users, through: :workers
-  has_many :tags, through: :documents
+  has_many :tags, dependent: :destroy
 
   def to_s
     self.name
@@ -65,11 +64,5 @@ class Organization < ActiveRecord::Base
 
   def self.filtered_list(query)
     query.present? ? magick_search(query) : scoped
-  end
-
-  private
-
-  def downcase_identification
-    self.identification.try(:downcase!)
   end
 end

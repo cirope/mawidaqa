@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121213174152) do
+ActiveRecord::Schema.define(:version => 20121217203551) do
 
   create_table "changes", :force => true do |t|
     t.text     "content",                     :null => false
@@ -103,13 +103,15 @@ ActiveRecord::Schema.define(:version => 20121213174152) do
   add_index "organizations", ["name"], :name => "index_organizations_on_name"
 
   create_table "tags", :force => true do |t|
-    t.string   "name",                        :null => false
-    t.integer  "lock_version", :default => 0, :null => false
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.string   "name",                           :null => false
+    t.integer  "lock_version",    :default => 0, :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.integer  "organization_id"
   end
 
   add_index "tags", ["name"], :name => "index_tags_on_name"
+  add_index "tags", ["organization_id"], :name => "index_tags_on_organization_id"
 
   create_table "users", :force => true do |t|
     t.string   "name",                                   :null => false

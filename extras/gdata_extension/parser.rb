@@ -58,6 +58,7 @@ module GdataExtension
 
     def self.resource_url(resource_xml)
       xml = REXML::Document.new(resource_xml)
+
       xml.root.elements['content'].try(:attribute, :src).try(:value)
     end
     
