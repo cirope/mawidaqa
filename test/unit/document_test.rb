@@ -3,14 +3,13 @@ require 'test_helper'
 class DocumentTest < ActiveSupport::TestCase
   setup do
     @document = Fabricate(:document)
+    @organization = @document.organization
   end
   
   test 'create' do
-    @organization = Fabricate(:organization)
-
     assert_difference ['Document.count', 'Version.count'] do
       @document = Document.create(
-        Fabricate.attributes_for(:basic_document).merge( { organization_id: @organization.id } )
+        Fabricate.attributes_for(:basic_document, organization_id: @organization.id)
       )
     end
     
@@ -85,11 +84,15 @@ class DocumentTest < ActiveSupport::TestCase
   
   test 'validates only one status can be on_revision' do
     assert_difference 'Document.count', 2 do
-      @document = Fabricate(:document, status: 'approved')
-      @document.children.create(Fabricate.attributes_for(:document))
+      @document = Fabricate(:document, status: 'approved', organization_id: @organization.id)
+      @document.children.create(
+        Fabricate.attributes_for(:document, organization_id: @organization.id)
+      )
     end
     
-    document = @document.children.build(Fabricate.attributes_for(:document))
+    document = @document.children.build(
+      Fabricate.attributes_for(:document, organization_id: @organization.id)
+    )
     
     assert document.invalid?
     assert_equal 1, document.errors.size
@@ -137,8 +140,10 @@ class DocumentTest < ActiveSupport::TestCase
   end
   
   test 'mark related as obsolete' do
-    @document = Fabricate(:document) {
-      parent_id { Fabricate(:document, status: 'approved').id }
+    parent_doc = Fabricate(:document, status: 'approved', organization_id: @organization.id)
+
+    @document = Fabricate(:document, organization_id: @organization.id) {
+      parent_id { parent_doc.id }
     }
     
     assert @document.parent.approved?
@@ -148,11 +153,11 @@ class DocumentTest < ActiveSupport::TestCase
   end
   
   test 'is on revision' do
-    @document = Fabricate(:document, status: 'approved')
+    @document = Fabricate(:document, status: 'approved', organization_id: @organization.id)
     
     assert !@document.is_on_revision?
     
-    @document.children.create(Fabricate.attributes_for(:document))
+    @document.children.create(Fabricate.attributes_for(:document, organization_id: @organization.id))
     
     assert @document.is_on_revision?
   end
@@ -169,11 +174,11 @@ class DocumentTest < ActiveSupport::TestCase
     assert @document.on_revision?
     assert !@document.may_create_revision?
     
-    @document = Fabricate(:document, status: 'approved')
+    @document = Fabricate(:document, status: 'approved', organization_id: @organization.id)
     
     assert @document.may_create_revision?
     
-    @document.children.create(Fabricate.attributes_for(:document))
+    @document.children.create(Fabricate.attributes_for(:document, organization_id: @organization.id))
     
     assert !@document.may_create_revision?
   end

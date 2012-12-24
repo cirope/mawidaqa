@@ -5,15 +5,15 @@ class Document < ActiveRecord::Base
   
   has_magick_columns 'documents.name' => :string, code: :string
   
-  acts_as_nested_set
-  
+  acts_as_nested_set scope: :organization_id
+
   # Scopes
   default_scope order("#{table_name}.code ASC")
   scope :approved, where("#{table_name}.status = ?", 'approved')
   scope :on_revision_or_revised, where(
     [
       "#{table_name}.status = :on_revision",
-      "#{table_name}.status = :revised",
+      "#{table_name}.status = :revised"
     ].join(' OR '),
     on_revision: 'on_revision', revised: 'revised'
   )
@@ -48,7 +48,7 @@ class Document < ActiveRecord::Base
     state :approved
     state :revised
     state :obsolete
-    
+
     event :revise, before: :retrieve_revision_url do
       transitions to: :revised, from: :on_revision
     end
@@ -91,7 +91,7 @@ class Document < ActiveRecord::Base
   has_many :changes, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
   has_and_belongs_to_many :tags
-  
+
   accepts_nested_attributes_for :comments, reject_if: ->(attributes) {
     ['content'].all? { |a| attributes[a].blank? }
   }
@@ -142,11 +142,11 @@ class Document < ActiveRecord::Base
   end
   
   def is_on_revision?
-    self.children.on_revision_or_revised.count > 0
+    self.children.where(organization_id: self.organization_id).on_revision_or_revised.count > 0
   end
   
   def current_revision
-    self.children.on_revision_or_revised.first
+    self.children.where(organization_id: self.organization_id).on_revision_or_revised.first
   end
   
   def may_create_revision?

@@ -125,7 +125,7 @@ class DocumentsControllerTest < ActionController::TestCase
     
     assert_no_difference 'Document.count' do
       put :update, id: @document, document: Fabricate.attributes_for(
-        :document, name: 'Upd'
+        :document, name: 'Upd', organization_id: @organization.id
       )
     end
     
