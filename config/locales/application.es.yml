@@ -17,6 +17,9 @@
       document:
         one: 'Documento'
         other: 'Documentos'
+      organization:
+        one: 'Organización'
+        other: 'Organizaciones' 
       tag:
         one: 'Etiqueta'
         other: 'Etiquetas'
@@ -42,6 +45,14 @@
         children:
           one: 'Bifuración'
           other: 'Bifurcaciones'
+      job:
+        job: 'Trabajo'
+        organization_id: 'Organización'
+        user_id: 'Usuario'
+      organization:
+        name: 'Nombre'
+        identification: 'Identificación'
+        workers: 'Personal'
       tag:
         name: 'Nombre'
       user:
@@ -50,6 +61,9 @@
         email: 'Correo'
         password: 'Contraseña'
         password_confirmation: 'Confirmación'
+        jobs:
+          one: 'Trabajo'
+          other: 'Trabajos'
         roles:
           one: 'Perfil'
           other: 'Perfiles'
@@ -74,7 +88,9 @@
   menu:
     actions:
       logout: 'Salir de la aplicación'
+    dashboard: 'Tablero'
     documents: 'Documentos'
+    organizations: 'Organizaciones'
     users: 'Usuarios'
     
   messages:
@@ -90,6 +106,20 @@
       empty_search:
         title:
           html: 'La búsqueda de <span class="label label-inverse">%{search}</span> no obtuvo ningún resultado.'
+    jobs:
+      types:
+        approver: 'Aprobador'
+        reviewer: 'Revisor'
+        author:   'Autor'
+    launchpad:
+      index_title: 'Organizaciones'
+    dashboard:
+      generic_title: 'Tablero'
+      show_documents: 'Ver documentos'
+      footer:
+        html: 'Ingresa al contenido del dictado haciendo <strong>clic en su nombre</strong>. No es necesario completar todo en una sola visita.'
+      greetings:
+        html: 'Hola %{user}<small>, este es tu resumen en <strong>%{organization}</strong></small>'
     documents:
       index_title: 'Listado de documentos'
       show_title: 'Detalle de documento'
@@ -100,6 +130,7 @@
       stale_object_error: 'El documento no pudo ser actualizado, intente nuevamente.'
       empty_index:
         html: 'No se ha creado ningún documento hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo documento</span>'
+      new: 'Nuevo documento'
       non_existent: 'Archivo inexistente'
       approved: 'El documento se aprobó.'
       revised: 'El documento se revisó.'
@@ -127,6 +158,22 @@
         revised: 'Revisado'
         obsolete: 'Obsoleto'
         rejected: 'Rechazado'
+    organizations:
+      index_title: 'Listado de organizaciones'
+      show_title: 'Detalle de organización'
+      new_title: 'Nueva organización'
+      edit_title: 'Modificar organización'
+      correctly_created: 'Organización agregada correctamente.'
+      correctly_updated: 'Organización actualizada correctamente.'
+      stale_object_error: 'La organización no pudo ser actualizada, intente nuevamente.'
+      empty_index:
+        html: 'No se ha creado ninguna organización hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva organización</span>'
+      new: 'Nueva organización'
+      worker_role:
+        html: '%{worker} es %{role}'
+      hints:
+        identification:
+          html: 'Ejemplo: <strong>nombre-organización</strong>.%{domain}'
     users:
       index_title: 'Listado de usuarios'
       show_title: 'Detalle de usuario'
@@ -138,12 +185,13 @@
       empty_index:
         html: 'No se ha creado ningún usuario hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo usuario</span>'
       new: 'Nuevo usuario'
+      new_job: 'Agregar nuevo trabajo'
       update_profile: 'Actualizar datos'
       update_password: 'Actualizar contraseña'
       profile_correctly_updated: 'Actualizaste tus datos correctamente.'
       edit_profile: 'Editar perfil'
+      job_role:
+        html: '%{role} de %{organization}'
       roles:
         admin: 'Administrador'
-        approver: 'Aprobador'
         regular: 'Normal'
-        reviewer: 'Revisor'

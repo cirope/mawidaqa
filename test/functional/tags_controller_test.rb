@@ -2,11 +2,18 @@ require 'test_helper'
 
 class TagsControllerTest < ActionController::TestCase
   setup do
-    sign_in Fabricate(:user)
+    @organization = Fabricate(:organization)
+    user = Fabricate(:user, role: :regular)
+    job = Fabricate(
+      :job, job: 'author', user_id: user.id, organization_id: @organization.id
+    )
+    @request.host = "#{@organization.identification}.lvh.me"
+
+    sign_in user
   end
   
   test 'should get index' do
-    2.times { Fabricate(:tag) { name { "Test #{sequence(:tag_name)}" } } }
+    2.times { Fabricate(:tag, organization_id: @organization.id) { name { "Test #{sequence(:tag_name)}" } } }
     
     get :index, q: 'test', format: 'json'
     assert_response :success

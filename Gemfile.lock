@@ -84,6 +84,7 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.7.5)
+    libv8 (3.11.8.4)
     libwebsocket (0.1.7.1)
       addressable
       websocket
@@ -213,13 +214,13 @@ DEPENDENCIES
   faker
   gdata_19
   jquery-rails
+  libv8
   magick_columns
   minitest
   newrelic_rpm
   paper_trail
   pg
   rails (= 3.2.9)
-  rake
   rocket_tag
   role_model
   sass-rails

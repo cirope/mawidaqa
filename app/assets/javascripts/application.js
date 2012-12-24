@@ -17,8 +17,15 @@
 //= require jquery/tag-it
 //= require twitter/bootstrap
 //= require common
+//= require autocomplete
+//= require dynamic_form
+//= require effect_helper
 //= require date_pickers
 //= require documents
 //= require files
 //= require mobile
+//= require dashboard
+//= require errors
+//= require organizations
+//= require launchpad
 //= require users

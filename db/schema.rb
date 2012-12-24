@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120604134643) do
+ActiveRecord::Schema.define(:version => 20121217203551) do
 
   create_table "changes", :force => true do |t|
     t.text     "content",                     :null => false
@@ -52,11 +52,13 @@ ActiveRecord::Schema.define(:version => 20120604134643) do
     t.integer  "depth"
     t.text     "xml_reference"
     t.text     "revision_url"
+    t.integer  "organization_id"
   end
 
   add_index "documents", ["code"], :name => "index_documents_on_code"
   add_index "documents", ["current"], :name => "index_documents_on_current"
   add_index "documents", ["name"], :name => "index_documents_on_name"
+  add_index "documents", ["organization_id"], :name => "index_documents_on_organization_id"
   add_index "documents", ["parent_id"], :name => "index_documents_on_parent_id"
   add_index "documents", ["status"], :name => "index_documents_on_status"
 
@@ -67,14 +69,49 @@ ActiveRecord::Schema.define(:version => 20120604134643) do
 
   add_index "documents_tags", ["document_id", "tag_id"], :name => "index_documents_tags_on_document_id_and_tag_id", :unique => true
 
+  create_table "jobs", :force => true do |t|
+    t.string   "job",                            :null => false
+    t.integer  "lock_version",    :default => 0, :null => false
+    t.integer  "user_id",                        :null => false
+    t.integer  "organization_id",                :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "jobs", ["organization_id"], :name => "index_jobs_on_organization_id"
+  add_index "jobs", ["user_id"], :name => "index_jobs_on_user_id"
+
+  create_table "logins", :force => true do |t|
+    t.string   "ip",         :null => false
+    t.text     "user_agent"
+    t.datetime "created_at", :null => false
+    t.integer  "user_id",    :null => false
+  end
+
+  add_index "logins", ["user_id"], :name => "index_logins_on_user_id"
+
+  create_table "organizations", :force => true do |t|
+    t.string   "name",                          :null => false
+    t.string   "identification"
+    t.text     "xml_reference"
+    t.integer  "lock_version",   :default => 0, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "organizations", ["identification"], :name => "index_organizations_on_identification", :unique => true
+  add_index "organizations", ["name"], :name => "index_organizations_on_name"
+
   create_table "tags", :force => true do |t|
-    t.string   "name",                        :null => false
-    t.integer  "lock_version", :default => 0, :null => false
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.string   "name",                           :null => false
+    t.integer  "lock_version",    :default => 0, :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.integer  "organization_id"
   end
 
   add_index "tags", ["name"], :name => "index_tags_on_name"
+  add_index "tags", ["organization_id"], :name => "index_tags_on_organization_id"
 
   create_table "users", :force => true do |t|
     t.string   "name",                                   :null => false

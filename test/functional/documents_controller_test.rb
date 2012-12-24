@@ -2,12 +2,18 @@ require 'test_helper'
 
 class DocumentsControllerTest < ActionController::TestCase
   setup do
-    @document = Fabricate(:document)
+    @organization = Fabricate(:organization)
+    @document = Fabricate(:document, organization_id: @organization.id)
+    @user = Fabricate(:user, role: :regular)
+    job = Fabricate(
+      :job, job: 'author', user_id: @user.id, organization_id: @organization.id
+    )
+    @request.host = "#{@organization.identification}.lvh.me"
+
+    sign_in @user
   end
 
   test 'should get index' do
-    sign_in Fabricate(:user)
-    
     get :index
     assert_response :success
     assert_not_nil assigns(:documents)
@@ -16,36 +22,37 @@ class DocumentsControllerTest < ActionController::TestCase
   end
   
   test 'should get filtered index' do
-    sign_in Fabricate(:user)
-    
-    Fabricate(:document, name: 'excluded_from_filter')
-    3.times { Fabricate(:document, name: 'in_filtered_index') }
+    Fabricate(:document, name: 'excluded_from_filter', organization_id: @organization.id)
+    3.times { Fabricate(:document, name: 'in_filtered_index', organization_id: @organization.id) }
     
     get :index, q: 'filtered_index'
     assert_response :success
     assert_not_nil assigns(:documents)
     assert_equal 3, assigns(:documents).size
     assert assigns(:documents).all? { |d| d.to_s =~ /filtered_index/ }
-    assert_not_equal assigns(:documents).size, Document.count
+    assert_not_equal assigns(:documents).size, @organization.documents.count
     assert_select '#unexpected_error', false
     assert_template 'documents/index'
   end
   
   test 'get index with tag' do
-    tag_with = Fabricate(:tag)
-    tag_without = Fabricate(:tag)
+    user = Fabricate(:user, role: :regular)
+    job = Fabricate(
+      :job, job: 'author', user_id: user.id, organization_id: @organization.id
+    ) 
+    sign_in user
+
+    tag_with = Fabricate(:tag, organization_id: @organization.id)
+    tag_without = Fabricate(:tag, organization_id: @organization.id)
     
-    3.times { Fabricate(:document) { tags(count: 1) { tag_with } } }
-    Fabricate(:document)
-    
-    sign_in Fabricate(:user)
+    3.times { Fabricate(:document, organization_id: @organization.id) { tags(count: 1) { tag_with } } }
     
     get :index, tag_id: tag_with.to_param
     assert_response :success
     assert_not_nil assigns(:documents)
     assert_equal 3, assigns(:documents).size
     assert assigns(:documents).all? { |d| d.tags.include?(tag_with) }
-    assert_not_equal assigns(:documents).size, Document.count
+    assert_not_equal assigns(:documents).size, @organization.documents.count
     assert_select '#unexpected_error', false
     assert_template 'documents/index'
     
@@ -58,7 +65,7 @@ class DocumentsControllerTest < ActionController::TestCase
   end
 
   test 'should get new' do
-    sign_in Fabricate(:user)
+    sign_in @user
     
     get :new
     assert_response :success
@@ -68,7 +75,7 @@ class DocumentsControllerTest < ActionController::TestCase
   end
 
   test 'should create document' do
-    sign_in Fabricate(:user)
+    sign_in @user
     
     assert_difference('Document.count') do
       post :create, document: Fabricate.attributes_for(:document)
@@ -78,7 +85,7 @@ class DocumentsControllerTest < ActionController::TestCase
   end
 
   test 'should show document' do
-    sign_in Fabricate(:user)
+    sign_in @user
     
     get :show, id: @document
     assert_response :success
@@ -88,9 +95,13 @@ class DocumentsControllerTest < ActionController::TestCase
   end
   
   test 'should show document with relations' do
-    sign_in Fabricate(:user)
+    user = Fabricate(:user, role: :regular)
+    job = Fabricate(
+      :job, job: 'author', user_id: user.id, organization_id: @organization.id
+    )
+    sign_in user
     
-    @document = Fabricate(:document_with_relations)
+    @document = Fabricate(:document_with_relations, organization_id: @organization.id)
     
     get :show, id: @document
     assert_response :success
@@ -100,7 +111,7 @@ class DocumentsControllerTest < ActionController::TestCase
   end
 
   test 'should get edit' do
-    sign_in Fabricate(:user)
+    sign_in @user
     
     get :edit, id: @document
     assert_response :success
@@ -110,11 +121,11 @@ class DocumentsControllerTest < ActionController::TestCase
   end
 
   test 'should update document' do
-    sign_in Fabricate(:user)
+    sign_in @user
     
     assert_no_difference 'Document.count' do
       put :update, id: @document, document: Fabricate.attributes_for(
-        :document, name: 'Upd'
+        :document, name: 'Upd', organization_id: @organization.id
       )
     end
     
@@ -123,7 +134,7 @@ class DocumentsControllerTest < ActionController::TestCase
   end
 
   test 'should destroy document' do
-    sign_in Fabricate(:user)
+    sign_in @user
     
     assert_difference('Document.count', -1) do
       delete :destroy, id: @document
@@ -133,9 +144,13 @@ class DocumentsControllerTest < ActionController::TestCase
   end
   
   test 'should approve document' do
-    sign_in Fabricate(:user)
+    user = Fabricate(:user, role: :regular)
+    job = Fabricate(
+      :job, job: 'approver', user_id: user.id, organization_id: @organization.id
+    )
+    sign_in user
     
-    document = Fabricate(:document)
+    document = Fabricate(:document, organization_id: @organization.id)
     
     assert document.revise!
     
@@ -146,11 +161,13 @@ class DocumentsControllerTest < ActionController::TestCase
   end
   
   test 'should not approve document if is not allowed to' do
-    sign_in Fabricate(:user) {
-      roles { User.valid_roles.map(&:to_s) - ['approver', 'admin'] }
-    }
+    user = Fabricate(:user, role: :regular)
+    job = Fabricate(
+      :job, job: 'author', user_id: user.id, organization_id: @organization.id
+    )
+    sign_in user
     
-    document = Fabricate(:document)
+    document = Fabricate(:document, organization_id: @organization.id)
     
     assert document.revise!
     
@@ -161,9 +178,13 @@ class DocumentsControllerTest < ActionController::TestCase
   end
   
   test 'should revise document' do
-    sign_in Fabricate(:user)
+    user = Fabricate(:user, role: :regular)
+    job = Fabricate(
+      :job, job: 'reviewer', user_id: user.id, organization_id: @organization.id
+    )
+    sign_in user
     
-    document = Fabricate(:document)
+    document = Fabricate(:document, organization_id: @organization.id)
     
     put :revise, id: document
     
@@ -172,11 +193,13 @@ class DocumentsControllerTest < ActionController::TestCase
   end
   
   test 'should not revise document if is not allowed to' do
-    sign_in Fabricate(:user) {
-      roles { User.valid_roles.map(&:to_s) - ['reviewer', 'admin'] }
-    }
+    user = Fabricate(:user, role: :regular)
+    job = Fabricate(
+      :job, job: 'author', user_id: user.id, organization_id: @organization.id
+    )
+    sign_in user
     
-    document = Fabricate(:document)
+    document = Fabricate(:document, organization_id: @organization.id)
     
     put :revise, id: document
     
@@ -185,9 +208,13 @@ class DocumentsControllerTest < ActionController::TestCase
   end
   
   test 'should reject document' do
-    sign_in Fabricate(:user)
+    user = Fabricate(:user, role: :regular)
+    job = Fabricate(
+      :job, job: 'approver', user_id: user.id, organization_id: @organization.id
+    )
+    sign_in user
     
-    document = Fabricate(:document, status: 'revised')
+    document = Fabricate(:document, status: 'revised', organization_id: @organization.id)
     
     put :reject, id: document
     
@@ -196,9 +223,13 @@ class DocumentsControllerTest < ActionController::TestCase
   end
   
   test 'should not reject document if is not allowed to' do
-    sign_in Fabricate(:user, role: :regular)
+    user = Fabricate(:user, role: :regular)
+    job = Fabricate(
+      :job, job: 'author', user_id: user.id, organization_id: @organization.id
+    )
+    sign_in user
     
-    document = Fabricate(:document, status: 'revised')
+    document = Fabricate(:document, status: 'revised', organization_id: @organization.id)
     
     put :reject, id: document
     
@@ -207,8 +238,13 @@ class DocumentsControllerTest < ActionController::TestCase
   end
   
   test 'should get create revision' do
-    sign_in Fabricate(:user)
-    @document = Fabricate(:document, status: 'approved')
+    user = Fabricate(:user, role: :regular)
+    job = Fabricate(
+      :job, job: 'reviewer', user_id: user.id, organization_id: @organization.id
+    )
+    sign_in user
+
+    @document = Fabricate(:document, status: 'approved', organization_id: @organization.id)
     
     get :create_revision, id: @document
     assert_response :success
@@ -218,8 +254,13 @@ class DocumentsControllerTest < ActionController::TestCase
   end
   
   test 'should get _create_ revision from existing revision' do
-    sign_in Fabricate(:user)
-    @document = Fabricate(:document, status: 'approved')
+    user = Fabricate(:user, role: :regular)
+    job = Fabricate(
+      :job, job: 'reviewer', user_id: user.id, organization_id: @organization.id
+    )
+    sign_in user
+    
+    @document = Fabricate(:document, status: 'approved', organization_id: @organization.id)
     new_revision = Document.on_revision_with_parent(@document.id)
     
     assert new_revision.new_record?

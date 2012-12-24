@@ -22,7 +22,8 @@ gem 'newrelic_rpm'
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
-  gem 'therubyracer', require: false
+  gem 'libv8'
+  gem 'therubyracer'
   gem 'uglifier'
 end
 
@@ -31,7 +32,6 @@ group :development do
 end
 
 group :test do
-  gem 'rake' # Travis require this
   gem 'turn', require: false
   gem 'minitest', require: false
   gem 'capybara', require: false

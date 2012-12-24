@@ -33,6 +33,9 @@ class ActionDispatch::IntegrationTest
   
   setup do
     Capybara.default_driver = :selenium
+    Capybara.server_port = '54163'
+    Capybara.app_host = 'http://admin.lvh.me:54163'
+    Capybara.default_wait_time = ENV['TRAVIS'] ? 4 : 2
   end
 
   teardown do
@@ -43,30 +46,48 @@ class ActionDispatch::IntegrationTest
     # Revert Capybara.current_driver to Capybara.default_driver
     Capybara.use_default_driver
   end
-  
-  def assert_page_has_no_errors!
-    assert page.has_no_css?('#unexpected_error')
-  end
-  
-  def login
-    user = Fabricate(:user, password: '123456')
+   
+  def login(options = {})
+    clean_password = options[:clean_password] || '123456'
+    user = options[:user] || Fabricate(:user, password: clean_password)
+    expected_path = options[:expected_path]
+    expected_path ||= user.is?(:admin) ? organizations_path : dashboard_path
     
     visit new_user_session_path
     
     assert_page_has_no_errors!
     
     fill_in 'user_email', with: user.email
-    fill_in 'user_password', with: '123456'
+    fill_in 'user_password', with: clean_password
     
-    find('.btn.btn-primary.submit').click
+    find('.btn-primary.submit').click
     
-    assert_equal root_path, current_path
+    assert_equal expected_path, current_path
     
     assert_page_has_no_errors!
-    assert page.has_css?('footer.alert')
+    assert page.has_css?('.alert')
     
     within 'footer.alert' do
       assert page.has_content?(I18n.t('devise.sessions.signed_in'))
     end
+  end
+
+  def login_into_organization(options = {})
+    organization = options[:organization] || Fabricate(:organization)
+    Capybara.app_host = "http://#{organization.identification}.lvh.me:54163"
+
+    user = options[:user] || Fabricate(:user, password: '123456', roles: [:normal])
+      job = Fabricate(
+        :job, user_id: user.id, organization_id: organization.id, job: options[:as] || 'author'
+      )
+      expected_path = url_for(
+        controller: 'dashboard', action: job.job, only_path: true
+      )
+
+      login user: user, clean_password: '123456', expected_path: expected_path
+  end
+
+  def assert_page_has_no_errors!
+    assert page.has_no_css?('#unexpected_error')
   end
 end

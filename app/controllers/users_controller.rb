@@ -3,14 +3,14 @@ class UsersController < ApplicationController
   before_filter :load_current_user, only: [:edit_profile, :update_profile]
   
   check_authorization
-  load_and_authorize_resource
+  load_and_authorize_resource through: :current_organization, shallow: true
   
   # GET /users
   # GET /users.json
   def index
     @title = t 'view.users.index_title'
     @searchable = true
-    @users = @users.filtered_list(params[:q]).page(params[:page])
+    @users = @users.filtered_list(params[:q]).page(params[:page]).uniq('id')
 
     respond_to do |format|
       format.html # index.html.erb

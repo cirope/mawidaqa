@@ -3,11 +3,14 @@ require 'test_helper'
 class DocumentTest < ActiveSupport::TestCase
   setup do
     @document = Fabricate(:document)
+    @organization = @document.organization
   end
   
   test 'create' do
     assert_difference ['Document.count', 'Version.count'] do
-      @document = Document.create(Fabricate.attributes_for(:document))
+      @document = Document.create(
+        Fabricate.attributes_for(:basic_document, organization_id: @organization.id)
+      )
     end
     
     # create_doc callback
@@ -35,9 +38,10 @@ class DocumentTest < ActiveSupport::TestCase
     @document.code = ''
     @document.status = nil
     @document.version = ' '
+    @document.organization_id = nil
     
     assert @document.invalid?
-    assert_equal 4, @document.errors.size
+    assert_equal 5, @document.errors.size
     assert_equal [error_message_from_model(@document, :name, :blank)],
       @document.errors[:name]
     assert_equal [error_message_from_model(@document, :code, :blank)],
@@ -46,10 +50,12 @@ class DocumentTest < ActiveSupport::TestCase
       @document.errors[:status]
     assert_equal [error_message_from_model(@document, :version, :blank)],
       @document.errors[:version]
+    assert_equal [error_message_from_model(@document, :organization_id, :blank)],
+      @document.errors[:organization_id]
   end
   
   test 'validates unique attributes' do
-    new_document = Fabricate(:document)
+    new_document = Fabricate(:document, organization_id: @document.organization_id)
     @document.code = new_document.code
     
     assert @document.invalid?
@@ -78,11 +84,15 @@ class DocumentTest < ActiveSupport::TestCase
   
   test 'validates only one status can be on_revision' do
     assert_difference 'Document.count', 2 do
-      @document = Fabricate(:document, status: 'approved')
-      @document.children.create(Fabricate.attributes_for(:document))
+      @document = Fabricate(:document, status: 'approved', organization_id: @organization.id)
+      @document.children.create(
+        Fabricate.attributes_for(:document, organization_id: @organization.id)
+      )
     end
     
-    document = @document.children.build(Fabricate.attributes_for(:document))
+    document = @document.children.build(
+      Fabricate.attributes_for(:document, organization_id: @organization.id)
+    )
     
     assert document.invalid?
     assert_equal 1, document.errors.size
@@ -130,8 +140,10 @@ class DocumentTest < ActiveSupport::TestCase
   end
   
   test 'mark related as obsolete' do
-    @document = Fabricate(:document) {
-      parent_id { Fabricate(:document, status: 'approved').id }
+    parent_doc = Fabricate(:document, status: 'approved', organization_id: @organization.id)
+
+    @document = Fabricate(:document, organization_id: @organization.id) {
+      parent_id { parent_doc.id }
     }
     
     assert @document.parent.approved?
@@ -141,11 +153,11 @@ class DocumentTest < ActiveSupport::TestCase
   end
   
   test 'is on revision' do
-    @document = Fabricate(:document, status: 'approved')
+    @document = Fabricate(:document, status: 'approved', organization_id: @organization.id)
     
     assert !@document.is_on_revision?
     
-    @document.children.create(Fabricate.attributes_for(:document))
+    @document.children.create(Fabricate.attributes_for(:document, organization_id: @organization.id))
     
     assert @document.is_on_revision?
   end
@@ -162,26 +174,34 @@ class DocumentTest < ActiveSupport::TestCase
     assert @document.on_revision?
     assert !@document.may_create_revision?
     
-    @document = Fabricate(:document, status: 'approved')
+    @document = Fabricate(:document, status: 'approved', organization_id: @organization.id)
     
     assert @document.may_create_revision?
     
-    @document.children.create(Fabricate.attributes_for(:document))
+    @document.children.create(Fabricate.attributes_for(:document, organization_id: @organization.id))
     
     assert !@document.may_create_revision?
   end
   
   test 'read tag list' do
-    @document = Fabricate(:document) do
-      tags(count: 2) { |attrs, i| Fabricate(:tag, name: "Test #{i}") }
+    organization = Fabricate(:organization)
+
+    @document = Fabricate(:document, organization_id: organization.id) do
+      tags(count: 2) do |attrs, i| 
+        Fabricate(:tag, name: "Test #{i}", organization_id: organization.id) 
+      end
     end
     
     assert_equal 'Test 1,Test 2', @document.tag_list
   end
   
   test 'write tag list' do
-    @document = Fabricate(:document) do
-      tags(count: 1) { |attrs, i| Fabricate(:tag, name: 'Test') }
+    organization = Fabricate(:organization)
+
+    @document = Fabricate(:document, organization_id: organization.id) do
+      tags(count: 1) do |attrs, i| 
+        Fabricate(:tag, name: 'Test', organization_id: organization.id)
+      end
     end
     
     assert_difference ['Tag.count', '@document.tags.count'], 2 do

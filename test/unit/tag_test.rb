@@ -7,7 +7,9 @@ class TagTest < ActiveSupport::TestCase
   
   test 'create' do
     assert_difference ['Tag.count', 'Version.count'] do
-      @tag = Tag.create(Fabricate.attributes_for(:tag))
+      @tag = Tag.create(Fabricate.attributes_for(:basic_tag).merge( 
+        { organization_id: @tag.organization.id } )
+      )
     end
   end
   
@@ -29,15 +31,18 @@ class TagTest < ActiveSupport::TestCase
   
   test 'validates blank attributes' do
     @tag.name = ''
+    @tag.organization_id = nil
     
     assert @tag.invalid?
-    assert_equal 1, @tag.errors.size
+    assert_equal 2, @tag.errors.size
     assert_equal [error_message_from_model(@tag, :name, :blank)],
       @tag.errors[:name]
+    assert_equal [error_message_from_model(@tag, :organization_id, :blank)],
+      @tag.errors[:organization_id]
   end
   
   test 'validates unique attributes' do
-    new_tag = Fabricate(:tag)
+    new_tag = Fabricate(:tag, organization_id: @tag.organization_id)
     @tag.name = new_tag.name.upcase
     
     assert @tag.invalid?

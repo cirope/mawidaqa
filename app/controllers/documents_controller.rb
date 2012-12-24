@@ -4,14 +4,14 @@ class DocumentsController < ApplicationController
   before_filter :new_document_with_parent, only: [:create_revision]
   
   check_authorization
-  load_and_authorize_resource
-  
+  load_and_authorize_resource through: :current_organization
+
   # GET /documents
   # GET /documents.json
   def index
     @title = t 'view.documents.index_title'
     @searchable = true
-    @documents = @documents.filtered_list(params[:q]).page(params[:page])
+    @documents = @documents.filtered_list(params[:q]).page(params[:page]).uniq('id')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -138,10 +138,10 @@ class DocumentsController < ApplicationController
   end
   
   private
-  
+
   def load_tag
     @tag = Tag.find(params[:tag_id]) if params[:tag_id].present?
-    @documents = @tag ? @tag.documents : Document.scoped
+    @documents = current_organization.tags.find(@tag).documents if @tag
   end
   
   def new_document_with_parent
