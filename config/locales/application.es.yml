@@ -115,6 +115,7 @@
       index_title: 'Organizaciones'
     dashboard:
       generic_title: 'Tablero'
+      show_documents: 'Ver documentos'
       footer:
         html: 'Ingresa al contenido del dictado haciendo <strong>clic en su nombre</strong>. No es necesario completar todo en una sola visita.'
       greetings:
