@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(:version => 20121217203551) do
     t.integer  "depth"
     t.text     "xml_reference"
     t.text     "revision_url"
-    t.integer  "organization_id"
+    t.integer  "organization_id",                     :null => false
   end
 
   add_index "documents", ["code"], :name => "index_documents_on_code"
@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(:version => 20121217203551) do
     t.integer  "lock_version",    :default => 0, :null => false
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
-    t.integer  "organization_id"
+    t.integer  "organization_id",                :null => false
   end
 
   add_index "tags", ["name"], :name => "index_tags_on_name"
