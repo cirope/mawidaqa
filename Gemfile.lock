@@ -60,6 +60,9 @@ GEM
       execjs
     coffee-script-source (1.4.0)
     crack (0.3.1)
+    css_parser (1.2.6)
+      addressable
+      rdoc
     daemons (1.1.9)
     database_cleaner (0.9.1)
     devise (2.1.2)
@@ -141,6 +144,11 @@ GEM
     rdoc (3.12)
       json (~> 1.4)
     ref (1.0.2)
+    roadie (2.3.4)
+      actionmailer (> 3.0.0, < 3.3.0)
+      css_parser
+      nokogiri (>= 1.4.4)
+      sprockets
     rocket_tag (0.5.6)
       activerecord (>= 3.2.0)
       squeel (~> 1.0.0)
@@ -221,6 +229,7 @@ DEPENDENCIES
   paper_trail
   pg
   rails (= 3.2.9)
+  roadie
   rocket_tag
   role_model
   sass-rails

@@ -58,6 +58,9 @@ module MawidaQA
     
     # Enable the Identity Map
     config.active_record.identity_map = true
+
+    # Defaul devise emails layout
+    config.to_prepare { Devise::Mailer.layout 'notifier_mailer' }
     
     # Fabrication configuration
     config.generators do |g|

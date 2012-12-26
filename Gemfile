@@ -16,6 +16,7 @@ gem 'gdata_19', require: 'gdata'
 gem 'paper_trail'
 gem 'magick_columns'
 gem 'validates_timeliness'
+gem 'roadie'
 gem 'capistrano'
 gem 'newrelic_rpm'
 
