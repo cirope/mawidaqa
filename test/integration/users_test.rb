@@ -39,7 +39,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     assert page.has_css?('#jobs fieldset:nth-child(2)')
     
     # Must be removed before the next search, forcing the new "creation"
-    page.execute_script("$('.ui-autocomplete').remove()")
+    page.execute_script("$('.ui-autocomplete').html('')")
     
     organization = Fabricate(:organization)
     
