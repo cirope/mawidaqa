@@ -14,8 +14,7 @@
         <tbody>
           <% @organizations.each do |organization| %>
             <tr>
-              <td><%= link_to_if current_user.has_job_in?(organization), organization, root_url(subdomain: organization.identification) %></td>
-              <td><%= link_to_show organization if can? :read, organization %></td>
+              <td><%= link_to_if current_user.has_job_in?(organization), organization, organization_url(organization) %></td>
               <td><%= link_to_edit edit_organization_path(organization) if can? :update, organization %></td>
               <td><%= link_to_destroy organization if can? :destroy, organization %></td>
             </tr>
