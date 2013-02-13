@@ -1,4 +1,4 @@
-window.Document =
+@Document =
   resizeIFrame: ->
     height = $(window).height()
     
@@ -9,10 +9,13 @@ window.Document =
     
     $('iframe').height(height - 25)
 
-jQuery ($)->
-  if $('#c_documents').length > 0
-    Document.resizeIFrame()
-  
+new Rule
+  condition: -> $('#c_documents').length
+  load: -> Document.resizeIFrame()
+
+new Rule
+  condition: -> $('#document_tag_list').length
+  load: ->
     $('#document_tag_list').tagit
       allowSpaces: true,
       removeConfirmation: true,
@@ -21,3 +24,5 @@ jQuery ($)->
           showChoices $.map(data, (t)-> t.name)
     
     $(window).on 'resize', Document.resizeIFrame
+  unload: ->
+    $(window).off 'resize', Document.resizeIFrame
