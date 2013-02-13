@@ -2,6 +2,7 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
+require 'sidekiq/testing/inline'
 
 class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
@@ -65,9 +66,9 @@ class ActionDispatch::IntegrationTest
     assert_equal expected_path, current_path
     
     assert_page_has_no_errors!
-    assert page.has_css?('.alert')
+    assert page.has_css?('.alert.alert-info')
     
-    within 'footer.alert' do
+    within '.alert.alert-info' do
       assert page.has_content?(I18n.t('devise.sessions.signed_in'))
     end
   end

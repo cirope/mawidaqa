@@ -69,7 +69,7 @@ module ApplicationHelper
       )
     end
 
-    result + page_entries
+    content_tag :div, result + page_entries, class: 'pagination-container'
   end
   
   def document_tag_list

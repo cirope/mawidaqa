@@ -25,7 +25,7 @@
               controllers: ['organizations']
             ) if can?(:read, Organization) && !current_organization %>
           </ul>
-          <%= render partial: 'shared/nav_search' if @searchable %>
+          <%= render partial: 'shared/nav_search' %>
           <ul class="nav pull-right">
             <li>
               <%= link_to(

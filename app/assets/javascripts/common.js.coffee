@@ -1,9 +1,8 @@
-window.State = {
+window.State =
   showMessages: [],
   sessionExpire: false
-}
 
-window.Helper = {
+window.Helper =
   showMessage: (message, expired)->
     $('#time_left').find('h4').html(message)
     $('#time_left:not(:visible)').stop().fadeIn()
@@ -11,32 +10,33 @@ window.Helper = {
     State.sessionExpired = State.sessionExpired || expired
     
     $('iframe').remove() if State.sessionExpired
-}
 
-jQuery ($)->
-  # For browsers with no autofocus support
-  $('*[autofocus]:not([readonly]):not([disabled]):visible:first').focus()
+new Rule
+  load: ->
+    # For browsers with no autofocus support
+    $('[autofocus]:not([readonly]):not([disabled]):visible:first').focus()
+    $('[data-show-tooltip]').tooltip()
+
+    timers = @map.timers = []
+    
+    $('.alert[data-close-after]').each (i, a)->
+      timers.push setTimeout((-> $(a).alert('close')), $(a).data('close-after'))
+
+  unload: -> clearTimeout timer for i, timer of @map.timers
+
+jQuery ($) ->
+  $(document).on 'click', 'a.submit', -> $('form').submit(); false
   
-  $('*[data-show-tooltip]').tooltip()
+  $(document).ajaxStart ->
+    $('#loading_caption').stop(true, true).fadeIn(100)
+  .ajaxStop ->
+    $('#loading_caption').stop(true, true).fadeOut(100)
   
-  $('a.submit').click -> $('form').submit(); return false
-  
-  $('#loading_caption').bind
-    ajaxStart: `function() { $(this).stop(true, true).fadeIn(100) }`
-    ajaxStop: `function() { $(this).stop(true, true).fadeOut(100) }`
-  
-  $('form').submit ->
-    $(this).find('input[type="submit"], input[name="utf8"]')
-    .attr 'disabled', true
+  $(document).on 'submit', 'form', ->
+    $(this).find('input[type="submit"], input[name="utf8"]').attr 'disabled', true
     $(this).find('a.submit').removeClass('submit').addClass('disabled')
     $(this).find('.dropdown-toggle').addClass('disabled')
 
-  if $('.alert[data-close-after]').length > 0
-    $('.alert[data-close-after]').each (i, a)->
-      setTimeout(
-        (-> $(a).find('a.close').trigger('click')), $(a).data('close-after')
-      )
-  
   if $.isArray(State.showMessages)
     $.each State.showMessages, ->
       this.timerId = window.setTimeout(
@@ -50,10 +50,12 @@ jQuery ($)->
       if !State.sessionExpired
         $('#time_left').fadeOut()
         
-        $.each State.showMessages, ->  
+        $.each State.showMessages, ->
           window.clearTimeout this.timerId
 
           this.timerId = window.setTimeout(
             "Helper.showMessage('#{this.message}', #{this.expired})",
             this.time * 1000
           )
+
+  Inspector.instance().load()

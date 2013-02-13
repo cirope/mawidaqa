@@ -2,7 +2,11 @@
 
 Web Application for manage documents, courses and more =)
 
-=== (The MIT License)
+=== Build Status {<img src="https://secure.travis-ci.org/francocatena/x0y0.png"/>}[http://travis-ci.org/francocatena/x0y0]
+
+=== Dependency Status {<img src="https://gemnasium.com/francocatena/x0y0.png?travis"/>}[https://gemnasium.com/francocatena/x0y0]
+
+== (The MIT License)
 
 Copyright (c) 2012-2013 Cirope S.A.
 

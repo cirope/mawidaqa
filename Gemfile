@@ -1,9 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.9'
+gem 'rails', '3.2.12'
 
 gem 'pg'
 gem 'jquery-rails'
+gem 'turbolinks'
 gem 'will_paginate'
 gem 'simple_form'
 gem 'devise'
@@ -17,14 +18,13 @@ gem 'paper_trail'
 gem 'magick_columns'
 gem 'validates_timeliness'
 gem 'roadie'
+gem 'sidekiq'
 gem 'capistrano'
 gem 'newrelic_rpm'
 
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
-  gem 'libv8'
-  gem 'therubyracer'
   gem 'uglifier'
 end
 

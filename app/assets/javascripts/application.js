@@ -16,6 +16,9 @@
 //= require jquery/jquery.ui.datepicker-es
 //= require jquery/tag-it
 //= require twitter/bootstrap
+//= require inspector
+//= require turboevents
+//= require turbolinks
 //= require common
 //= require autocomplete
 //= require dynamic_form
@@ -23,6 +26,7 @@
 //= require date_pickers
 //= require documents
 //= require files
+//= require endless_pagination
 //= require mobile
 //= require dashboard
 //= require errors
