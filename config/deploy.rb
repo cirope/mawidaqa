@@ -1,4 +1,5 @@
 require 'bundler/capistrano'
+require 'sidekiq/capistrano'
 
 set :application, 'mawidaqa'
 set :repository,  'https://github.com/francocatena/mawidaqa.git'
