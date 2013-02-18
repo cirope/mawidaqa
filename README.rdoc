@@ -1,10 +1,10 @@
 === MawidaQA
 
-Web Application for manage documents, courses and more =)
+Web Application for manage documents
 
-=== Build Status {<img src="https://secure.travis-ci.org/francocatena/x0y0.png"/>}[http://travis-ci.org/francocatena/x0y0]
+=== Build Status {<img src="https://secure.travis-ci.org/francocatena/mawidaqa.png"/>}[http://travis-ci.org/francocatena/mawidaqa]
 
-=== Dependency Status {<img src="https://gemnasium.com/francocatena/x0y0.png?travis"/>}[https://gemnasium.com/francocatena/x0y0]
+=== Dependency Status {<img src="https://gemnasium.com/francocatena/mawidaqa.png?travis"/>}[https://gemnasium.com/francocatena/mawidaqa]
 
 == (The MIT License)
 
