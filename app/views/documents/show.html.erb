@@ -33,6 +33,11 @@
           </p>
 
           <p>
+            <b><%= Document.human_attribute_name 'kind' %>:</b>
+            <%= t("view.documents.kinds.#{@document.kind}") %>
+          </p>
+
+          <p>
             <b><%= Document.human_attribute_name 'notes' %>:</b>
           </p>
           <%= simple_format @document.notes %>

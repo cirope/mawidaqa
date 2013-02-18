@@ -39,6 +39,7 @@ class Document < ActiveRecord::Base
   attr_accessible :name, :code, :version, :notes, :version_comments, :kind,
     :tag_list, :parent_id, :lock_version, :comments_attributes,
     :changes_attributes, :organization_id
+  attr_readonly :kind
   
   # Callbacks
   before_validation :check_code_changes

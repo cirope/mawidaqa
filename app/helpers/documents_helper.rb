@@ -4,9 +4,11 @@ module DocumentsHelper
   end
 
   def show_document_kinds(form)
-    kinds = Document::KINDS.map { |k| [t("view.documents.kinds.#{k}"), k] }.sort
-        
-    form.input :kind, collection: kinds, prompt: true
+    if form.object.new_record?
+      kinds = Document::KINDS.map { |k| [t("view.documents.kinds.#{k}"), k] }.sort
+          
+      form.input :kind, collection: kinds, prompt: true
+    end
   end
   
   def document_actions(f)
