@@ -38,6 +38,7 @@
         code: 'Código'
         status: 'Estado'
         version: 'Versión'
+        kind: 'Tipo'
         notes: 'Notas'
         version_comments: 'Comentarios de la versión'
         tag_list: 'Etiquetas'
@@ -141,6 +142,11 @@
       edit_current_revision: 'Editar la revisión actual'
       download_pdf: 'Descargar PDF'
       download_source: 'Descargar editable'
+      preview_not_supported:
+        html: 'Previsualización <strong>no soportada</strong> para este tipo de documento: %{download_pdf_link} | %{download_source_link}'
+      kinds:
+        document: 'Documento'
+        spreadsheet: 'Hoja de cálculo'
       related:
         html: '%{code} (%{status})'
       tabs:

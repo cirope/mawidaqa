@@ -2,6 +2,12 @@ module DocumentsHelper
   def document_status_text(document)
     t("view.documents.status.#{document.status}")
   end
+
+  def show_document_kinds(form)
+    kinds = Document::KINDS.map { |k| [t("view.documents.kinds.#{k}"), k] }.sort
+        
+    form.input :kind, collection: kinds, prompt: true
+  end
   
   def document_actions(f)
     document = f.object
@@ -88,8 +94,9 @@ module DocumentsHelper
   def document_edit_url(document)
     if document.on_revision?
       document_url = GdataExtension::Parser.edit_url(document.xml_reference)
+      first_separator = document_url =~ /\?/ ? '&' : '?'
       
-      "#{document_url}?embedded=true&hl=#{locale}"
+      "#{document_url}#{first_separator}embedded=true&hl=#{locale}"
     elsif document.revision_url.present?
       document_preview_url(document)
     end
@@ -97,7 +104,7 @@ module DocumentsHelper
 
   def document_base_url(document)
     document.revision_url || GdataExtension::Base.new.last_revision_url(
-      document.xml_reference
+      document.xml_reference, !document.spreadsheet?
     )
   end
   
@@ -107,19 +114,24 @@ module DocumentsHelper
     "https://docs.google.com/viewer?embedded=true&hl=#{locale}&url=#{u url}"
   end
 
-  def link_to_download_source_document(document)
-    url = "#{document_base_url(document)}&exportFormat=doc&format=doc"
+  def link_to_download_source_document(document, options = {})
+    format = document.spreadsheet? ? 'xls' : 'doc'
+    title = t('view.documents.download_source')
+    label = options[:use_text] ? title : '&#xe000;'.html_safe
+    html_class = 'iconic' unless options[:use_text]
+    url = "#{document_base_url(document)}&exportFormat=#{format}&format=#{format}"
 
-    link_to '&#xe000;'.html_safe, url, class: 'iconic',
-      title: t('view.documents.download_source'),
+    link_to label, url, class: html_class, title: title,
       data: { 'show-tooltip' => true }
   end
 
-  def link_to_download_pdf(document)
+  def link_to_download_pdf(document, options = {})
+    title = t('view.documents.download_pdf')
+    label = options[:use_text] ? title : '&#xe042;'.html_safe
+    html_class = 'iconic' unless options[:use_text]
     url = "#{document_base_url(document)}&exportFormat=pdf&format=pdf"
 
-    link_to '&#xe042;'.html_safe, url, class: 'iconic',
-      title: t('view.documents.download_pdf'),
+    link_to label, url, class: html_class, title: title,
       data: { 'show-tooltip' => true }
   end
 end

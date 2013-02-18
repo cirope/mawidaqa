@@ -2,6 +2,7 @@ Fabricator(:basic_document, class_name: :document) do
   name { "Document #{sequence(:document_name)}" }
   code { "DT #{'%.3d' % sequence(:document_code)}" }
   version { "#{Time.now.year}.#{'%.2d' % Time.now.month}" }
+  kind 'document'
 end
 
 Fabricator(:document, from: :basic_document, class_name: :document) do

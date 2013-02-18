@@ -44,6 +44,20 @@ module GdataExtension
 
       url
     end
+
+    def self.first_revision_url(revision_xml)
+      xml = REXML::Document.new(revision_xml)
+      url = nil
+      
+      xml.root.elements.each('entry') do |entry|
+        entry.elements.each('content') do |link|
+          url ||= link.attribute('src').value
+        end
+      end
+
+      url
+    end
+
     
     def self.folder_names(revision_xml)
       xml = REXML::Document.new(revision_xml)
