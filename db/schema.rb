@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121217203551) do
+ActiveRecord::Schema.define(:version => 20130213194840) do
 
   create_table "changes", :force => true do |t|
     t.text     "content",                     :null => false
@@ -36,23 +36,24 @@ ActiveRecord::Schema.define(:version => 20121217203551) do
   add_index "comments", ["commentable_type", "commentable_id"], :name => "index_comments_on_commentable_type_and_commentable_id"
 
   create_table "documents", :force => true do |t|
-    t.string   "name",                                :null => false
-    t.string   "code",                                :null => false
-    t.string   "status",                              :null => false
-    t.string   "version",                             :null => false
+    t.string   "name",                                     :null => false
+    t.string   "code",                                     :null => false
+    t.string   "status",                                   :null => false
+    t.string   "version",                                  :null => false
     t.text     "notes"
     t.text     "version_comments"
-    t.boolean  "current",          :default => false, :null => false
-    t.integer  "lock_version",     :default => 0,     :null => false
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.boolean  "current",          :default => false,      :null => false
+    t.integer  "lock_version",     :default => 0,          :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.integer  "parent_id"
     t.integer  "lft"
     t.integer  "rgt"
     t.integer  "depth"
     t.text     "xml_reference"
     t.text     "revision_url"
-    t.integer  "organization_id",                     :null => false
+    t.integer  "organization_id",                          :null => false
+    t.string   "kind",             :default => "document", :null => false
   end
 
   add_index "documents", ["code"], :name => "index_documents_on_code"

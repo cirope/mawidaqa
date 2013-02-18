@@ -39,9 +39,10 @@ class DocumentTest < ActiveSupport::TestCase
     @document.status = nil
     @document.version = ' '
     @document.organization_id = nil
+    @document.kind = nil
     
     assert @document.invalid?
-    assert_equal 5, @document.errors.size
+    assert_equal 6, @document.errors.size
     assert_equal [error_message_from_model(@document, :name, :blank)],
       @document.errors[:name]
     assert_equal [error_message_from_model(@document, :code, :blank)],
@@ -52,6 +53,8 @@ class DocumentTest < ActiveSupport::TestCase
       @document.errors[:version]
     assert_equal [error_message_from_model(@document, :organization_id, :blank)],
       @document.errors[:organization_id]
+    assert_equal [error_message_from_model(@document, :kind, :blank)],
+      @document.errors[:kind]
   end
   
   test 'validates unique attributes' do
@@ -62,6 +65,15 @@ class DocumentTest < ActiveSupport::TestCase
     assert_equal 1, @document.errors.size
     assert_equal [error_message_from_model(@document, :code, :taken)],
       @document.errors[:code]
+  end
+
+  test 'validates included attributes' do
+    @document.kind = 'wrong'
+
+    assert @document.invalid?
+    assert_equal 1, @document.errors.size
+    assert_equal [error_message_from_model(@document, :kind, :inclusion)],
+      @document.errors[:kind]
   end
   
   test 'validates length of _long_ attributes' do

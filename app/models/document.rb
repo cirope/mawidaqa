@@ -7,6 +7,8 @@ class Document < ActiveRecord::Base
   
   acts_as_nested_set scope: :organization_id
 
+  KINDS = ['document', 'spreadsheet']
+
   # Scopes
   default_scope order("#{table_name}.code ASC")
   scope :approved, where("#{table_name}.status = ?", 'approved')
@@ -34,9 +36,9 @@ class Document < ActiveRecord::Base
   attr_accessor :skip_code_uniqueness
   
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :code, :version, :notes, :version_comments, :tag_list,
-    :parent_id, :lock_version, :comments_attributes, :changes_attributes,
-    :organization_id
+  attr_accessible :name, :code, :version, :notes, :version_comments, :kind,
+    :tag_list, :parent_id, :lock_version, :comments_attributes,
+    :changes_attributes, :organization_id
   
   # Callbacks
   before_validation :check_code_changes
@@ -71,11 +73,12 @@ class Document < ActiveRecord::Base
   end
   
   # Restrictions
-  validates :name, :code, :status, :version, :organization_id, presence: true
+  validates :name, :code, :status, :version, :kind, :organization_id, presence: true
   validates :name, :code, :version, length: { maximum: 255 }, allow_nil: true,
     allow_blank: true
   validates :code, uniqueness: { scope: :organization_id, case_sensitive: false },
     allow_nil: true, allow_blank: true, unless: :skip_code_uniqueness
+  validates :kind, inclusion: { in: KINDS }, allow_nil: true, allow_blank: true
   validates_each :status do |record, attr, value|
     if record.on_revision?
       any_other_on_revision = record.root.self_and_descendants.any? do |d|
@@ -121,8 +124,8 @@ class Document < ActiveRecord::Base
   def create_doc
     if self.xml_reference.blank? # only create for the new ones...
       name = Rails.env.production? ? self.code : "#{Rails.env.upcase} - #{self.code}"
-      self.xml_reference = GdataExtension::Base.new.create_resource_document(
-        name, self.organization.xml_reference
+      self.xml_reference = GdataExtension::Base.new.send(
+        "create_resource_#{self.kind}", name, self.organization.xml_reference
       ).to_s
     end
   end
@@ -133,7 +136,7 @@ class Document < ActiveRecord::Base
   
   def retrieve_revision_url
     self.revision_url = GdataExtension::Base.new.last_revision_url(
-      self.xml_reference
+      self.xml_reference, !self.spreadsheet?
     )
   end
   
@@ -175,6 +178,10 @@ class Document < ActiveRecord::Base
         end
       end
     end
+  end
+
+  KINDS.each do |kind|
+    define_method("#{kind}?") { self.kind == kind  }
   end
   
   def self.on_revision_with_parent(parent_id)
