@@ -21,10 +21,21 @@
     <%= render 'form' %>
   </div>
   <div class="tab-pane active" id="document_edit">
+  <% if @document.spreadsheet? && !@document.on_revision? %>
+    <div class="alert">
+      <%= t(
+        'view.documents.preview_not_supported.html',
+        download_pdf_link: link_to_download_pdf(@document, use_text: true),
+        download_source_link: link_to_download_source_document(@document, use_text: true)
+      ) %>
+    </div>
+    <div class="form-actions"></div>
+  <% else %>
     <% document_url = document_edit_url(@document) %>
     <div class="well hidden-desktop">
       <%= link_to t('label.edit'), document_url, class: 'btn btn-primary' %>
     </div>
     <%= content_tag :iframe, 'iframe not supported', src: document_url %>
+  <% end %>
   </div>
 </div>
