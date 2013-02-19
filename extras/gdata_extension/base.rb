@@ -38,10 +38,11 @@ module GdataExtension
       @client.post(uri, RequestTemplates::XML_ACL_SHARE).to_xml
     end
     
-    def last_revision_url(xml, use_last = true)
+    def last_revision_url(xml, use_last)
       uri = Parser.revisions_url(xml)
       
       self.connect
+
       if use_last
         Parser.last_revision_url(@client.get(uri).to_xml.to_s)
       else

@@ -25,7 +25,7 @@ class GdataTest < ActiveSupport::TestCase
   
   test 'retrieve last revision url' do
     response = @gdata.last_revision_url(
-      GdataExtension::ResponseExamples::XML_CREATE
+      GdataExtension::ResponseExamples::XML_CREATE, true
     )
     
     assert_equal(
