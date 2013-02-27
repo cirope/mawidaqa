@@ -60,7 +60,7 @@ class Document < ActiveRecord::Base
       transitions to: :approved, from: :revised
     end
     
-    event :reject do
+    event :reject, before: :remove_revision_url do
       transitions to: :on_revision, from: [:revised]
     end
     
@@ -135,6 +135,10 @@ class Document < ActiveRecord::Base
     self.skip_code_uniqueness = true unless self.code_changed?
   end
   
+  def remove_revision_url
+    self.revision_url = nil
+  end
+
   def retrieve_revision_url
     self.revision_url = GdataExtension::Base.new.last_revision_url(
       self.xml_reference, !self.spreadsheet?

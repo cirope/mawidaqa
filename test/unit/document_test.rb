@@ -134,8 +134,16 @@ class DocumentTest < ActiveSupport::TestCase
     assert @document.revised?
     # retrieve_revision_url callback
     assert @document.revision_url.present?
-    assert @document.may_approve?
     assert @document.may_reject?
+
+    assert @document.reject 
+    assert @document.on_revision?
+    assert @document.revision_url.blank?
+    assert @document.may_revise?
+
+    assert @document.revise
+    assert @document.revised?
+    assert @document.may_approve?
     assert !@document.may_mark_as_obsolete?
     
     assert @document.approve
