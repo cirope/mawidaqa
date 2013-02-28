@@ -4,7 +4,7 @@ window.State =
 
 window.Helper =
   showMessage: (message, expired)->
-    $('#time_left').find('h4').html(message)
+    $('#time_left').find('.message').html(message)
     $('#time_left:not(:visible)').stop().fadeIn()
 
     State.sessionExpired = State.sessionExpired || expired
@@ -25,7 +25,7 @@ new Rule
   unload: -> clearTimeout timer for i, timer of @map.timers
 
 jQuery ($) ->
-  $(document).on 'click', 'a.submit', -> $('form').submit(); false
+  $(document).on 'click', 'a.submit', -> $(this).closest('form').submit(); false
   
   $(document).ajaxStart ->
     $('#loading_caption').stop(true, true).fadeIn(100)
@@ -39,8 +39,9 @@ jQuery ($) ->
 
   if $.isArray(State.showMessages)
     $.each State.showMessages, ->
+      _this = this
       this.timerId = window.setTimeout(
-        "Helper.showMessage('#{this.message}', #{this.expired})",
+        (-> Helper.showMessage(_this.message, _this.expired)),
         this.time * 1000
       )
       
@@ -52,9 +53,10 @@ jQuery ($) ->
         
         $.each State.showMessages, ->
           window.clearTimeout this.timerId
-
+          
+          _this = this
           this.timerId = window.setTimeout(
-            "Helper.showMessage('#{this.message}', #{this.expired})",
+            (-> Helper.showMessage(_this.message, _this.expired)),
             this.time * 1000
           )
 

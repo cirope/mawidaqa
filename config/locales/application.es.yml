@@ -102,6 +102,8 @@
       time_expired: 'Su sesión ha expirado'
     
   view:
+    devise:
+      renew_session: 'Renovar sesión'
     generic:
       empty_index:
         html: 'No hay ningún elemento por el momento'

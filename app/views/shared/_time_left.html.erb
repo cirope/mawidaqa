@@ -1,17 +1,17 @@
 <div id="time_left" class="alert alert-error fade in" data-dismiss="alert" style="display: none;">
   <a class="close">&times;</a>
-  <h4></h4>
+  <div class="message"></div>
 </div>
-<script type="text/javascript">
+<%= javascript_tag do %>
   State.showMessages.push({
     time: <%= Devise.timeout_in - 2.minutes %>,
-    message: '<%= t('messages.session.expires_in_less_than_two_minutes') %>',
+    message: '<%= j render ('devise/sessions/renew_session') %>',
     expired: false
   });
 
   State.showMessages.push({
     time: <%= Devise.timeout_in %>,
-    message: '<%= t('messages.session.time_expired') %>',
+    message: '<h4><%= t('messages.session.time_expired') %></h4>',
     expired: true
   });
-</script>
+<% end %>
