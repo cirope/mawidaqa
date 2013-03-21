@@ -1,6 +1,6 @@
 MawidaQA::Application.routes.draw do
   constraints(AdminSubdomain) do
-    match '/launchpad' => 'launchpad#index', as: 'launchpad', via: :get
+    get '/launchpad' => 'launchpad#index', as: 'launchpad'
 
     resources :organizations do
       resources :users
@@ -21,7 +21,7 @@ MawidaQA::Application.routes.draw do
   end
 
   constraints(OrganizationSubdomain) do
-    match '/launchpad' => 'launchpad#index', as: 'launchpad', via: :get
+    get '/launchpad' => 'launchpad#index', as: 'launchpad'
 
     resources :organizations do
       resources :users
@@ -54,6 +54,7 @@ MawidaQA::Application.routes.draw do
     root to: redirect('/users/sign_in')
   end
 
+  get '/touch' => 'touch#index', as: 'touch'
   match '/dashboard(.:format)' => 'dashboard#index', as: 'dashboard', via: :get
 
   Job::TYPES.each do |job_type|
