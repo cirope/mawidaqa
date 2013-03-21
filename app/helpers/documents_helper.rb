@@ -65,8 +65,10 @@ module DocumentsHelper
   def show_document_code_with_links(document)
     links = []
 
-    links << link_to_download_source_document(document)
-    links << link_to_download_pdf(document)
+    unless document.on_revision?
+      links << link_to_download_source_document(document)
+      links << link_to_download_pdf(document)
+    end
     
     links << link_to(
       document.code, document, title: t('label.show'),
