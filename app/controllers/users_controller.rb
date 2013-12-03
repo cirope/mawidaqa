@@ -62,8 +62,8 @@ class UsersController < ApplicationController
     end
   end
 
-  # PUT /users/1
-  # PUT /users/1.json
+  # PATCH /users/1
+  # PATCH /users/1.json
   def update
     authorize! :assign_roles, @user if params[:user] && params[:user][:roles]
     @title = t 'view.users.edit_title'
@@ -88,8 +88,8 @@ class UsersController < ApplicationController
     @title = t 'view.users.edit_profile'
   end
 
-  # PUT /users/1/update_profile
-  # PUT /users/1/update_profile.xml
+  # PATCH /users/1/update_profile
+  # PATCH /users/1/update_profile.xml
   def update_profile
     @title = t 'view.users.edit_profile'
 

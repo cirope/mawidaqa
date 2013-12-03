@@ -5,7 +5,7 @@
   <div class="public_form_container span4">
     <h3>Cambio de contraseña</h3>
 
-    <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+    <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :patch }) do |f| %>
       <div class="row-fluid">
         <div class="span12">
           <div class="form-inputs">

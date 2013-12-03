@@ -60,8 +60,8 @@ class OrganizationsController < ApplicationController
     end
   end
 
-  # PUT /organizations/1
-  # PUT /organizations/1.json
+  # PATCH /organizations/1
+  # PATCH /organizations/1.json
   def update
     @title = t 'view.organizations.edit_title'
 

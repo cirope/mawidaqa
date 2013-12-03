@@ -60,14 +60,14 @@ class <%= controller_class_name %>Controller < ApplicationController
     end
   end
 
-  # PUT <%= route_url %>/1
-  # PUT <%= route_url %>/1.json
+  # PATCH <%= route_url %>/1
+  # PATCH <%= route_url %>/1.json
   def update
     @title = t('view.<%= plural_table_name %>.edit_title')
     @<%= singular_table_name %> = <%= orm_class.find(class_name, "params[:id]") %>
 
     respond_to do |format|
-      if @<%= orm_instance.update_attributes("params[:#{singular_table_name}]") %>
+      if @<%= orm_instance.update("#{singular_table_name}_params") %>
         format.html { redirect_to @<%= singular_table_name %>, notice: t('view.<%= plural_table_name %>.correctly_updated') }
         format.json { head :ok }
       else

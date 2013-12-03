@@ -28,9 +28,9 @@ module DocumentsHelper
     extra_actions = [main_action].compact
     actions = document.new_record? ? [] : [
       [:create_revision, create_revision_document_path(document), :get],
-      [:approve, approve_document_path(document), :put],
-      [:revise, revise_document_path(document), :put],
-      [:reject, reject_document_path(document), :put]
+      [:approve, approve_document_path(document), :patch],
+      [:revise, revise_document_path(document), :patch],
+      [:reject, reject_document_path(document), :patch]
     ]
 
     actions.each do |action, path, method|

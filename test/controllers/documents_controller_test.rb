@@ -124,7 +124,7 @@ class DocumentsControllerTest < ActionController::TestCase
     sign_in @user
 
     assert_no_difference 'Document.count' do
-      put :update, id: @document, document: Fabricate.attributes_for(
+      patch :update, id: @document, document: Fabricate.attributes_for(
         :document, name: 'Upd', organization_id: @organization.id
       )
     end
@@ -154,7 +154,7 @@ class DocumentsControllerTest < ActionController::TestCase
 
     assert document.revise!
 
-    put :approve, id: document
+    patch :approve, id: document
 
     assert_redirected_to document_path(document)
     assert document.reload.approved?
@@ -171,7 +171,7 @@ class DocumentsControllerTest < ActionController::TestCase
 
     assert document.revise!
 
-    put :approve, id: document
+    patch :approve, id: document
 
     assert_redirected_to root_path
     assert !document.reload.approved?
@@ -186,7 +186,7 @@ class DocumentsControllerTest < ActionController::TestCase
 
     document = Fabricate(:document, organization_id: @organization.id)
 
-    put :revise, id: document
+    patch :revise, id: document
 
     assert_redirected_to document_path(document)
     assert document.reload.revised?
@@ -201,7 +201,7 @@ class DocumentsControllerTest < ActionController::TestCase
 
     document = Fabricate(:document, organization_id: @organization.id)
 
-    put :revise, id: document
+    patch :revise, id: document
 
     assert_redirected_to root_path
     assert !document.reload.revised?
@@ -216,7 +216,7 @@ class DocumentsControllerTest < ActionController::TestCase
 
     document = Fabricate(:document, status: 'revised', organization_id: @organization.id)
 
-    put :reject, id: document
+    patch :reject, id: document
 
     assert_redirected_to document_path(document)
     assert document.reload.on_revision?
@@ -231,7 +231,7 @@ class DocumentsControllerTest < ActionController::TestCase
 
     document = Fabricate(:document, status: 'revised', organization_id: @organization.id)
 
-    put :reject, id: document
+    patch :reject, id: document
 
     assert_redirected_to root_path
     assert !document.reload.on_revision?

@@ -62,8 +62,8 @@ class DocumentsController < ApplicationController
     end
   end
 
-  # PUT /documents/1
-  # PUT /documents/1.json
+  # PATCH /documents/1
+  # PATCH /documents/1.json
   def update
     @title = t 'view.documents.edit_title'
 
@@ -93,8 +93,8 @@ class DocumentsController < ApplicationController
     end
   end
 
-  # PUT /documents/1/approve
-  # PUT /documents/1/approve.json
+  # PATCH /documents/1/approve
+  # PATCH /documents/1/approve.json
   def approve
     @document.approve!
 
@@ -104,8 +104,8 @@ class DocumentsController < ApplicationController
     end
   end
 
-  # PUT /documents/1/revise
-  # PUT /documents/1/revise.json
+  # PATCH /documents/1/revise
+  # PATCH /documents/1/revise.json
   def revise
     @document.revise!
 
@@ -115,8 +115,8 @@ class DocumentsController < ApplicationController
     end
   end
 
-  # PUT /documents/1/reject
-  # PUT /documents/1/reject.json
+  # PATCH /documents/1/reject
+  # PATCH /documents/1/reject.json
   def reject
     @document.reject!
 
