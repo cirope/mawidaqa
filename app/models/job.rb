@@ -3,8 +3,6 @@ class Job < ActiveRecord::Base
 
   TYPES = ['approver', 'reviewer', 'author']
 
-  # attr_accessible :job, :user_id, :organization_id, :auto_organization_name, :lock_version
-
   attr_accessor :auto_organization_name
 
   # Validations

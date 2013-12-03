@@ -10,9 +10,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable,
     :validatable, :lockable, :timeoutable
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :name, :lastname, :email, :password, :password_confirmation, :role, :remember_me, :jobs_attributes, :lock_version
-
   # Defaul order
   default_scope -> { order('lastname ASC') }
 

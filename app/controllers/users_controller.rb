@@ -69,7 +69,7 @@ class UsersController < ApplicationController
     @title = t 'view.users.edit_title'
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.update(user_params)
         format.html { redirect_to @user, notice: t('view.users.correctly_updated') }
         format.json { head :no_content }
       else
@@ -85,16 +85,16 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit_profile
   def edit_profile
-    @title = t('view.users.edit_profile')
+    @title = t 'view.users.edit_profile'
   end
 
   # PUT /users/1/update_profile
   # PUT /users/1/update_profile.xml
   def update_profile
-    @title = t('view.users.edit_profile')
+    @title = t 'view.users.edit_profile'
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.update(user_params)
         format.html { redirect_to(edit_profile_user_url(@user), notice: t('view.users.profile_correctly_updated')) }
         format.xml  { head :ok }
       else
@@ -104,8 +104,7 @@ class UsersController < ApplicationController
     end
 
   rescue ActiveRecord::StaleObjectError
-    flash.alert = t('view.users.stale_object_error')
-    redirect_to edit_profile_user_url(@user)
+    redirect_to edit_profile_user_url(@user), alert: t('view.users.stale_object_error')
   end
 
   # DELETE /users/1
@@ -121,7 +120,17 @@ class UsersController < ApplicationController
 
   private
 
-  def load_current_user
-    @user = current_user
-  end
+    def user_params
+      params.require(:user).permit(
+        :name, :lastname, :email, :password, :password_confirmation, :role,
+        :remember_me, :lock_version,
+        jobs_attributes: [
+          :id, :job, :user_id, :organization_id, :lock_version, :_destroy
+        ]
+      )
+    end
+
+    def load_current_user
+      @user = current_user
+    end
 end
