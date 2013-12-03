@@ -1,6 +1,7 @@
 *.swp
 /.bundle
 /.sass-cache/
+/bin
 /config/app_config.yml
 /doc/
 /log/
