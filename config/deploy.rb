@@ -10,9 +10,7 @@ set :deploy_via, :remote_cache
 set :scm, :git
 
 set :linked_files, %w{config/app_config.yml}
-set :linked_dirs, %w{log}
-
-set :bundle_bins, fetch(:bundle_bins).push(:unicorn)
+set :linked_dirs, %w{bin log}
 
 set :rbenv_type, :user
 set :rbenv_ruby, '2.0.0-p353'
