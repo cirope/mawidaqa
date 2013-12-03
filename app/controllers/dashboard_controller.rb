@@ -20,7 +20,7 @@ class DashboardController < ApplicationController
     @title = t 'view.dashboard.generic_title'
   end
 
-  def author 
+  def author
     @title = t 'view.dashboard.generic_title'
   end
 

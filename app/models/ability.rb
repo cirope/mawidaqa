@@ -6,48 +6,48 @@ class Ability
 
     user ? user_rules(user, organization) : default_rules(user, organization)
   end
-  
+
   def user_rules(user, organization)
     user.roles.each do |role|
       send("#{role}_rules", user, organization) if respond_to?("#{role}_rules")
     end
   end
-  
+
   def admin_rules(user, organization)
     can :manage, :all
   end
-  
+
   def regular_rules(user, organization)
     if @job
       approver_rules(user, organization) if @job.approver?
       reviewer_rules(user, organization) if @job.reviewer?
       author_rules                       if @job.author?
     end
-    
+
     if organization
       common_document_rules(user, organization)
       default_rules(user, organization)
     end
   end
-  
+
   def approver_rules(user, organization)
-    jobs_restrictions = { 
-      organization_id: organization.id, 
+    jobs_restrictions = {
+      organization_id: organization.id,
       organization: { workers: { user_id: user.id, job: 'approver' } }
     }
 
-    can :create, Comment    
+    can :create, Comment
     can :approve, Document, { status: 'revised' }.merge(jobs_restrictions)
     can :reject, Document, { status: ['on_revision', 'revised'] }.merge(jobs_restrictions)
   end
-  
+
   def reviewer_rules(user, organization)
-    jobs_restrictions = { 
-      organization_id: organization.id, 
-      organization: { workers: { user_id: user.id, job: 'reviewer' } } 
+    jobs_restrictions = {
+      organization_id: organization.id,
+      organization: { workers: { user_id: user.id, job: 'reviewer' } }
     }
 
-    can :create, Comment    
+    can :create, Comment
     can :revise, Document, { status: 'on_revision' }.merge(jobs_restrictions)
     can :reject, Document, { status: ['on_revision', 'revised'] }.merge(jobs_restrictions)
   end
@@ -55,7 +55,7 @@ class Ability
   def author_rules
     # Defaults rules
   end
-  
+
   def default_rules(user, organization)
     can :edit_profile, User
     can :update_profile, User
@@ -65,7 +65,7 @@ class Ability
     can :read, Organization, workers: { user_id: user.id }
     can :read, Comment
   end
-  
+
   def common_document_rules(user, organization)
     jobs_restrictions = { organization_id: organization.id, organization: { workers: { user_id: user.id } } }
 

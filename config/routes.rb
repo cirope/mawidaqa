@@ -1,32 +1,30 @@
 MawidaQA::Application.routes.draw do
-  constraints(AdminSubdomain) do
-    get '/launchpad' => 'launchpad#index', as: 'launchpad'
+  get '/launchpad', to: 'launchpad#index', as: 'launchpad'
 
-    resources :organizations do
-      resources :users
-    end
-
-    devise_for :users
-  
-    resources :users do
-      member do
-        get :edit_profile
-        put :update_profile
-      end
-    end
-  
-    match 'private/:path', to: 'files#download', constraints: { path: /.+/ }
-  
-    root to: redirect('/users/sign_in')
+  resources :organizations do
+    resources :users
   end
 
-  constraints(OrganizationSubdomain) do
-    get '/launchpad' => 'launchpad#index', as: 'launchpad'
+  devise_for :users
 
-    resources :organizations do
-      resources :users
+  resources :users do
+    member do
+      get :edit_profile
+      put :update_profile
     end
+  end
 
+  get 'private/:path', to: 'files#download', constraints: { path: /.+/ }
+
+  get '/touch', to: 'touch#index', as: 'touch'
+  get '/dashboard(.:format)', to: 'dashboard#index', as: 'dashboard'
+
+  Job::TYPES.each do |job_type|
+    get "/dashboard/#{job_type}(.:format)" => "dashboard##{job_type}",
+      as: "#{job_type}_dashboard"
+  end
+
+  constraints OrganizationSubdomain do
     resources :documents do
       member do
         put :revise
@@ -39,30 +37,11 @@ MawidaQA::Application.routes.draw do
     resources :tags, only: [ :index ] do
       resources :documents, only: [ :index ]
     end
-
-    devise_for :users
-  
-    resources :users do
-      member do
-        get :edit_profile
-        put :update_profile
-      end
-    end
-  
-    match 'private/:path', to: 'files#download', constraints: { path: /.+/ }
-  
-    root to: redirect('/users/sign_in')
   end
 
-  get '/touch' => 'touch#index', as: 'touch'
-  match '/dashboard(.:format)' => 'dashboard#index', as: 'dashboard', via: :get
-
-  Job::TYPES.each do |job_type|
-    match "/dashboard/#{job_type}(.:format)" => "dashboard##{job_type}",
-      as: "#{job_type}_dashboard", via: :get
-  end
+  root to: redirect('/users/sign_in')
 
   get 'errors/error_404'
 
-  match '*not_found', to: 'errors#error_404'
+  match '*not_found', to: 'errors#error_404', via: [:get, :put, :patch, :post, :delete]
 end

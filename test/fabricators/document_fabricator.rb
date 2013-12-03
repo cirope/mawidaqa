@@ -11,7 +11,7 @@ Fabricator(:document, from: :basic_document, class_name: :document) do
   organization_id { Fabricate(:organization).id }
 end
 
-Fabricator(:document_with_relations, from: :document, class_name: :document) do 
+Fabricator(:document_with_relations, from: :document, class_name: :document) do
   comments(count: 1)
   changes(count: 1)
 end

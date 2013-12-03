@@ -2,7 +2,7 @@ class DocumentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :load_tag, only: [:index]
   before_filter :new_document_with_parent, only: [:create_revision]
-  
+
   check_authorization
   load_and_authorize_resource through: :current_organization
 
@@ -76,7 +76,7 @@ class DocumentsController < ApplicationController
         format.json { render json: @document.errors, status: :unprocessable_entity }
       end
     end
-    
+
   rescue ActiveRecord::StaleObjectError
     flash.alert = t 'view.documents.stale_object_error'
     redirect_to edit_document_url(@document)
@@ -92,40 +92,40 @@ class DocumentsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   # PUT /documents/1/approve
   # PUT /documents/1/approve.json
   def approve
     @document.approve!
-    
+
     respond_to do |format|
       format.html { redirect_to @document, notice: t('view.documents.approved') }
       format.json { head :no_content }
     end
   end
-  
+
   # PUT /documents/1/revise
   # PUT /documents/1/revise.json
   def revise
     @document.revise!
-    
+
     respond_to do |format|
       format.html { redirect_to @document, notice: t('view.documents.revised') }
       format.json { head :no_content }
     end
   end
-  
+
   # PUT /documents/1/reject
   # PUT /documents/1/reject.json
   def reject
     @document.reject!
-    
+
     respond_to do |format|
       format.html { redirect_to @document, notice: t('view.documents.rejected') }
       format.json { head :no_content }
     end
   end
-  
+
   # GET /documents/1/create_revision
   # GET /documents/1/create_revision.json
   def create_revision
@@ -136,14 +136,14 @@ class DocumentsController < ApplicationController
       format.json { render json: @document }
     end
   end
-  
+
   private
 
   def load_tag
     @tag = Tag.find(params[:tag_id]) if params[:tag_id].present?
     @documents = current_organization.tags.find(@tag).documents if @tag
   end
-  
+
   def new_document_with_parent
     @document = Document.on_revision_with_parent(params[:id])
   end

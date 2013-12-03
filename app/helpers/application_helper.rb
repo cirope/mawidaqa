@@ -10,32 +10,32 @@ module ApplicationHelper
   def show_error_messages_for(model)
     render 'shared/error_messages', model: model unless model.errors.empty?
   end
- 
+
   def show_menu_link(options = {})
     name = t("menu.#{options[:name]}")
     classes = []
-                     
+
     classes << 'active' if [*options[:controllers]].include?(controller_name)
-                        
+
     content_tag(
       :li, link_to(name, options[:path]),
       class: (classes.empty? ? nil : classes.join(' '))
-    )       
-  end 
+    )
+  end
 
   def show_button_dropdown(main_action, extra_actions = [], options = {})
     if extra_actions.blank?
       main_action
     else
       out = ''.html_safe
-      
+
       out << render(
         'shared/button_dropdown',
         main_action: main_action, extra_actions: extra_actions, dropup: false
       )
     end
   end
-  
+
   def pagination_links(objects, params = nil)
     result = will_paginate objects,
       inner_window: 1, outer_window: 1, params: params,
@@ -49,7 +49,7 @@ module ApplicationHelper
         class: 'page-entries hidden-desktop pull-right'
       )
     )
-    
+
     unless result
       previous_tag = content_tag(
         :li,
@@ -61,7 +61,7 @@ module ApplicationHelper
         content_tag(:a, t('will_paginate.next_label').html_safe),
         class: 'next disabled'
       )
-      
+
       result = content_tag(
         :div,
         content_tag(:ul, previous_tag + next_tag),
@@ -71,11 +71,11 @@ module ApplicationHelper
 
     content_tag :div, result + page_entries, class: 'pagination-container'
   end
-  
+
   def document_tag_list
     @_document_tag_list ||= current_organization.tags.order('name ASC')
   end
-  
+
   def link_to_show(*args)
     options = args.extract_options!
 
@@ -88,23 +88,23 @@ module ApplicationHelper
 
   def link_to_edit(*args)
     options = args.extract_options!
-    
+
     options['class'] ||= 'iconic'
     options['title'] ||= t('label.edit')
     options['data-show-tooltip'] ||= true
-    
+
     link_to '&#x270e;'.html_safe, *args, options
   end
-  
+
   def link_to_destroy(*args)
     options = args.extract_options!
-    
+
     options['class'] ||= 'iconic'
     options['title'] ||= t('label.delete')
     options['method'] ||= :delete
     options['data-confirm'] ||= t('messages.confirmation')
     options['data-show-tooltip'] ||= true
-    
+
     link_to '&#xe05a;'.html_safe, *args, options
   end
 

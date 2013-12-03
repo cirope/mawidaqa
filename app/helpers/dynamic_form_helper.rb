@@ -15,12 +15,12 @@ module DynamicFormHelper
       }
     )
   end
-    
+
   def link_to_remove_nested_item(form)
     new_record = form.object.new_record?
     out = ''
     destroy = form.object.marked_for_destruction? ? 1 : 0
-    
+
     out << form.hidden_field(:_destroy, class: 'destroy', value: destroy) unless new_record
     out << link_to(
       '&#x2718;'.html_safe, '#', title: t('label.delete'), class: 'iconic',

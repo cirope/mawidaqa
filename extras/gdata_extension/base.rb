@@ -11,36 +11,36 @@ module GdataExtension
         @connected = true
       end
     end
-    
+
     TYPES.each_key do |type|
       define_method("create_#{type}") do |name|
         create(type: type, name: name)
       end
-      
+
       define_method("create_and_share_#{type}") do |name|
         send("create_#{type}", name).tap do |xml|
           share(Parser.acl_url(xml.to_s))
         end
       end
-  
+
       define_method("create_resource_#{type}") do |name, xml|
         create_resource(type: type, name: name, uri: xml)
       end
     end
-     
+
     def list_root_folders
       self.connect
       Parser.folder_names(@client.get(URL_FOLDER_LIST).to_xml.to_s)
     end
-    
+
     def share(uri)
       self.connect
       @client.post(uri, RequestTemplates::XML_ACL_SHARE).to_xml
     end
-    
+
     def last_revision_url(xml, use_last)
       uri = Parser.revisions_url(xml)
-      
+
       self.connect
 
       if use_last
@@ -49,14 +49,14 @@ module GdataExtension
         Parser.first_revision_url(@client.get(uri).to_xml.to_s)
       end
     end
-    
+
     private
-    
+
     def create(*args)
       options = args.extract_options!
       type = options[:type] || :document
       name = options[:name] || 'Document'
-      
+
       self.connect
       @client.post(
         URL_CREATE,

@@ -1,11 +1,11 @@
 'es':
   app_name: 'MawidaQA'
-  
+
   attributes:
     created_at: 'Creación'
     updated_at: 'Actualización'
     whodunnit: 'Autor'
-    
+
   activerecord:
     models:
       change:
@@ -19,14 +19,14 @@
         other: 'Documentos'
       organization:
         one: 'Organización'
-        other: 'Organizaciones' 
+        other: 'Organizaciones'
       tag:
         one: 'Etiqueta'
         other: 'Etiquetas'
       user:
         one: 'Usuario'
         other: 'Usuarios'
-      
+
     attributes:
       change:
         content: 'Detalle'
@@ -69,11 +69,11 @@
           one: 'Perfil'
           other: 'Perfiles'
         remember_me: 'Recordarme'
-        
+
   errors:
     title: 'Error'
     access_denied: 'No tiene permisos para acceder al contenido'
-        
+
   label:
     'yes': 'Si'
     'no': 'No'
@@ -85,7 +85,7 @@
     new: 'Nuevo'
     search: 'Buscar'
     show: 'Ver'
-    
+
   menu:
     actions:
       logout: 'Salir de la aplicación'
@@ -94,13 +94,13 @@
     documents: 'Documentos'
     organizations: 'Organizaciones'
     users: 'Usuarios'
-    
+
   messages:
     confirmation: '¿Está seguro?'
     session:
       expires_in_less_than_two_minutes: 'Su sesión expira en menos de dos minutos'
       time_expired: 'Su sesión ha expirado'
-    
+
   view:
     devise:
       renew_session: 'Renovar sesión'

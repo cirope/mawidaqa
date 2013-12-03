@@ -52,7 +52,7 @@ stub_request(:get, GdataExtension::URL_FOLDER_LIST).to_return(
 )
 
 stub_request(
-  :post, 
+  :post,
   GdataExtension::Parser.resource_url(
     GdataExtension::ResponseExamples::XML_CREATE_FOLDER
   )

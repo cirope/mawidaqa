@@ -13,7 +13,7 @@ class CreateDocuments < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+
     add_index :documents, :name
     add_index :documents, :code
     add_index :documents, :status

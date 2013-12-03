@@ -6,7 +6,7 @@ class AddNestedSetColumnsToDocuments < ActiveRecord::Migration
       t.integer :rgt
       t.integer :depth # this is optional.
     end
-    
+
     add_index :documents, :parent_id
   end
 end

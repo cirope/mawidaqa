@@ -9,7 +9,7 @@ class DashboardControllerTest < ActionController::TestCase
 
     sign_in user
   end
-  
+
   test "should get index" do
     get :index
     assert_redirected_to action: @job.job

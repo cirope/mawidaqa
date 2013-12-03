@@ -1,6 +1,6 @@
 <div class="readonly-data">
   <h2><%= @organization %></h2>
-  
+
   <% unless @organization.workers.empty? %>
     <h3>
       <%= Organization.human_attribute_name('workers', count: @organization.workers.size) %>
@@ -18,7 +18,7 @@
       <% end %>
     </ul>
   <% end %>
-  
+
   <hr />
 
 </div>

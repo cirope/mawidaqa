@@ -59,7 +59,7 @@ a.iconic {
     @include border-radius(0 0 6px 6px);
     @include box-shadow(0, 1px, 2px, rgba(0,0,0,.15));
   }
-  
+
   .form-inputs {
     padding: 6px 20px 18px;
   }
@@ -69,7 +69,7 @@ a.iconic {
   .pagination, .page-entries {
     margin-right: 20px;
   }
-  
+
   .page-entries {
     font-size: .8em;
     margin-top: -18px;
@@ -80,7 +80,7 @@ a.iconic {
   .form-actions {
     padding-left: 20px;
   }
-  
+
   .readonly-data {
     margin: 0px 20px;
   }

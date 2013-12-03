@@ -3,13 +3,13 @@ class Organization < ActiveRecord::Base
 
   has_magick_columns name: :string, identification: :string
 
-  attr_accessible :name, :identification, :lock_version
+  # attr_accessible :name, :identification, :lock_version
 
   alias_attribute :label, :name
   alias_attribute :informal, :identification
 
   # Default order
-  default_scope order("#{table_name}.name ASC")
+  default_scope -> { order("#{table_name}.name ASC") }
 
   #callbacks
   before_save :create_folder, on: :create
@@ -63,6 +63,6 @@ class Organization < ActiveRecord::Base
   end
 
   def self.filtered_list(query)
-    query.present? ? magick_search(query) : scoped
+    query.present? ? magick_search(query) : all
   end
 end

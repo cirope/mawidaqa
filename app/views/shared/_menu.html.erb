@@ -4,9 +4,9 @@
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
         <span class="iconic">&#xe055;</span>
       </a>
-      
+
       <%= link_to t('app_name'), root_path, class: 'brand' %>
-      
+
       <% if user_signed_in? %>
         <div class="nav-collapse">
           <ul class="nav">
@@ -37,7 +37,7 @@
             <li>
               <%= link_to(
                 '&#x2192;'.html_safe, destroy_user_session_path,
-                title: t('menu.actions.logout'), class: 'iconic', id: 'logout', 
+                title: t('menu.actions.logout'), class: 'iconic', id: 'logout',
                 method: :delete,
                 data: { 'show-tooltip' => true, 'placement' => 'bottom' }
               ) %>

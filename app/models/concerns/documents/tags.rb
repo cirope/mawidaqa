@@ -16,7 +16,7 @@ module Documents::Tags
   def tag_list=(tags)
     self.tag_list_cache = tags.to_s.split(/\s*,\s*/).reject(&:blank?)
   end
-  
+
   def tag_list_asign
     if self.tag_list_cache
       # Remove the removed =)

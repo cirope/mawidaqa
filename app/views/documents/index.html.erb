@@ -45,7 +45,7 @@
 
 <nav class="form-actions">
   <%= link_to(
-    t('view.documents.new', default: :'label.new'), 
-    new_document_path, class: 'btn btn-primary' 
+    t('view.documents.new', default: :'label.new'),
+    new_document_path, class: 'btn btn-primary'
   ) if can? :create, Document %>
 </nav>

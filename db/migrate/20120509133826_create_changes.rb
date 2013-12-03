@@ -8,7 +8,7 @@ class CreateChanges < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+
     add_index :changes, :document_id
   end
 end

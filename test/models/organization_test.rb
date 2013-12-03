@@ -6,15 +6,15 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   test 'create' do
-    assert_difference ['Organization.count', 'Version.count'] do
+    assert_difference ['Organization.count', 'PaperTrail::Version.count'] do
       @organization = Organization.create(Fabricate.attributes_for(:organization))
-    end 
+    end
 
     assert @organization.xml_reference.present?
   end
-    
+
   test 'update' do
-    assert_difference 'Version.count' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Organization.count' do
         assert @organization.update_attributes(name: 'Updated')
       end
@@ -22,17 +22,17 @@ class OrganizationTest < ActiveSupport::TestCase
 
     assert_equal 'Updated', @organization.reload.name
   end
-    
-  test 'destroy' do 
-    assert_difference 'Version.count' do
+
+  test 'destroy' do
+    assert_difference 'PaperTrail::Version.count' do
       assert_difference('Organization.count', -1) { @organization.destroy }
     end
   end
-    
+
   test 'validates blank attributes' do
     @organization.name = ''
     @organization.identification = ''
-    
+
     assert @organization.invalid?
     assert_equal 2, @organization.errors.size
     assert_equal [error_message_from_model(@organization, :name, :blank)],
@@ -40,9 +40,9 @@ class OrganizationTest < ActiveSupport::TestCase
     assert_equal [error_message_from_model(@organization, :identification, :blank)],
       @organization.errors[:identification]
   end
-    
+
   test 'validates unique attributes' do
-    @organization.identification = Fabricate(:organization).identification 
+    @organization.identification = Fabricate(:organization).identification
 
     assert @organization.invalid?
     assert_equal 1, @organization.errors.size
@@ -75,7 +75,7 @@ class OrganizationTest < ActiveSupport::TestCase
       error_message_from_model(@organization, :identification, :exclusion)
     ], @organization.errors[:identification]
   end
-  
+
   test 'validates length of _long_ attributes' do
     @organization.name = 'abcde' * 52
     @organization.identification = 'abcde' * 52
