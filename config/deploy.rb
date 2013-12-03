@@ -12,6 +12,8 @@ set :scm, :git
 set :linked_files, %w{config/app_config.yml}
 set :linked_dirs, %w{log}
 
+set :bundle_bins, fetch(:bundle_bins).push %w(unicorn)
+
 set :rbenv_type, :user
 set :rbenv_ruby, '2.0.0-p353'
 
