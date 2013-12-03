@@ -14,7 +14,7 @@ class CommentTest < ActiveSupport::TestCase
   test 'update' do
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Comment.count' do
-        assert @comment.update_attributes(content: 'Updated')
+        assert @comment.update(content: 'Updated')
       end
     end
 

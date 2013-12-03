@@ -14,7 +14,7 @@ class ChangeTest < ActiveSupport::TestCase
   test 'update' do
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Change.count' do
-        assert @change.update_attributes(content: 'Updated')
+        assert @change.update(content: 'Updated')
       end
     end
 

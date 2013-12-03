@@ -16,7 +16,7 @@ class OrganizationTest < ActiveSupport::TestCase
   test 'update' do
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Organization.count' do
-        assert @organization.update_attributes(name: 'Updated')
+        assert @organization.update(name: 'Updated')
       end
     end
 

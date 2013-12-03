@@ -14,7 +14,7 @@ class UserTest < ActiveSupport::TestCase
   test 'update' do
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'User.count' do
-        assert @user.update_attributes(name: 'Updated')
+        assert @user.update(name: 'Updated')
       end
     end
 

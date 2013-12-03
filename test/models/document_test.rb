@@ -20,7 +20,7 @@ class DocumentTest < ActiveSupport::TestCase
   test 'update' do
     assert_difference 'PaperTrail::Version.count' do
       assert_no_difference 'Document.count' do
-        assert @document.update_attributes(name: 'Updated')
+        assert @document.update(name: 'Updated')
       end
     end
 
@@ -227,16 +227,14 @@ class DocumentTest < ActiveSupport::TestCase
     end
 
     assert_difference ['Tag.count', '@document.tags.count'], 2 do
-      assert @document.update_attributes(
-        tag_list: 'Test, Multi word tag,NewTag, '
-      )
+      assert @document.update(tag_list: 'Test, Multi word tag,NewTag, ')
     end
 
     assert_equal 'Multi word tag,NewTag,Test', @document.reload.tag_list
 
     assert_difference '@document.tags.count', -2 do
       assert_no_difference 'Tag.count' do
-        assert @document.update_attributes(tag_list: 'NewTag, ')
+        assert @document.update(tag_list: 'NewTag, ')
       end
     end
 
@@ -244,7 +242,7 @@ class DocumentTest < ActiveSupport::TestCase
 
     assert_difference '@document.tags.count', -1 do
       assert_no_difference 'Tag.count' do
-        assert @document.update_attributes(tag_list: '')
+        assert @document.update(tag_list: '')
       end
     end
 
