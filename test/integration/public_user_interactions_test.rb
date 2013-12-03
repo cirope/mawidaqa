@@ -4,7 +4,7 @@ require 'test_helper'
 
 class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
   test 'should ask for login' do
-    visit new_user_session_path
+    visit new_user_path
 
     assert_equal new_user_session_path, current_path
 
