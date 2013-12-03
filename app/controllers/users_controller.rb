@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :load_current_user, only: [:edit_profile, :update_profile]
+  before_action :authenticate_user!
+  before_action :load_current_user, only: [:edit_profile, :update_profile]
 
   check_authorization
   load_and_authorize_resource through: :current_organization, shallow: true

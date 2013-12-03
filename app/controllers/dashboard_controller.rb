@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
-  before_filter :authenticate_user!, :load_organization_job, :validate_action
+  before_action :authenticate_user!, :load_organization_job, :validate_action
   respond_to :html, :json
 
   def index

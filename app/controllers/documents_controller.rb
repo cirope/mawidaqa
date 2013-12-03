@@ -1,7 +1,7 @@
 class DocumentsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :load_tag, only: [:index]
-  before_filter :new_document_with_parent, only: [:create_revision]
+  before_action :authenticate_user!
+  before_action :load_tag, only: [:index]
+  before_action :new_document_with_parent, only: [:create_revision]
 
   check_authorization
   load_and_authorize_resource through: :current_organization

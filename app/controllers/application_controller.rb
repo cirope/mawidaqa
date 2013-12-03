@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery
 
-  before_filter :set_current_organization
+  before_action :set_current_organization
   after_filter -> { expires_now if user_signed_in? }
 
   helper_method :current_organization
