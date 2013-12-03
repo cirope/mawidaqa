@@ -3,8 +3,6 @@ class Organization < ActiveRecord::Base
 
   has_magick_columns name: :string, identification: :string
 
-  # attr_accessible :name, :identification, :lock_version
-
   alias_attribute :label, :name
   alias_attribute :informal, :identification
 

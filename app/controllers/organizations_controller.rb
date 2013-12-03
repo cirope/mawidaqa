@@ -47,7 +47,7 @@ class OrganizationsController < ApplicationController
   # POST /organizations
   # POST /organizations.json
   def create
-    @title = t('view.organizations.new_title')
+    @title = t 'view.organizations.new_title'
 
     respond_to do |format|
       if @organization.save
@@ -63,10 +63,10 @@ class OrganizationsController < ApplicationController
   # PUT /organizations/1
   # PUT /organizations/1.json
   def update
-    @title = t('view.organizations.edit_title')
+    @title = t 'view.organizations.edit_title'
 
     respond_to do |format|
-      if @organization.update_attributes(params[:organization])
+      if @organization.update(organization_params)
         format.html { redirect_to @organization, notice: t('view.organizations.correctly_updated') }
         format.json { head :ok }
       else
@@ -89,4 +89,10 @@ class OrganizationsController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  private
+
+    def organization_params
+      params.require(:organization).permit(:name, :identification, :lock_version)
+    end
 end
