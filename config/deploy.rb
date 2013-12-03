@@ -1,4 +1,4 @@
-set :application, 'mawidaqa'
+set :application, 'mawidaqa.com'
 set :user, 'deployer'
 set :repo_url, 'git://github.com/francocatena/mawidaqa.git'
 
