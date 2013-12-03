@@ -31,8 +31,7 @@ class Document < ActiveRecord::Base
   # Attributes without persistence
   attr_accessor :skip_code_uniqueness
 
-  # Setup accessible (or protected) attributes for your model
-  # attr_accessible :name, :code, :version, :notes, :version_comments, :kind, :tag_list, :parent_id, :lock_version, :comments_attributes, :changes_attributes, :organization_id
+  # Readonly attributes...
   attr_readonly :kind
 
   # Callbacks

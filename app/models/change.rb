@@ -1,7 +1,7 @@
 class Change < ActiveRecord::Base
   has_paper_trail
 
-  # attr_accessible :content, :made_at, :document_id, :lock_version
+  # attr_accessible 
 
   # Scopes
   default_scope -> { order("#{table_name}.made_at DESC") }

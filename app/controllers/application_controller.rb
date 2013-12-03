@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include Application::CancanStrongParameters
+
   protect_from_forgery
 
   before_filter :set_current_organization

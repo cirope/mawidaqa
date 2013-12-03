@@ -68,7 +68,7 @@ class DocumentsController < ApplicationController
     @title = t 'view.documents.edit_title'
 
     respond_to do |format|
-      if @document.update_attributes(params[:document])
+      if @document.update(document_params)
         format.html { redirect_to @document, notice: t('view.documents.correctly_updated') }
         format.json { head :no_content }
       else
@@ -138,13 +138,21 @@ class DocumentsController < ApplicationController
   end
 
   private
+    def document_params
+      params.require(:document).permit(
+        :name, :code, :version, :notes, :version_comments, :kind, :tag_list,
+        :parent_id, :organization_id, :lock_version,
+        comments_attributes: [:id, :content, :commentable_id, :lock_version],
+        changes_attributes: [:id, :content, :made_at, :document_id, :lock_version]
+      )
+    end
 
-  def load_tag
-    @tag = Tag.find(params[:tag_id]) if params[:tag_id].present?
-    @documents = current_organization.tags.find(@tag).documents if @tag
-  end
+    def load_tag
+      @tag = Tag.find(params[:tag_id]) if params[:tag_id].present?
+      @documents = current_organization.tags.find(@tag).documents if @tag
+    end
 
-  def new_document_with_parent
-    @document = Document.on_revision_with_parent(params[:id])
-  end
+    def new_document_with_parent
+      @document = Document.on_revision_with_parent(params[:id])
+    end
 end
