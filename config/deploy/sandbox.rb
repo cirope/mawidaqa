@@ -1,4 +1,4 @@
-set :stage, :staging
+set :stage, :sandbox
 set :rails_env, 'production'
 
 role :all, %w{localhost}
