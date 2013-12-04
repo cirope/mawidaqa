@@ -1,5 +1,6 @@
 class Tag < ActiveRecord::Base
   include Comparable
+  include Associations::DestroyPaperTrail
 
   has_paper_trail
 

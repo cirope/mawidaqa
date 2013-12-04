@@ -2,6 +2,8 @@ class Document < ActiveRecord::Base
   include Documents::Revisions
   include Documents::StateMachine
   include Documents::Tags
+  include Associations::DestroyPaperTrail
+  include Associations::DestroyInBatches
 
   has_paper_trail version: :paper_trail_version
 

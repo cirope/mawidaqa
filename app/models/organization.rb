@@ -1,4 +1,7 @@
 class Organization < ActiveRecord::Base
+  include Associations::DestroyPaperTrail
+  include Associations::DestroyInBatches
+
   has_paper_trail
 
   has_magick_columns name: :string, identification: :string

@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   include RoleModel
+  include Associations::DestroyPaperTrail
+  include Associations::DestroyInBatches
 
   roles :admin, :regular
 

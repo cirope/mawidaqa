@@ -1,7 +1,7 @@
 class Change < ActiveRecord::Base
-  has_paper_trail
+  include Associations::DestroyPaperTrail
 
-  # attr_accessible 
+  has_paper_trail
 
   # Scopes
   default_scope -> { order("#{table_name}.made_at DESC") }

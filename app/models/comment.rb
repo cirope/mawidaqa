@@ -1,4 +1,6 @@
 class Comment < ActiveRecord::Base
+  include Associations::DestroyPaperTrail
+
   has_paper_trail
 
   # Restrictions
