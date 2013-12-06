@@ -2,9 +2,9 @@
 
 Web Application for manage documents
 
-=== Build Status {<img src="https://secure.travis-ci.org/francocatena/mawidaqa.png"/>}[http://travis-ci.org/francocatena/mawidaqa]
+=== Build Status {<img src="https://secure.travis-ci.org/cirope/mawidaqa.png"/>}[http://travis-ci.org/francocatena/mawidaqa]
 
-=== Dependency Status {<img src="https://gemnasium.com/francocatena/mawidaqa.png?travis"/>}[https://gemnasium.com/francocatena/mawidaqa]
+=== Dependency Status {<img src="https://gemnasium.com/cirope/mawidaqa.png?travis"/>}[https://gemnasium.com/francocatena/mawidaqa]
 
 == (The MIT License)
 
