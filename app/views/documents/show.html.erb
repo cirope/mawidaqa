@@ -52,7 +52,7 @@
           <h3><%= Document.human_attribute_name 'tag_list' %></h3>
           <ul>
             <% @document.tags.each do |tag| %>
-              <li><%= content_tag :span, tag, class: 'label' %></li>
+              <li><span class="label"><%= tag %></span></li>
             <% end %>
           </ul>
         <% end %>

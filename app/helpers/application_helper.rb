@@ -61,7 +61,7 @@ module ApplicationHelper
       result = content_tag(:ul, previous_tag + next_tag, class: 'pager')
     end
 
-    content_tag :div, result + page_entries, class: 'pull-right'
+    content_tag :div, result + page_entries, class: 'pagination-container'
   end
 
   def document_tag_list

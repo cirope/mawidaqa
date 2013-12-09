@@ -1,45 +1,42 @@
 <% if @documents.empty? %>
   <%= render 'shared/empty_index' %>
 <% else %>
-  <div class="row">
-    <div class="col-md-12">
-      <table class="table resource-list">
-        <% if @tag %>
-          <caption>
-            <h4><%= t('view.documents.with_tag.html', tag: @tag.to_s) %></h4>
-            <br />
-          </caption>
-        <% end %>
-        <thead>
-          <tr>
-            <th><%= Document.human_attribute_name 'code' %></th>
-            <th><%= Document.human_attribute_name 'name' %></th>
-            <th><span class="visible-md"><%= Document.human_attribute_name 'status' %></span></th>
-            <th><span class="visible-md"><%= Document.human_attribute_name 'version' %></span></th>
-            <th><span class="visible-md"><%= Document.human_attribute_name 'updated_at' %></span></th>
-            <th colspan="2"></th>
-          </tr>
-        </thead>
+  <table class="table table-condensed resource-list">
+    <% if @tag %>
+      <caption>
+        <h4><%= t('view.documents.with_tag.html', tag: @tag.to_s) %></h4>
+        <br />
+      </caption>
+    <% end %>
+    <thead>
+      <tr>
+        <th><%= Document.human_attribute_name 'code' %></th>
+        <th><%= Document.human_attribute_name 'name' %></th>
+        <th><span class="visible-lg"><%= Document.human_attribute_name 'status' %></span></th>
+        <th><span class="visible-lg"><%= Document.human_attribute_name 'version' %></span></th>
+        <th><span class="visible-lg"><%= Document.human_attribute_name 'updated_at' %></span></th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
 
-        <tbody>
-          <% @documents.each do |document| %>
-            <tr>
-              <td class="nowrap">
-                <%= show_document_code_with_links(document) %>
-              </td>
-              <td><%= document.name %></td>
-              <td><span class="visible-md"><%= document_status_text document %></span></td>
-              <td><span class="visible-md"><%= document.version %></span></td>
-              <td><span class="visible-md"><%= l document.updated_at.to_date %></span></td>
-              <td><%= link_to_edit edit_document_path(document) if can? :update, document %></td>
-              <td><%= link_to_destroy document if can? :destroy, document %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <%= pagination_links(@documents) %>
-    </div>
-  </div>
+    <tbody>
+      <% @documents.each do |document| %>
+        <tr>
+          <td class="nowrap">
+            <%= show_document_code_with_links(document) %>
+          </td>
+          <td><%= document.name %></td>
+          <td><span class="visible-lg"><%= document_status_text document %></span></td>
+          <td><span class="visible-lg"><%= document.version %></span></td>
+          <td><span class="visible-lg"><%= l document.updated_at.to_date %></span></td>
+          <td><%= link_to_edit edit_document_path(document) if can? :update, document %></td>
+          <td><%= link_to_destroy document if can? :destroy, document %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= pagination_links(@documents) %>
 <% end %>
 
 <%= link_to(

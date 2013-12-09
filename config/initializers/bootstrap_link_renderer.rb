@@ -29,7 +29,7 @@ module BootstrapPaginationHelper
     end
 
     def html_container(html)
-      tag(:ul, html, class: 'pagination')
+      tag(:ul, html, class: 'pagination pagination-sm pull-right')
     end
 
     private

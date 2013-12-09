@@ -10,7 +10,7 @@
     $('iframe').height(height - 25)
 
 new Rule
-  condition: -> $('#c_documents').length
+  condition: -> $('#document-tabs').length
   load: -> Document.resizeIFrame()
 
 new Rule
