@@ -6,14 +6,6 @@ GIT
       activerecord (>= 3.0.0)
 
 GIT
-  remote: git://github.com/capistrano/rbenv.git
-  revision: 9576473fc95d9f7539eb01b13574ac03f52a8dcd
-  specs:
-    capistrano-rbenv (2.0.0)
-      capistrano (~> 3.0)
-      sshkit (~> 1.2.0)
-
-GIT
   remote: git://github.com/chytreg/rocket_tag.git
   revision: 02e0c4d176b4797e566e2ed9ec671425620e5322
   branch: feature/rails4-compatibility
@@ -72,6 +64,9 @@ GEM
     capistrano-rails (1.1.0)
       capistrano (>= 3.0.0)
       capistrano-bundler (>= 1.0.0)
+    capistrano-rbenv (2.0.0)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2.0)
     capybara (2.2.0)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -255,7 +250,7 @@ DEPENDENCIES
   capistrano
   capistrano-bundler
   capistrano-rails
-  capistrano-rbenv!
+  capistrano-rbenv
   capybara
   coffee-rails
   database_cleaner
