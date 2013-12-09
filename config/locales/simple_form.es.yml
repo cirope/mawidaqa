@@ -1,4 +1,4 @@
-'es':
+es:
   simple_form:
     "yes": 'Si'
     "no": 'No'
@@ -9,7 +9,7 @@
       # When using html, text and mark won't be used.
       # html: '<abbr title="required">*</abbr>'
     error_notification:
-      default_message: 'Se encontraron algunos problemas, por favor revise los datos...'
+      default_message: 'Hay algunos campos con errores'
     # Labels and hints examples
     # labels:
     #   defaults:

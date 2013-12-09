@@ -11,11 +11,11 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery.ui.all
 //= require jquery_ujs
-//= require jquery/jquery.ui.datepicker-es
+//= require jquery.ui.all
+//= require jquery.ui.datepicker-es
 //= require jquery/tag-it
-//= require twitter/bootstrap
+//= require bootstrap
 //= require inspector
 //= require turboevents
 //= require turbolinks

@@ -1,6 +1,4 @@
 'es':
-  app_name: 'MawidaQA'
-
   attributes:
     created_at: 'Creación'
     updated_at: 'Actualización'

@@ -76,38 +76,6 @@ module ApplicationHelper
     @_document_tag_list ||= current_organization.tags.order('name ASC')
   end
 
-  def link_to_show(*args)
-    options = args.extract_options!
-
-    options['class'] ||= 'iconic'
-    options['title'] ||= t('label.show')
-    options['data-show-tooltip'] ||= true
-
-    link_to '&#xe074;'.html_safe, *args, options
-  end
-
-  def link_to_edit(*args)
-    options = args.extract_options!
-
-    options['class'] ||= 'iconic'
-    options['title'] ||= t('label.edit')
-    options['data-show-tooltip'] ||= true
-
-    link_to '&#x270e;'.html_safe, *args, options
-  end
-
-  def link_to_destroy(*args)
-    options = args.extract_options!
-
-    options['class'] ||= 'iconic'
-    options['title'] ||= t('label.delete')
-    options['method'] ||= :delete
-    options['data-confirm'] ||= t('messages.confirmation')
-    options['data-show-tooltip'] ||= true
-
-    link_to '&#xe05a;'.html_safe, *args, options
-  end
-
   def copy_attribute_errors(from, to, form_builder)
     form_builder.object.errors[from].each do |message|
       form_builder.object.errors.add(to, message)
