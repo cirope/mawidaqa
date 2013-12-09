@@ -11,85 +11,83 @@
   </li>
 </ul>
 
-<div class="tab-content">
+<div id="document-tabs" class="tab-content">
   <div class="tab-pane" id="document_data">
-    <div class="readonly-data">
-      <div class="page-header">
-        <h1>
-          <span class="iconic">&#xe000;</span> <%= @document %>
-        </h1>
-      </div>
-
-      <div class="row-fluid">
-        <div class="span6">
-          <p>
-            <b><%= Document.human_attribute_name 'status' %>:</b>
-            <%= document_status_text(@document) %>
-          </p>
-
-          <p>
-            <b><%= Document.human_attribute_name 'version' %>:</b>
-            <%= @document.version %>
-          </p>
-
-          <p>
-            <b><%= Document.human_attribute_name 'kind' %>:</b>
-            <%= t("view.documents.kinds.#{@document.kind}") %>
-          </p>
-
-          <p>
-            <b><%= Document.human_attribute_name 'notes' %>:</b>
-          </p>
-          <%= simple_format @document.notes %>
-
-          <p>
-            <b><%= Document.human_attribute_name 'version_comments' %>:</b>
-          </p>
-          <%= simple_format @document.version_comments %>
-        </div>
-
-        <div class="span6">
-          <% unless @document.tags.empty? %>
-            <h3><%= Document.human_attribute_name 'tag_list' %></h3>
-            <ul>
-              <% @document.tags.each do |tag| %>
-                <li><%= content_tag :span, tag, class: 'label' %></li>
-              <% end %>
-            </ul>
-          <% end %>
-
-          <% if @document.parent %>
-            <h3><%= Document.human_attribute_name 'parent' %></h3>
-            <%= link_to_related_document @document.parent %>
-          <% end %>
-
-          <% unless @document.children.empty? %>
-            <h3>
-              <%= Document.human_attribute_name 'children', count: @document.children.size %>
-            </h3>
-            <ul>
-              <% @document.children.each do |child| %>
-                <li><%= link_to_related_document child %></li>
-              <% end %>
-            </ul>
-          <% end %>
-        </div>
-      </div>
-
-      <% unless @document.comments.empty? %>
-        <div class="page-header">
-          <h3><%= Comment.model_name.human count: @document.comments.size %></h3>
-        </div>
-        <%= render 'comments', comments: @document.comments %>
-      <% end %>
-
-      <% unless @document.changes.empty? %>
-        <div class="page-header">
-          <h3><%= Change.model_name.human count: @document.changes.size %></h3>
-        </div>
-        <%= render 'changes', changes: @document.changes %>
-      <% end %>
+    <div class="page-header">
+      <h1>
+        <span class="glyphicon glyphicon-file"></span> <%= @document %>
+      </h1>
     </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <p>
+          <strong><%= Document.human_attribute_name 'status' %>:</strong>
+          <%= document_status_text(@document) %>
+        </p>
+
+        <p>
+          <strong><%= Document.human_attribute_name 'version' %>:</strong>
+          <%= @document.version %>
+        </p>
+
+        <p>
+          <strong><%= Document.human_attribute_name 'kind' %>:</strong>
+          <%= t("view.documents.kinds.#{@document.kind}") %>
+        </p>
+
+        <p>
+          <strong><%= Document.human_attribute_name 'notes' %>:</strong>
+        </p>
+        <%= simple_format @document.notes %>
+
+        <p>
+          <strong><%= Document.human_attribute_name 'version_comments' %>:</strong>
+        </p>
+        <%= simple_format @document.version_comments %>
+      </div>
+
+      <div class="col-md-6">
+        <% unless @document.tags.empty? %>
+          <h3><%= Document.human_attribute_name 'tag_list' %></h3>
+          <ul>
+            <% @document.tags.each do |tag| %>
+              <li><%= content_tag :span, tag, class: 'label' %></li>
+            <% end %>
+          </ul>
+        <% end %>
+
+        <% if @document.parent %>
+          <h3><%= Document.human_attribute_name 'parent' %></h3>
+          <%= link_to_related_document @document.parent %>
+        <% end %>
+
+        <% unless @document.children.empty? %>
+          <h3>
+            <%= Document.human_attribute_name 'children', count: @document.children.size %>
+          </h3>
+          <ul>
+            <% @document.children.each do |child| %>
+              <li><%= link_to_related_document child %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+
+    <% unless @document.comments.empty? %>
+      <div class="page-header">
+        <h3><%= Comment.model_name.human count: @document.comments.size %></h3>
+      </div>
+      <%= render 'comments', comments: @document.comments %>
+    <% end %>
+
+    <% unless @document.changes.empty? %>
+      <div class="page-header">
+        <h3><%= Change.model_name.human count: @document.changes.size %></h3>
+      </div>
+      <%= render 'changes', changes: @document.changes %>
+    <% end %>
 
     <nav class="form-actions">
       <% main_action = link_to(

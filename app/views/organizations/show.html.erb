@@ -1,27 +1,24 @@
-<div class="readonly-data">
-  <h2><%= @organization %></h2>
+<h2><%= @organization %></h2>
 
-  <% unless @organization.workers.empty? %>
-    <h3>
-      <%= Organization.human_attribute_name('workers', count: @organization.workers.size) %>
-    </h3>
+<% unless @organization.workers.empty? %>
+  <h3>
+    <%= Organization.human_attribute_name('workers', count: @organization.workers.size) %>
+  </h3>
 
-    <ul>
-      <% @organization.workers.each do |worker| %>
-        <li>
-          <%= t(
-            'view.organizations.worker_role.html',
-            worker: link_to_if(can?(:read, worker.user), worker.user.to_s, worker.user),
-            role: show_human_job_type(worker.job)
-          )%>
-        </li>
-      <% end %>
-    </ul>
-  <% end %>
+  <ul>
+    <% @organization.workers.each do |worker| %>
+      <li>
+        <%= t(
+          'view.organizations.worker_role.html',
+          worker: link_to_if(can?(:read, worker.user), worker.user.to_s, worker.user),
+          role: show_human_job_type(worker.job)
+        )%>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
 
-  <hr />
-
-</div>
+<hr />
 
 <nav class="form-actions">
   <%= link_to t('label.edit'), edit_organization_path(@organization), class: 'btn btn-primary' if can? :update, @organization %>

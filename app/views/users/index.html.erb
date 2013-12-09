@@ -9,7 +9,7 @@
             <th><%= User.human_attribute_name 'name' %></th>
             <th><%= User.human_attribute_name 'lastname' %></th>
             <th>
-              <span class="visible-desktop">
+              <span class="visible-md">
                 <%= User.human_attribute_name 'email' %>
               </span>
             </th>
@@ -27,10 +27,9 @@
           <%= render @users %>
         </tbody>
       </table>
+      <%= pagination_links(@users) %>
     </div>
   </div>
-
-  <%= pagination_links(@users) %>
 <% end %>
 
 <nav class="form-actions">

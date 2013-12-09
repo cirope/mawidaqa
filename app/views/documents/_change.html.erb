@@ -1,8 +1,8 @@
-<div class="row-fluid change">
-  <div class="span2">
+<div class="row change">
+  <div class="col-md-2">
     <%= f.input :made_at, as: :date_picker, label: false %>
   </div>
-  <div class="span10">
+  <div class="col-md-10">
     <%= f.input :content, label: false, input_html: {
       placeholder: Change.human_attribute_name('content'), rows: 3, cols: 30
     } %>

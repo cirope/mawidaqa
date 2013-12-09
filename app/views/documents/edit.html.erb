@@ -16,7 +16,7 @@
   </li>
 </ul>
 
-<div class="tab-content">
+<div id="document-tabs" class="tab-content">
   <div class="tab-pane" id="document_data">
     <%= render 'form' %>
   </div>
@@ -32,7 +32,7 @@
     <div class="form-actions"></div>
   <% else %>
     <% document_url = document_edit_url(@document) %>
-    <div class="well hidden-desktop">
+    <div class="well hidden-lg">
       <%= link_to t('label.edit'), document_url, class: 'btn btn-primary' %>
     </div>
     <%= content_tag :iframe, 'iframe not supported', src: document_url %>

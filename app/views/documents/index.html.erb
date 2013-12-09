@@ -2,7 +2,7 @@
   <%= render 'shared/empty_index' %>
 <% else %>
   <div class="row">
-    <div class="span12">
+    <div class="col-md-12">
       <table class="table resource-list">
         <% if @tag %>
           <caption>
@@ -14,9 +14,9 @@
           <tr>
             <th><%= Document.human_attribute_name 'code' %></th>
             <th><%= Document.human_attribute_name 'name' %></th>
-            <th><span class="visible-desktop"><%= Document.human_attribute_name 'status' %></span></th>
-            <th><span class="visible-desktop"><%= Document.human_attribute_name 'version' %></span></th>
-            <th><span class="visible-desktop"><%= Document.human_attribute_name 'updated_at' %></span></th>
+            <th><span class="visible-md"><%= Document.human_attribute_name 'status' %></span></th>
+            <th><span class="visible-md"><%= Document.human_attribute_name 'version' %></span></th>
+            <th><span class="visible-md"><%= Document.human_attribute_name 'updated_at' %></span></th>
             <th colspan="2"></th>
           </tr>
         </thead>
@@ -28,24 +28,21 @@
                 <%= show_document_code_with_links(document) %>
               </td>
               <td><%= document.name %></td>
-              <td><span class="visible-desktop"><%= document_status_text document %></span></td>
-              <td><span class="visible-desktop"><%= document.version %></span></td>
-              <td><span class="visible-desktop"><%= l document.updated_at.to_date %></span></td>
+              <td><span class="visible-md"><%= document_status_text document %></span></td>
+              <td><span class="visible-md"><%= document.version %></span></td>
+              <td><span class="visible-md"><%= l document.updated_at.to_date %></span></td>
               <td><%= link_to_edit edit_document_path(document) if can? :update, document %></td>
               <td><%= link_to_destroy document if can? :destroy, document %></td>
             </tr>
           <% end %>
         </tbody>
       </table>
+      <%= pagination_links(@documents) %>
     </div>
   </div>
-
-  <%= pagination_links(@documents) %>
 <% end %>
 
-<nav class="form-actions">
-  <%= link_to(
-    t('view.documents.new', default: :'label.new'),
-    new_document_path, class: 'btn btn-primary'
-  ) if can? :create, Document %>
-</nav>
+<%= link_to(
+  t('view.documents.new', default: :'label.new'),
+  new_document_path, class: 'btn btn-primary'
+) if can? :create, Document %>

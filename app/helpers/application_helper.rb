@@ -7,10 +7,6 @@ module ApplicationHelper
     MARKDOWN_RENDERER.render(text).html_safe
   end
 
-  def show_error_messages_for(model)
-    render 'shared/error_messages', model: model unless model.errors.empty?
-  end
-
   def show_menu_link(options = {})
     name = t("menu.#{options[:name]}")
     classes = []
@@ -39,22 +35,22 @@ module ApplicationHelper
   def pagination_links(objects, params = nil)
     result = will_paginate objects,
       inner_window: 1, outer_window: 1, params: params,
-      renderer: BootstrapPaginationHelper::LinkRenderer,
-      class: 'pagination pagination-right'
+      renderer: BootstrapPaginationHelper::LinkRenderer
     page_entries = content_tag(
       :blockquote,
       content_tag(
         :small,
         page_entries_info(objects),
-        class: 'page-entries hidden-desktop pull-right'
-      )
+        class: 'page-entries pull-right'
+      ),
+      class: 'hidden-lg'
     )
 
     unless result
       previous_tag = content_tag(
         :li,
         content_tag(:a, t('will_paginate.previous_label').html_safe),
-        class: 'previous_page disabled'
+        class: 'previous disabled'
       )
       next_tag = content_tag(
         :li,
@@ -62,14 +58,10 @@ module ApplicationHelper
         class: 'next disabled'
       )
 
-      result = content_tag(
-        :div,
-        content_tag(:ul, previous_tag + next_tag),
-        class: 'pagination pagination-right'
-      )
+      result = content_tag(:ul, previous_tag + next_tag, class: 'pager')
     end
 
-    content_tag :div, result + page_entries, class: 'pagination-container'
+    content_tag :div, result + page_entries, class: 'pull-right'
   end
 
   def document_tag_list

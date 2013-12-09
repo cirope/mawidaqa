@@ -77,9 +77,11 @@ module DocumentsHelper
 
     if document.is_on_revision?
       links << link_to(
-        '&#xe025;'.html_safe, document.current_revision,
-        class: 'iconic', title: t('view.documents.show_revision'),
-        data: {'show-tooltip' => true}
+        content_tag(:span, nil, class: 'glyphicon glyphicon-eye-open'),
+        document.current_revision,
+        title: t('view.documents.show_revision'),
+        data: {'show-tooltip' => true},
+        class: 'icon'
       )
     end
 
@@ -121,8 +123,10 @@ module DocumentsHelper
   def link_to_download_source_document(document, options = {})
     format = document.spreadsheet? ? 'xls' : 'doc'
     title = t('view.documents.download_source')
-    label = options[:use_text] ? title : '&#xe000;'.html_safe
-    html_class = 'iconic' unless options[:use_text]
+    label = options[:use_text] ?
+      title :
+      content_tag(:span, nil, class: 'glyphicon glyphicon-file')
+    html_class = 'icon' unless options[:use_text]
     url = "#{document_base_url(document)}&exportFormat=#{format}&format=#{format}"
 
     link_to label, url, class: html_class, title: title,
@@ -131,8 +135,10 @@ module DocumentsHelper
 
   def link_to_download_pdf(document, options = {})
     title = t('view.documents.download_pdf')
-    label = options[:use_text] ? title : '&#xe042;'.html_safe
-    html_class = 'iconic' unless options[:use_text]
+    label = options[:use_text] ?
+      title :
+      content_tag(:span, nil, class: 'glyphicon glyphicon-download-alt')
+    html_class = 'icon' unless options[:use_text]
     url = "#{document_base_url(document)}&exportFormat=pdf&format=pdf"
 
     link_to label, url, class: html_class, title: title,

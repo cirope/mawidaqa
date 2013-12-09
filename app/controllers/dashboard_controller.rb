@@ -14,14 +14,17 @@ class DashboardController < ApplicationController
 
   def approver
     @title = t 'view.dashboard.generic_title'
+    render 'dashboard/greetings'
   end
 
   def reviewer
     @title = t 'view.dashboard.generic_title'
+    render 'dashboard/greetings'
   end
 
   def author
     @title = t 'view.dashboard.generic_title'
+    render 'dashboard/greetings'
   end
 
   private

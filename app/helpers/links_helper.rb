@@ -26,17 +26,16 @@ module LinksHelper
   end
 
   private
+    def link_with_icon(options = {}, *args)
+      arg_options = args.extract_options!
 
-  def link_with_icon(options = {}, *args)
-    arg_options = args.extract_options!
+      arg_options.reverse_merge!(
+        title: t("navigation.#{options.fetch(:action)}"),
+        class: 'icon'
+      )
 
-    arg_options.reverse_merge!(
-      title: t("navigation.#{options.fetch(:action)}"),
-      class: 'icon'
-    )
-
-    link_to *args, arg_options do
-      content_tag :span, nil, class: "glyphicon #{options.fetch(:icon)}"
+      link_to *args, arg_options do
+        content_tag :span, nil, class: "glyphicon #{options.fetch(:icon)}"
+      end
     end
-  end
 end
