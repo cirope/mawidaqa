@@ -47,7 +47,7 @@
         <%= render 'comments', comments: @document.comments.reject(&:new_record?) %>
 
         <% comment = @document.comments.detect(&:new_record?) || @document.comments.build %>
-        <%= f.simple_fields_for :comments, [comment], defaults: { input_html: { class: 'span10' } } do |c_f| %>
+        <%= f.simple_fields_for :comments, [comment] do |c_f| %>
           <%= render partial: 'comment', locals: { f: c_f } %>
         <% end %>
       </div>
@@ -56,7 +56,7 @@
         <%= render 'changes', changes: @document.changes.reject(&:new_record?) %>
 
         <% change = @document.changes.detect(&:new_record?) || @document.changes.build %>
-        <%= f.simple_fields_for :changes, [change], defaults: { input_html: { class: 'span10' } } do |ch_f| %>
+        <%= f.simple_fields_for :changes, [change] do |ch_f| %>
           <%= render partial: 'change', locals: { f: ch_f } %>
         <% end %>
       </div>
