@@ -11,10 +11,8 @@
       <div class="form-actions">
         <%= f.input :lock_version, as: :hidden %>
         <%= f.button :submit, class: 'btn-primary' %>
+        <%= yield :form_actions %>
       </div>
     <% end %>
   </div>
 </div>
-
-<br />
-<%= yield :form_actions %>

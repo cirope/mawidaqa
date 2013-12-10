@@ -58,7 +58,7 @@ module ApplicationHelper
         class: 'next disabled'
       )
 
-      result = content_tag(:ul, previous_tag + next_tag, class: 'pager')
+      result = content_tag(:ul, previous_tag + next_tag, class: 'pager pull-right')
     end
 
     content_tag :div, result + page_entries, class: 'pagination-container'

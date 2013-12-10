@@ -1,5 +1,10 @@
 <% classes = ['navbar-form', 'navbar-left'] %>
 <% classes << 'hidden' unless @searchable %>
-<%= form_for :search, method: :get, html: { class: classes.join(' ') } do |f| %>
-  <%= text_field_tag :q, params[:q], placeholder: t('label.search') %>
+<%= form_for :search, method: :get, html: { class: classes.join(' ') } do %>
+  <div class="form-inputs">
+    <div class="controls">
+      <%= text_field_tag :q, params[:q],
+        class: 'form-control', placeholder: t('label.search') %>
+    </div>
+  </div>
 <% end %>
