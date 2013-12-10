@@ -41,5 +41,5 @@ MawidaQA::Application.routes.draw do
 
   get 'errors/error_404'
 
-  match '*not_found', to: 'errors#error_404', via: [:get, :put, :patch, :post, :delete]
+  match '*not_found', to: 'errors#error_404', via: :all
 end

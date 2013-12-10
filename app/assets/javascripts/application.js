@@ -29,7 +29,6 @@
 //= require endless_pagination
 //= require mobile
 //= require dashboard
-//= require errors
 //= require organizations
 //= require launchpad
 //= require users
