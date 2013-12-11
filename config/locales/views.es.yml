@@ -1,5 +1,6 @@
 es:
   app_name: 'MawidaQA'
+  copyright: 'MawidaQA © 2013'
 
   messages:
     confirmation: '¿Está seguro?'
@@ -50,22 +51,3 @@ es:
       submit: 'Actualizar mis datos'
     update:
       success: 'Tus datos se actualizaron correctamente'
-
-  users:
-    create:
-      success: 'Usuario creado correctamente'
-    destroy:
-      success: 'Usuario eliminado'
-    edit:
-      title: 'Editar usuario'
-    index:
-      new: 'Nuevo usuario'
-      title: 'Listado de usuarios'
-      empty_html: 'No hay usuarios, puede crear uno con el botón <span class="label label-info">Nuevo usuario</span>'
-    new:
-      title: 'Crear usuario'
-    show:
-      title: 'Ver usuario'
-    update:
-      success: 'Usuario actualizado correctamente'
-      stale_object_error: 'No se pudo actualizar el usuario, revise los datos e inténtelo nuevamente'

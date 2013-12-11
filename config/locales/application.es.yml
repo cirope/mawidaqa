@@ -107,7 +107,7 @@
         html: 'No hay ningún elemento por el momento'
       empty_search:
         title:
-          html: 'La búsqueda de <span class="label label-inverse">%{search}</span> no obtuvo ningún resultado.'
+          html: 'La búsqueda de <span class="label label-default">%{search}</span> no obtuvo ningún resultado.'
     jobs:
       types:
         approver: 'Aprobador'
@@ -131,7 +131,7 @@
       correctly_updated: 'Documento actualizado correctamente.'
       stale_object_error: 'El documento no pudo ser actualizado, intente nuevamente.'
       empty_index:
-        html: 'No se ha creado ningún documento hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo documento</span>'
+        html: 'No se ha creado ningún documento hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-primary">Nuevo documento</span>'
       new: 'Nuevo documento'
       non_existent: 'Archivo inexistente'
       approved: 'El documento se aprobó.'
@@ -174,7 +174,7 @@
       correctly_updated: 'Organización actualizada correctamente.'
       stale_object_error: 'La organización no pudo ser actualizada, intente nuevamente.'
       empty_index:
-        html: 'No se ha creado ninguna organización hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nueva organización</span>'
+        html: 'No se ha creado ninguna organización hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-primary">Nueva organización</span>'
       new: 'Nueva organización'
       worker_role:
         html: '%{worker} es %{role}'
@@ -190,7 +190,7 @@
       correctly_updated: 'Usuario actualizado correctamente.'
       stale_object_error: 'El usuario no pudo ser actualizado, intente nuevamente.'
       empty_index:
-        html: 'No se ha creado ningún usuario hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-info">Nuevo usuario</span>'
+        html: 'No se ha creado ningún usuario hasta el momento, si quiere puede hacerlo desde el botón <span class="label label-primary">Nuevo usuario</span>'
       new: 'Nuevo usuario'
       new_job: 'Agregar nuevo trabajo'
       update_profile: 'Actualizar datos'
