@@ -64,9 +64,9 @@
   </div>
 
   <div class="form-actions">
-    <div class="pull-right"><%= yield :form_actions %></div>
     <%= f.input :lock_version, as: :hidden %>
     <%= f.input :parent_id, as: :hidden %>
     <%= document_actions(f) %>
+    <%= yield :form_actions %>
   </div>
 <% end %>

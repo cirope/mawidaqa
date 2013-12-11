@@ -37,7 +37,7 @@ module DocumentsHelper
       if can?(action, document) && document.send("may_#{action}?")
         options = {}
         options['method'] = method
-        options['class'] = 'btn btn-primary' if extra_actions.empty?
+        options['class'] = 'btn btn-primary'
         options['data-confirm'] = t('messages.confirmation') if method != :get
 
         extra_actions << link_to(
@@ -48,17 +48,15 @@ module DocumentsHelper
 
     if document.is_on_revision?
       extra_actions << link_to(
-        t('view.documents.edit_current_revision'), document.current_revision
+        t('view.documents.edit_current_revision'), document.current_revision,
+        class: 'btn btn-primary'
       )
     end
 
     if extra_actions.size == 1
-      extra_actions.first
+      extra_actions.first.html_safe
     else
-      render 'shared/button_dropdown',
-        main_action: extra_actions.shift,
-        extra_actions: extra_actions,
-        dropup: true
+      extra_actions.join(' ').html_safe
     end
   end
 
