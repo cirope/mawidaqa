@@ -5,9 +5,8 @@
     height -= $('.navbar.navbar-fixed-top').outerHeight()
     height -= parseInt($('.navbar.navbar-fixed-top').css('margin-bottom'))
     height -= $('.nav.nav-tabs').outerHeight()
-    height -= parseInt($('.content').css('padding-top'))
 
-    $('iframe').height(height - 25)
+    $('iframe').height(height)
 
 new Rule
   condition: -> $('#document-tabs').length
