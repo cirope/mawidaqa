@@ -1,23 +1,12 @@
-html, body {
-  height: 100%;
+body {
+  padding-top: 70px;
 }
 
-#wrap {
-  min-height: 100%;
-  height: auto;
-  margin: 0 auto -40px;
-  padding: 0 0 60px;
-
-  > .container {
-    padding: 70px 15px 0;
-  }
-}
-
-#footer {
-  height: 40px;
+.form-actions {
+  clear: both;
+  margin: 20px 0;
+  padding: 10px;
   background-color: #f5f5f5;
-
-  p { margin: 10px 0; }
 }
 
 .loading-caption {

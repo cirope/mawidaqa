@@ -18,12 +18,14 @@
   </ul>
 <% end %>
 
-<% if can? :update, @organization %>
-<%= link_to(
-  t('label.edit'), edit_organization_path(@organization),
-  class: 'btn btn-primary'
-) %>
-<% end %>
-<% if can? :read, Organization %>
-  <%= link_to t('label.list'), organizations_path %>
-<% end %>
+<div class="form-actions">
+  <%= link_to(
+    t('label.edit'), edit_organization_path(@organization),
+    class: 'btn btn-primary') if can? :update, @organization
+  %>
+  <% if can? :read, Organization %>
+    <div class="pull-right">
+      <%= link_to t('label.list'), organizations_path %>
+    </div>
+  <% end %>
+</div>

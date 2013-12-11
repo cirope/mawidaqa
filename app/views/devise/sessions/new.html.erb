@@ -7,12 +7,13 @@
       <div class="form-inputs">
         <%= f.input :email, input_html: { autofocus: true } %>
         <%= f.input :password %>
-        <%= f.input :remember_me, as: :boolean, label: false,
-          inline_label: t('sessions.new.remember_me') %>
+        <div class="checkbox">
+          <label>
+            <%= f.check_box :remember_me %> <%= t('sessions.new.remember_me') %>
+          </label>
+        </div>
       </div>
-      <div class="form-actions">
-        <%= submit_tag t('sessions.new.log_in'), class: 'btn btn-default' %>
-      </div>
+      <%= submit_tag t('sessions.new.log_in'), class: 'btn btn-default' %>
       <% end %>
     </div>
   </div>

@@ -22,7 +22,10 @@
   <%= pagination_links(@organizations) %>
 <% end %>
 
-<%= link_to(
-  t('view.organizations.new', default: :'label.new'),
-  new_organization_path, class: 'btn btn-primary'
-) if can? :create, Organization %>
+<br />
+<div class="form-actions">
+  <%= link_to(
+    t('view.organizations.new', default: :'label.new'),
+    new_organization_path, class: 'btn btn-primary'
+  ) if can? :create, Organization %>
+</div>

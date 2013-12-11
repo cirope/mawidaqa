@@ -1,6 +1,5 @@
 es:
   app_name: 'MawidaQA'
-  copyright: 'MawidaQA © 2013'
 
   messages:
     confirmation: '¿Está seguro?'

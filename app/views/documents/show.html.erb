@@ -93,12 +93,15 @@
       <%= render 'changes', changes: @document.changes %>
     <% end %>
 
-    <br />
-    <% main_action = link_to(
-      t('label.edit'), edit_document_path(@document), class: 'btn btn-primary'
-    ) if can? :update, @document %>
-    <%= document_context_actions(@document, main_action) %>
-    <%= link_to t('label.list'), documents_path if can? :read, Document %>
+    <div class="form-actions">
+      <% main_action = link_to(
+        t('label.edit'), edit_document_path(@document), class: 'btn btn-primary'
+      ) if can? :update, @document %>
+      <%= document_context_actions(@document, main_action) %>
+      <div class="pull-right">
+        <%= link_to t('label.list'), documents_path if can? :read, Document %>
+      </div>
+    </div>
   </div>
   <div class="tab-pane active" id="document_edit">
     <% if @document.spreadsheet? %>

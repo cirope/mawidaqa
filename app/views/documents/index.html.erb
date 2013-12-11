@@ -39,7 +39,10 @@
   <%= pagination_links(@documents) %>
 <% end %>
 
-<%= link_to(
-  t('view.documents.new', default: :'label.new'),
-  new_document_path, class: 'btn btn-primary'
-) if can? :create, Document %>
+<br />
+<div class="form-actions">
+  <%= link_to(
+    t('view.documents.new', default: :'label.new'),
+    new_document_path, class: 'btn btn-primary'
+  ) if can? :create, Document %>
+</div>

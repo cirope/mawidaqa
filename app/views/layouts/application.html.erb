@@ -13,17 +13,14 @@
   <%= favicon_link_tag '/favicon.ico' %>
 </head>
 <body>
-  <div id="wrap">
-    <div class="alert alert-warning hidden loading-caption">
-      <strong><%= t 'navigation.loading' %></strong>
-    </div>
-    <div class="container">
-      <%= render 'shared/menu' %>
-      <%= render 'shared/flash' if flash_message.present? %>
-      <%= render 'shared/time_left' if user_signed_in? %>
-      <%= yield %>
-    </div>
+  <div class="alert alert-warning hidden loading-caption">
+    <strong><%= t 'navigation.loading' %></strong>
   </div>
-  <%= render 'shared/footer' %>
+  <div class="container">
+    <%= render 'shared/menu' %>
+    <%= render 'shared/flash' if flash_message.present? %>
+    <%= render 'shared/time_left' if user_signed_in? %>
+    <%= yield %>
+  </div>
 </body>
 </html>
