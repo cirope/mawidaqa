@@ -93,6 +93,8 @@
       <%= render 'changes', changes: @document.changes %>
     <% end %>
 
+    <hr />
+
     <div class="form-actions">
       <% main_action = link_to(
         t('label.edit'), edit_document_path(@document), class: 'btn btn-primary'
@@ -105,11 +107,17 @@
   </div>
   <div class="tab-pane active" id="document_edit">
     <% if @document.spreadsheet? %>
-      <div class="alert">
+      <br />
+
+      <div class="alert alert-warning">
         <%= t(
           'view.documents.preview_not_supported.html',
-          download_pdf_link: link_to_download_pdf(@document, use_text: true),
-          download_source_link: link_to_download_source_document(@document, use_text: true)
+          download_pdf_link: link_to_download_pdf(
+            @document, use_text: true, class: 'alert-link'
+          ),
+          download_source_link: link_to_download_source_document(
+            @document, use_text: true, class: 'alert-link'
+          )
         ) %>
       </div>
     <% else %>

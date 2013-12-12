@@ -2,13 +2,6 @@ body {
   padding-top: 70px;
 }
 
-.form-actions {
-  clear: both;
-  margin: 20px 0;
-  padding: 10px;
-  background-color: #f5f5f5;
-}
-
 .loading-caption {
   position: fixed;
   top: 0%;
@@ -21,6 +14,22 @@ body {
   z-index: 1100;
 }
 
-.pagination {
+.nowrap {
+  white-space: nowrap;
+}
+
+.pagination, .pager {
   margin: 0;
+}
+
+.ui-autocomplete {
+  small {
+    display: block;
+    font-size: .75em;
+    color: #999999;
+  }
+}
+
+.ui-datepicker-trigger {
+  display: none;
 }

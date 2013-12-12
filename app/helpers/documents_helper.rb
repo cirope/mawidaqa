@@ -124,10 +124,9 @@ module DocumentsHelper
     label = options[:use_text] ?
       title :
       content_tag(:span, nil, class: 'glyphicon glyphicon-file')
-    html_class = 'icon' unless options[:use_text]
     url = "#{document_base_url(document)}&exportFormat=#{format}&format=#{format}"
 
-    link_to label, url, class: html_class, title: title,
+    link_to label, url, class: options[:class], title: title,
       data: { 'show-tooltip' => true }
   end
 
@@ -136,10 +135,9 @@ module DocumentsHelper
     label = options[:use_text] ?
       title :
       content_tag(:span, nil, class: 'glyphicon glyphicon-download-alt')
-    html_class = 'icon' unless options[:use_text]
     url = "#{document_base_url(document)}&exportFormat=pdf&format=pdf"
 
-    link_to label, url, class: html_class, title: title,
+    link_to label, url, class: options[:class], title: title,
       data: { 'show-tooltip' => true }
   end
 end
