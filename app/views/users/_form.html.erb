@@ -15,7 +15,11 @@
 
         <% if can? :assign_roles, @user %>
           <label><%= User.human_attribute_name 'roles', count: 1 %></label>
-          <%= show_user_roles_options(f) %>
+          <div class="control-group">
+            <div class="controls">
+              <%= show_user_roles_options(f) %>
+            </div>
+          </div>
         <% end %>
       </div>
     </div>
