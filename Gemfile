@@ -15,7 +15,7 @@ gem 'rocket_tag', github: 'chytreg/rocket_tag', branch: 'feature/rails4-compatib
 gem 'acts_as_tree', github: 'amerine/acts_as_tree'
 gem 'aasm'
 gem 'gdata_19', require: 'gdata'
-gem 'paper_trail', '3.0.0.rc2'
+gem 'paper_trail'
 gem 'magick_columns'
 gem 'validates_timeliness'
 gem 'roadie'

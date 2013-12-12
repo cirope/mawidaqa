@@ -1,13 +1,13 @@
 GIT
   remote: git://github.com/amerine/acts_as_tree.git
-  revision: fbc0ef9573325d7dcc559ce7fee0662b33ea3cd8
+  revision: 59d2c985523a38e96f8600897694d5d26a91d680
   specs:
     acts_as_tree (1.4.0)
       activerecord (>= 3.0.0)
 
 GIT
   remote: git://github.com/capistrano/rbenv.git
-  revision: 9576473fc95d9f7539eb01b13574ac03f52a8dcd
+  revision: d3ced5e51fa2b25e96ad748578734c38929640df
   specs:
     capistrano-rbenv (2.0.0)
       capistrano (~> 3.0)
@@ -134,7 +134,7 @@ GEM
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     orm_adapter (0.5.0)
-    paper_trail (3.0.0.rc2)
+    paper_trail (3.0.0)
       activerecord (>= 3.0, < 5.0)
       activesupport (>= 3.0, < 5.0)
     pg (0.17.0)
@@ -267,7 +267,7 @@ DEPENDENCIES
   jquery-ui-rails
   magick_columns
   newrelic_rpm
-  paper_trail (= 3.0.0.rc2)
+  paper_trail
   pg
   rails (= 4.0.2)
   roadie
