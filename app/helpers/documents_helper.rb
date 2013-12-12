@@ -107,9 +107,13 @@ module DocumentsHelper
   end
 
   def document_base_url(document)
-    document.revision_url || GdataExtension::Base.new.last_revision_url(
-      document.xml_reference, !document.spreadsheet?
-    )
+    if document.on_revision?
+      GdataExtension::Base.new.last_revision_url(
+        document.xml_reference, !document.spreadsheet?
+      )
+    else
+      document.revision_url
+    end
   end
 
   def document_preview_url(document)
