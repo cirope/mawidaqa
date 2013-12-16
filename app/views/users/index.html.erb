@@ -28,7 +28,7 @@
   <%= pagination_links(@users) %>
 <% end %>
 
-<div class="form-actions">
+<div class="form-actions form-footer">
   <%= link_to(
     t('view.users.new', default: :'label.new'),
     new_user_path, class: 'btn btn-primary'
