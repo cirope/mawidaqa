@@ -20,7 +20,7 @@ class DashboardControllerTest < ActionController::TestCase
     get :approver
     assert_response :success
     assert_select '#unexpected_error', false
-    assert_template 'dashboard/approver'
+    assert_template 'dashboard/greetings'
   end
 
   test 'should get reviewer dashboard' do
@@ -28,7 +28,7 @@ class DashboardControllerTest < ActionController::TestCase
     get :reviewer
     assert_response :success
     assert_select '#unexpected_error', false
-    assert_template 'dashboard/reviewer'
+    assert_template 'dashboard/greetings'
   end
 
   test 'should get author dashboard' do
@@ -36,6 +36,6 @@ class DashboardControllerTest < ActionController::TestCase
     get :author
     assert_response :success
     assert_select '#unexpected_error', false
-    assert_template 'dashboard/author'
+    assert_template 'dashboard/greetings'
   end
 end

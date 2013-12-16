@@ -110,7 +110,7 @@ class UsersControllerTest < ActionController::TestCase
         user: Fabricate.attributes_for(:user, name: 'Upd')
     end
 
-    assert_redirected_to edit_profile_user_url(assigns(:user))
+    assert_redirected_to edit_profile_url
     assert_equal 'Upd', @user.reload.name
   end
 
@@ -138,7 +138,7 @@ class UsersControllerTest < ActionController::TestCase
         user: Fabricate.attributes_for(:user, name: 'Upd')
     end
 
-    assert_redirected_to edit_profile_user_url(assigns(:user))
+    assert_redirected_to edit_profile_url
     assert_not_equal 'Upd', another_user.reload.name
     assert_equal 'Upd', @user.reload.name
   end

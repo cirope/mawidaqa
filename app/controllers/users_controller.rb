@@ -95,7 +95,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to(edit_profile_user_url(@user), notice: t('view.users.profile_correctly_updated')) }
+        format.html { redirect_to(edit_profile_url, notice: t('view.users.profile_correctly_updated')) }
         format.xml  { head :ok }
       else
         format.html { render action: 'edit_profile' }
@@ -104,7 +104,7 @@ class UsersController < ApplicationController
     end
 
   rescue ActiveRecord::StaleObjectError
-    redirect_to edit_profile_user_url(@user), alert: t('view.users.stale_object_error')
+    redirect_to edit_profile_url, alert: t('view.users.stale_object_error')
   end
 
   # DELETE /users/1

@@ -2,10 +2,10 @@
 <% if current_organization %>
   <%= f.input :organization_id, as: :hidden, input_html: { value: current_organization.id } %>
 <% end %>
-<fieldset class="row-fluid">
+<fieldset class="row">
   <% unless current_organization %>
-    <div class="span5">
-      <% field_classes = ['autocomplete_field', 'span10'] %>
+    <div class="col-md-5">
+      <% field_classes = ['autocomplete_field'] %>
       <% copy_attribute_errors(:organization_id, :auto_organization_name, f) %>
       <%= f.input :auto_organization_name, label: false,
         placeholder: Job.human_attribute_name('organization_id'),
@@ -25,10 +25,10 @@
       %>
     </div>
   <% end %>
-  <div class="<%= current_organization ? 'span10' : 'span5' %>">
+  <div class="<%= current_organization ? 'col-md-10' : 'col-md-5' %>">
     <%= show_user_job_options(f) %>
   </div>
-  <div class="span2 nested-actions">
+  <div class="col-md-2 nested-actions">
     <%= f.input :id, as: :hidden %>
     <%= f.input :lock_version, as: :hidden %>
     <% if current_organization.nil? || f.object.organization_id == current_organization.id %>

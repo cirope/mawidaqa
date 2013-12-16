@@ -3,14 +3,12 @@
     height = $(window).height()
 
     height -= $('.navbar.navbar-fixed-top').outerHeight()
-    height -= parseInt($('.navbar.navbar-fixed-top').css('margin-bottom'))
     height -= $('.nav.nav-tabs').outerHeight()
-    height -= parseInt($('.content').css('padding-top'))
 
     $('iframe').height(height - 25)
 
 new Rule
-  condition: -> $('#c_documents').length
+  condition: -> $('#document-tabs').length
   load: -> Document.resizeIFrame()
 
 new Rule

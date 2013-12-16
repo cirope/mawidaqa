@@ -17,7 +17,7 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
 
     assert_page_has_no_errors!
 
-    find('#reset-password').click
+    click_link I18n.t('sessions.new.forgot_password')
 
     sleep 0.5
 
@@ -27,7 +27,7 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
     fill_in 'user_email', with: user.email
 
     assert_difference 'ActionMailer::Base.deliveries.size' do
-      find('.btn-primary.submit').click
+      find('.btn-default').click
     end
 
     assert_equal new_user_session_path, current_path
@@ -43,7 +43,10 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
   test 'should be able to login and logout' do
     login
 
-    click_link 'logout'
+    within '.navbar-collapse .navbar-right' do
+      find('a.dropdown-toggle').click
+      click_link I18n.t('navigation.logout')
+    end
 
     assert_equal new_user_session_path, current_path
 

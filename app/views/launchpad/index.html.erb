@@ -1,17 +1,15 @@
 <% @organizations.each_slice(2) do |organizations| %>
   <div class="row">
-    <div class="span1"></div>
     <% organizations.each do |organization| %>
-      <div class="span5">
+      <div class="col-md-6">
         <div class="well">
           <h3>
-            <%= link_to organization, dashboard_url(subdomain: organization.identification) %>
+            <%= link_to(organization,
+              dashboard_url(subdomain: organization.identification)
+            ) %>
           </h3>
         </div>
       </div>
     <% end %>
-    <div class="span1"></div>
   </div>
 <% end %>
-
-<nav class="form-actions"></nav>

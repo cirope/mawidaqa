@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-lg-4 col-lg-offset-4">
+    <div class="well">
+      <%= simple_form_for(resource, as: resource_name,
+        url: password_path(resource_name), html: { method: :post }) do |f| %>
+          <div class="form-inputs">
+            <%= f.input :email, input_html: { autofocus: true } %>
+          </div>
+          <div class="form-actions">
+            <%= submit_tag(
+              t('password_resets.new.send_instructions'), class: 'btn btn-default'
+            ) %>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-4 col-lg-offset-4">
+    <p><%= link_to t('navigation.back'), root_path %></p>
+  </div>
+</div>

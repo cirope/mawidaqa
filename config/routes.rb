@@ -7,12 +7,10 @@ MawidaQA::Application.routes.draw do
 
   devise_for :users
 
-  resources :users do
-    member do
-      get :edit_profile
-      patch :update_profile
-    end
-  end
+  resources :users
+
+  get '/edit_profile', to: 'users#edit_profile', as: 'edit_profile'
+  patch '/update_profile', to: 'users#update_profile', as: 'update_profile'
 
   get 'private/:path', to: 'files#download', constraints: { path: /.+/ }
 
@@ -43,5 +41,5 @@ MawidaQA::Application.routes.draw do
 
   get 'errors/error_404'
 
-  match '*not_found', to: 'errors#error_404', via: [:get, :put, :patch, :post, :delete]
+  match '*not_found', to: 'errors#error_404', via: :all
 end

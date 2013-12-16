@@ -69,7 +69,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     assert page.has_css?('#jobs fieldset')
 
     within '#jobs fieldset' do
-      click_link '✘' # Destroy link
+      find('a').click
     end
 
     assert page.has_no_css?('#jobs fieldset')
@@ -85,7 +85,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     assert page.has_css?('#jobs fieldset')
 
     within '#jobs fieldset' do
-      click_link '✘' # Destroy link
+      find('a').click
     end
 
     assert_no_difference 'User.count' do

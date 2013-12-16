@@ -4,25 +4,23 @@
   <meta charset="utf-8" />
   <title><%= title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <%= stylesheet_link_tag 'application', data: { 'turbolinks-track' => true } %>
-  <%= javascript_include_tag 'application', data: { 'turbolinks-track' => true } %>
+  <%= stylesheet_link_tag    'application', data: { turbolinks_track: true }, media: 'all' %>
+  <%= javascript_include_tag 'application', data: { turbolinks_track: true } %>
   <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <%= csrf_meta_tags %>
   <%= favicon_link_tag '/favicon.ico' %>
 </head>
-<body id="c_<%= controller_name %>" data-action="<%= action_name %>" <%= raw 'class="logged_in"' if user_signed_in? %>>
-  <%= render 'shared/menu' %>
-  <%= render 'shared/time_left' if user_signed_in? %>
-  <div id="loading_caption" class="alert" style="display: none;">
-    <strong><%= t('label.loading') %></strong>
+<body>
+  <div class="alert alert-warning hidden loading-caption">
+    <strong><%= t 'navigation.loading' %></strong>
   </div>
   <div class="container">
-    <div class="content"><%= yield %></div>
+    <%= render 'shared/menu' %>
+    <%= render 'shared/flash' if flash_message.present? %>
+    <%= render 'shared/time_left' if current_user %>
+    <%= yield %>
   </div>
-
-  <%= render 'shared/notice' if flash.notice %>
-  <%= render 'shared/alert' if flash.alert %>
 </body>
 </html>

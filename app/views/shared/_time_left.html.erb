@@ -1,6 +1,6 @@
-<div id="time_left" class="alert alert-error fade in" data-dismiss="alert" style="display: none;">
-  <a class="close">&times;</a>
-  <div class="message"></div>
+<div id="time_left" class="alert alert-danger alert-dismissable fade in" style="display: none;">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <div class="message text-center"></div>
 </div>
 <%= javascript_tag do %>
   State.showMessages.push({
@@ -11,7 +11,7 @@
 
   State.showMessages.push({
     time: <%= Devise.timeout_in %>,
-    message: '<h4><%= t('messages.session.time_expired') %></h4>',
+    message: '<strong><%= t('messages.session.time_expired') %></strong>',
     expired: true
   });
 <% end %>

@@ -1,8 +1,8 @@
-<%= simple_form_for(@document, defaults: { input_html: {class: 'span5'} }) do |f| %>
+<%= simple_form_for(@document) do |f| %>
   <%= f.error_notification %>
 
   <div class="row">
-    <div class="span6">
+    <div class="col-md-6">
       <div class="form-inputs">
         <%= f.input :name, input_html: { autofocus: true, maxlength: 255 } %>
         <%= f.input :code, input_html: { maxlength: 255 } %>
@@ -10,7 +10,7 @@
         <%= show_document_kinds(f) %>
       </div>
     </div>
-    <div class="span6">
+    <div class="col-md-6">
       <div class="form-inputs">
         <%= f.input :notes, input_html: { rows: 4 } %>
         <%= f.input :version_comments, input_html: { rows: 4 } %>
@@ -19,9 +19,9 @@
   </div>
 
   <div class="row">
-    <div class="span12">
+    <div class="col-md-12">
       <div class="form-inputs">
-        <%= f.input :tag_list, input_html: { class: 'span11' } %>
+        <%= f.input :tag_list %>
       </div>
     </div>
   </div>
@@ -47,7 +47,7 @@
         <%= render 'comments', comments: @document.comments.reject(&:new_record?) %>
 
         <% comment = @document.comments.detect(&:new_record?) || @document.comments.build %>
-        <%= f.simple_fields_for :comments, [comment], defaults: { input_html: { class: 'span10' } } do |c_f| %>
+        <%= f.simple_fields_for :comments, [comment] do |c_f| %>
           <%= render partial: 'comment', locals: { f: c_f } %>
         <% end %>
       </div>
@@ -56,18 +56,19 @@
         <%= render 'changes', changes: @document.changes.reject(&:new_record?) %>
 
         <% change = @document.changes.detect(&:new_record?) || @document.changes.build %>
-        <%= f.simple_fields_for :changes, [change], defaults: { input_html: { class: 'span10' } } do |ch_f| %>
+        <%= f.simple_fields_for :changes, [change] do |ch_f| %>
           <%= render partial: 'change', locals: { f: ch_f } %>
         <% end %>
       </div>
     </div>
   </div>
 
-  <div class="form-actions">
+  <hr />
+
+  <div class="form-actions form-footer">
     <div class="pull-right"><%= yield :form_actions %></div>
     <%= f.input :lock_version, as: :hidden %>
     <%= f.input :parent_id, as: :hidden %>
-    <%= render partial: 'shared/hidden_submit', locals: { f: f } %>
     <%= document_actions(f) %>
   </div>
 <% end %>

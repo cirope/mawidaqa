@@ -2,30 +2,19 @@
 }
 
 @media (max-width: 767px) {
-  .iconic {
-    font-size: 1.5em;
-  }
 }
 
 @media (min-width: 768px) and (max-width: 979px) {
 }
 
 @media (max-width: 979px) {
-
-  footer.alert {
-    left: 0em;
-    right: 0em;
-  }
-
   .pagination {
-    ul {
-      li {
-        display: none;
-      }
+    li {
+      display: none;
+    }
 
-      li.previous_page, li.next {
-        display: inline;
-      }
+    li.previous, li.next {
+      display: inline;
     }
   }
 }

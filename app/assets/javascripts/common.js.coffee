@@ -28,9 +28,9 @@ jQuery ($) ->
   $(document).on 'click', 'a.submit', -> $(this).closest('form').submit(); false
 
   $(document).ajaxStart ->
-    $('#loading_caption').stop(true, true).fadeIn(100)
+    $('.loading-caption').removeClass('hidden')
   .ajaxStop ->
-    $('#loading_caption').stop(true, true).fadeOut(100)
+    $('.loading-caption').addClass('hidden')
 
   $(document).on 'submit', 'form', ->
     $(this).find('input[type="submit"], input[name="utf8"]').attr 'disabled', true

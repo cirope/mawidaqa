@@ -1,10 +1,10 @@
-<div class="row-fluid comment">
-  <div class="span2">
+<div class="row comment">
+  <div class="col-md-2">
     <p>
       <strong><%= User.find(f.object.originator || current_user.id) %></strong>
     </p>
   </div>
-  <div class="span10">
+  <div class="col-md-10">
     <%= f.input :content, label: false, input_html: {
       placeholder: Comment.human_attribute_name('content'), rows: 3, cols: 30
     } %>

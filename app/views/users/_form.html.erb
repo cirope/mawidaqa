@@ -1,8 +1,8 @@
-<%= simple_form_for(@user, defaults: { input_html: { class: 'span5' } }) do |f| %>
+<%= simple_form_for(@user) do |f| %>
   <%= f.error_notification %>
 
   <div class="row">
-    <div class="span6">
+    <div class="col-md-6">
       <div class="form-inputs">
         <%= f.input :name, input_html: { autofocus: true, maxlength: 255 } %>
         <%= f.input :lastname, input_html: { maxlength: 255 } %>
@@ -15,29 +15,33 @@
 
         <% if can? :assign_roles, @user %>
           <label><%= User.human_attribute_name 'roles', count: 1 %></label>
-          <%= show_user_roles_options(f) %>
+          <div class="control-group">
+            <div class="controls">
+              <%= show_user_roles_options(f) %>
+            </div>
+          </div>
         <% end %>
       </div>
     </div>
 
-    <div class="span6">
-      <div class="row-fluid form-inputs">
-        <div class="span12">
-          <h5><%= User.human_attribute_name 'jobs', count: @user.jobs.size %></h5>
-        </div>
+    <div class="col-md-6">
+      <h5 style="margin-top: 0;">
+        <strong>
+          <%= User.human_attribute_name 'jobs', count: @user.jobs.size %>
+        </strong>
+      </h5>
 
-        <div class="row-fluid">
-          <div id="jobs" class="span12">
-            <%= f.simple_fields_for :jobs, user_jobs(@user) do |j_f| %>
-              <%= render partial: 'job', locals: { f: j_f } %>
-            <% end %>
+      <div id="jobs">
+        <%= f.simple_fields_for :jobs, user_jobs(@user) do |j_f| %>
+          <%= render partial: 'job', locals: { f: j_f } %>
+        <% end %>
 
-            <%= link_to_add_fields(t('view.users.new_job'), f, :jobs) unless current_organization %>
-          </div>
-        </div>
+        <%= link_to_add_fields(t('view.users.new_job'), f, :jobs) unless current_organization %>
       </div>
     </div>
   </div>
+
+  <hr />
 
   <div class="form-actions">
     <div class="pull-right"><%= yield :form_actions %></div>

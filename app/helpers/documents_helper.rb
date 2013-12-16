@@ -37,7 +37,7 @@ module DocumentsHelper
       if can?(action, document) && document.send("may_#{action}?")
         options = {}
         options['method'] = method
-        options['class'] = 'btn btn-primary' if extra_actions.empty?
+        options['class'] = 'btn btn-default'
         options['data-confirm'] = t('messages.confirmation') if method != :get
 
         extra_actions << link_to(
@@ -48,17 +48,15 @@ module DocumentsHelper
 
     if document.is_on_revision?
       extra_actions << link_to(
-        t('view.documents.edit_current_revision'), document.current_revision
+        t('view.documents.edit_current_revision'), document.current_revision,
+        class: 'btn btn-default'
       )
     end
 
     if extra_actions.size == 1
-      extra_actions.first
+      extra_actions.first.html_safe
     else
-      render 'shared/button_dropdown',
-        main_action: extra_actions.shift,
-        extra_actions: extra_actions,
-        dropup: true
+      render 'button_actions', extra_actions: extra_actions
     end
   end
 
@@ -77,9 +75,11 @@ module DocumentsHelper
 
     if document.is_on_revision?
       links << link_to(
-        '&#xe025;'.html_safe, document.current_revision,
-        class: 'iconic', title: t('view.documents.show_revision'),
-        data: {'show-tooltip' => true}
+        content_tag(:span, nil, class: 'glyphicon glyphicon-eye-open'),
+        document.current_revision,
+        title: t('view.documents.show_revision'),
+        data: {'show-tooltip' => true},
+        class: 'icon'
       )
     end
 
@@ -125,21 +125,23 @@ module DocumentsHelper
   def link_to_download_source_document(document, options = {})
     format = document.spreadsheet? ? 'xls' : 'doc'
     title = t('view.documents.download_source')
-    label = options[:use_text] ? title : '&#xe000;'.html_safe
-    html_class = 'iconic' unless options[:use_text]
+    label = options[:use_text] ?
+      title :
+      content_tag(:span, nil, class: 'glyphicon glyphicon-file')
     url = "#{document_base_url(document)}&exportFormat=#{format}&format=#{format}"
 
-    link_to label, url, class: html_class, title: title,
+    link_to label, url, class: options[:class], title: title,
       data: { 'show-tooltip' => true }
   end
 
   def link_to_download_pdf(document, options = {})
     title = t('view.documents.download_pdf')
-    label = options[:use_text] ? title : '&#xe042;'.html_safe
-    html_class = 'iconic' unless options[:use_text]
+    label = options[:use_text] ?
+      title :
+      content_tag(:span, nil, class: 'glyphicon glyphicon-download-alt')
     url = "#{document_base_url(document)}&exportFormat=pdf&format=pdf"
 
-    link_to label, url, class: html_class, title: title,
+    link_to label, url, class: options[:class], title: title,
       data: { 'show-tooltip' => true }
   end
 end
