@@ -63,6 +63,7 @@ class ActionDispatch::IntegrationTest
 
     find('.btn-default').click
 
+    assert page.has_css?('.navbar-collapse')
     assert_equal expected_path, current_path
 
     assert_page_has_no_errors!
