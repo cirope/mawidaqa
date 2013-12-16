@@ -33,9 +33,10 @@ module ApplicationHelper
   end
 
   def pagination_links(objects, params = nil)
-    result = will_paginate objects,
+    pagination_links = will_paginate objects,
       inner_window: 1, outer_window: 1, params: params,
-      renderer: BootstrapPaginationHelper::LinkRenderer
+      renderer: BootstrapPaginationHelper::LinkRenderer,
+      class: 'pagination pagination-sm pull-right'
     page_entries = content_tag(
       :blockquote,
       content_tag(
@@ -46,22 +47,24 @@ module ApplicationHelper
       class: 'hidden-lg'
     )
 
-    unless result
-      previous_tag = content_tag(
-        :li,
-        content_tag(:a, t('will_paginate.previous_label').html_safe),
-        class: 'previous disabled'
-      )
-      next_tag = content_tag(
-        :li,
-        content_tag(:a, t('will_paginate.next_label').html_safe),
-        class: 'next disabled'
-      )
+    pagination_links ||= empty_pagination_links
 
-      result = content_tag(:ul, previous_tag + next_tag, class: 'pager pull-right')
-    end
+    pagination_links + page_entries
+  end
 
-    content_tag :div, result + page_entries, class: 'pagination-container'
+  def empty_pagination_links
+    previous_tag = content_tag(
+      :li,
+      content_tag(:a, t('will_paginate.previous_label').html_safe),
+      class: 'previous disabled'
+    )
+    next_tag = content_tag(
+      :li,
+      content_tag(:a, t('will_paginate.next_label').html_safe),
+      class: 'next disabled'
+    )
+
+    content_tag(:ul, previous_tag + next_tag, class: 'pager pull-right')
   end
 
   def document_tag_list

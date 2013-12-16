@@ -12,6 +12,7 @@
  *= require bootstrap
  *= require bootstrap-theme
  *= require main
+ *= require main-responsive
  *= require jquery/ui-custom
  *= require jquery/jquery.tagit
  *= require documents
