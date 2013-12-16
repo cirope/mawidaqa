@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/amerine/acts_as_tree.git
-  revision: fbc0ef9573325d7dcc559ce7fee0662b33ea3cd8
+  revision: 59d2c985523a38e96f8600897694d5d26a91d680
   specs:
     acts_as_tree (1.4.0)
       activerecord (>= 3.0.0)
@@ -218,7 +218,7 @@ GEM
     turn (0.9.6)
       ansi
     tzinfo (0.3.38)
-    uglifier (2.3.2)
+    uglifier (2.3.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unicorn (4.7.0)
