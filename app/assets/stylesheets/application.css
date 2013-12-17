@@ -15,6 +15,7 @@
  *= require main-responsive
  *= require jquery/ui-custom
  *= require jquery/jquery.tagit
+ *= require ie
  *= require documents
  *= require files
  *= require dashboard
