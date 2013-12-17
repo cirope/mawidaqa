@@ -106,7 +106,7 @@ class UsersTest < ActionDispatch::IntegrationTest
 
     assert row_count < 101
 
-    until row_count >= 101
+    until row_count == 101
       page.execute_script 'window.scrollBy(0,10000)'
 
       assert page.has_css?("tbody tr:nth-child(#{row_count + 1})")
