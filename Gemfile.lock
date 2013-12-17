@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/amerine/acts_as_tree.git
-  revision: 59d2c985523a38e96f8600897694d5d26a91d680
+  revision: 3561413295c4e9057e7af762b3ac2d25ec109534
   specs:
-    acts_as_tree (1.4.0)
+    acts_as_tree (1.5.0)
       activerecord (>= 3.0.0)
 
 GIT
@@ -23,7 +23,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    aasm (3.0.24)
+    aasm (3.0.25)
     actionmailer (4.0.2)
       actionpack (= 4.0.2)
       mail (~> 2.5.4)
