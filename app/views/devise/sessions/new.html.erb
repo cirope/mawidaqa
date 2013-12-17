@@ -8,9 +8,7 @@
         <%= f.input :email, input_html: { autofocus: true } %>
         <%= f.input :password %>
         <div class="checkbox">
-          <label>
-            <%= f.check_box :remember_me %> <%= t('sessions.new.remember_me') %>
-          </label>
+          <%= f.check_box :remember_me %> <%= t('sessions.new.remember_me') %>
         </div>
       </div>
       <%= submit_tag t('sessions.new.log_in'), class: 'btn btn-default' %>

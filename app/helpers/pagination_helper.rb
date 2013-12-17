@@ -16,7 +16,7 @@ module PaginationHelper
 
     pagination_links ||= empty_pagination_links
 
-    pagination_links + page_entries
+    content_tag(:div, pagination_links + page_entries, class: 'pagination-container')
   end
 
   def empty_pagination_links
