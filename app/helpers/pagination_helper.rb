@@ -4,14 +4,12 @@ module PaginationHelper
       inner_window: 1, outer_window: 1, params: params,
       renderer: BootstrapPaginationHelper::LinkRenderer,
       class: 'pagination pagination-sm pull-right'
-    page_entries = content_tag(
-      :blockquote,
-      content_tag(
-        :small,
+    page_entries = content_tag(:div,
+      content_tag(:small,
         page_entries_info(objects),
-        class: 'page-entries pull-right'
+        class: 'page-entries text-muted'
       ),
-      class: 'hidden-lg'
+      class: 'hidden-lg pull-right'
     )
 
     pagination_links ||= empty_pagination_links
