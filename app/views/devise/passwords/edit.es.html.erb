@@ -10,10 +10,9 @@
           <%= f.input :password, label: 'Nueva contraseña', input_html: { autofocus: true } %>
           <%= f.input :password_confirmation, label: 'Confirmar contraseña' %>
         </div>
+
         <div class="form-actions">
-          <%= submit_tag(
-            t('password_resets.edit.update'), class: 'btn btn-default'
-          ) %>
+          <%= f.submit t('password_resets.edit.update'), class: 'btn btn-default' %>
         </div>
       <% end %>
     </div>

@@ -19,19 +19,6 @@ module ApplicationHelper
     )
   end
 
-  def show_button_dropdown(main_action, extra_actions = [], options = {})
-    if extra_actions.blank?
-      main_action
-    else
-      out = ''.html_safe
-
-      out << render(
-        'shared/button_dropdown',
-        main_action: main_action, extra_actions: extra_actions, dropup: false
-      )
-    end
-  end
-
   def document_tag_list
     @_document_tag_list ||= current_organization.tags.order('name ASC')
   end

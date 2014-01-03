@@ -5,12 +5,9 @@
     ) %>
   </h1>
 </div>
-<div class="row">
-  <div class="col-md-12">
-    <h4>
-      <%= link_to_if(
-        can?(:read, Document), t('view.dashboard.show_documents'), documents_path
-      ) %>
-    </h4>
-  </div>
-</div>
+
+<h4>
+  <%= link_to_if(
+    can?(:read, Document), t('view.dashboard.show_documents'), documents_path
+  ) %>
+</h4>

@@ -6,17 +6,13 @@
           <div class="form-inputs">
             <%= f.input :email, input_html: { autofocus: true } %>
           </div>
+
           <div class="form-actions">
-            <%= submit_tag(
-              t('password_resets.new.send_instructions'), class: 'btn btn-default'
-            ) %>
+            <%= f.submit t('password_resets.new.send_instructions'),
+              class: 'btn btn-default' %>
           </div>
       <% end %>
     </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-4 col-md-offset-4">
-    <p><%= link_to t('navigation.back'), root_path %></p>
+    <%= link_to t('navigation.back'), root_path %>
   </div>
 </div>
