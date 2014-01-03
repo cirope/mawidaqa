@@ -8,7 +8,7 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 
   setup do
-    instance_eval(File.read(Rails.root.join('test/lib/stub_requests.rb')))
+    instance_eval File.read(Rails.root.join('test/lib/stub_requests.rb'))
   end
 
   def error_message_from_model(model, attribute, message, extra = {})
@@ -56,8 +56,6 @@ class ActionDispatch::IntegrationTest
 
     visit new_user_session_path
 
-    assert_page_has_no_errors!
-
     fill_in 'user_email', with: user.email
     fill_in 'user_password', with: clean_password
 
@@ -66,7 +64,6 @@ class ActionDispatch::IntegrationTest
     assert page.has_css?('.navbar-collapse')
     assert_equal expected_path, current_path
 
-    assert_page_has_no_errors!
     assert page.has_css?('.alert.alert-info')
 
     within '.alert.alert-info' do
@@ -87,9 +84,5 @@ class ActionDispatch::IntegrationTest
       )
 
       login user: user, clean_password: '123456', expected_path: expected_path
-  end
-
-  def assert_page_has_no_errors!
-    assert page.has_no_css?('#unexpected_error')
   end
 end

@@ -7,12 +7,11 @@ class OrganizationsControllerTest < ActionController::TestCase
     sign_in Fabricate(:user)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get :index
     assert_response :success
     assert_not_nil assigns(:organizations)
-    assert_select '#unexpected_error', false
-    assert_template "organizations/index"
+    assert_template 'organizations/index'
   end
 
   test 'should get filtered index' do
@@ -24,7 +23,6 @@ class OrganizationsControllerTest < ActionController::TestCase
     assert_equal 3, assigns(:organizations).size
     assert assigns(:organizations).all? { |s| s.inspect =~ /filtered_index/ }
     assert_not_equal assigns(:organizations).size, Organization.count
-    assert_select '#unexpected_error', false
     assert_template 'organizations/index'
   end
 
@@ -47,15 +45,14 @@ class OrganizationsControllerTest < ActionController::TestCase
     assert_equal 0, organizations.size
   end
 
-  test "should get new" do
+  test 'should get new' do
     get :new
     assert_response :success
     assert_not_nil assigns(:organization)
-    assert_select '#unexpected_error', false
-    assert_template "organizations/new"
+    assert_template 'organizations/new'
   end
 
-  test "should create organization" do
+  test 'should create organization' do
     assert_difference('Organization.count') do
       post :create, organization: Fabricate.attributes_for(:organization)
     end
@@ -63,23 +60,21 @@ class OrganizationsControllerTest < ActionController::TestCase
     assert_redirected_to organization_url(assigns(:organization))
   end
 
-  test "should show organization" do
+  test 'should show organization' do
     get :show, id: @organization
     assert_response :success
     assert_not_nil assigns(:organization)
-    assert_select '#unexpected_error', false
-    assert_template "organizations/show"
+    assert_template 'organizations/show'
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get :edit, id: @organization
     assert_response :success
     assert_not_nil assigns(:organization)
-    assert_select '#unexpected_error', false
-    assert_template "organizations/edit"
+    assert_template 'organizations/edit'
   end
 
-  test "should update organization" do
+  test 'should update organization' do
     assert_no_difference 'Organization.count' do
       patch :update, id: @organization,
       organization: Fabricate.attributes_for(:organization, name: 'value')
@@ -89,7 +84,7 @@ class OrganizationsControllerTest < ActionController::TestCase
     assert_equal 'value', @organization.reload.name
   end
 
-  test "should destroy organization" do
+  test 'should destroy organization' do
     assert_difference('Organization.count', -1) do
       delete :destroy, id: @organization
     end

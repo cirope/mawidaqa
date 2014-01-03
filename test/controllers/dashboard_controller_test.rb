@@ -19,7 +19,6 @@ class DashboardControllerTest < ActionController::TestCase
     assert @job.update_attribute :job, 'approver'
     get :approver
     assert_response :success
-    assert_select '#unexpected_error', false
     assert_template 'dashboard/greetings'
   end
 
@@ -27,7 +26,6 @@ class DashboardControllerTest < ActionController::TestCase
     assert @job.update_attribute :job, 'reviewer'
     get :reviewer
     assert_response :success
-    assert_select '#unexpected_error', false
     assert_template 'dashboard/greetings'
   end
 
@@ -35,7 +33,6 @@ class DashboardControllerTest < ActionController::TestCase
     assert @job.update_attribute :job, 'author'
     get :author
     assert_response :success
-    assert_select '#unexpected_error', false
     assert_template 'dashboard/greetings'
   end
 end

@@ -7,11 +7,10 @@ class LaunchpadControllerTest < ActionController::TestCase
     sign_in @user
   end
 
-  test "should get index" do
+  test 'should get index' do
     get :index
     assert_response :success
     assert_not_nil assigns(:organizations)
-    assert_select '#unexpected_error', false
     assert_template 'launchpad/index'
   end
 end

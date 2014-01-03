@@ -6,7 +6,6 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
 
     assert_equal new_user_session_path, current_path
 
-    assert_page_has_no_errors!
     assert page.has_css?('.alert')
   end
 
@@ -15,14 +14,11 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
 
     visit new_user_session_path
 
-    assert_page_has_no_errors!
-
     click_link I18n.t('sessions.new.forgot_password')
 
     sleep 0.5
 
     assert_equal new_user_password_path, current_path
-    assert_page_has_no_errors!
 
     fill_in 'user_email', with: user.email
 
@@ -32,7 +28,6 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
 
     assert_equal new_user_session_path, current_path
 
-    assert_page_has_no_errors!
     assert page.has_css?('.alert.alert-info')
 
     within '.alert.alert-info' do
@@ -50,7 +45,6 @@ class PublicUserInteractionsTest < ActionDispatch::IntegrationTest
 
     assert_equal new_user_session_path, current_path
 
-    assert_page_has_no_errors!
     assert page.has_css?('.alert.alert-info')
 
     within '.alert.alert-info' do

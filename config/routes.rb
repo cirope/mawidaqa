@@ -38,8 +38,4 @@ MawidaQA::Application.routes.draw do
   end
 
   root to: redirect('/users/sign_in')
-
-  get 'errors/error_404'
-
-  match '*not_found', to: 'errors#error_404', via: :all
 end

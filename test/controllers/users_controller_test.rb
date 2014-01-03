@@ -11,7 +11,6 @@ class UsersControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_not_nil assigns(:users)
-    assert_select '#unexpected_error', false
     assert_template 'users/index'
   end
 
@@ -26,7 +25,6 @@ class UsersControllerTest < ActionController::TestCase
     assert_equal 3, assigns(:users).size
     assert assigns(:users).all? { |u| u.to_s =~ /filtered_index/ }
     assert_not_equal assigns(:users).size, User.count
-    assert_select '#unexpected_error', false
     assert_template 'users/index'
   end
 
@@ -36,7 +34,6 @@ class UsersControllerTest < ActionController::TestCase
     get :new
     assert_response :success
     assert_not_nil assigns(:user)
-    assert_select '#unexpected_error', false
     assert_template 'users/new'
   end
 
@@ -56,7 +53,6 @@ class UsersControllerTest < ActionController::TestCase
     get :show, id: @user
     assert_response :success
     assert_not_nil assigns(:user)
-    assert_select '#unexpected_error', false
     assert_template 'users/show'
   end
 
@@ -66,7 +62,6 @@ class UsersControllerTest < ActionController::TestCase
     get :edit, id: @user
     assert_response :success
     assert_not_nil assigns(:user)
-    assert_select '#unexpected_error', false
     assert_template 'users/edit'
   end
 
@@ -98,7 +93,6 @@ class UsersControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil assigns(:user)
     assert_equal @user.id, assigns(:user).id
-    assert_select '#unexpected_error', false
     assert_template 'users/edit_profile'
   end
 
@@ -124,7 +118,6 @@ class UsersControllerTest < ActionController::TestCase
     assert_not_nil assigns(:user)
     assert_not_equal another_user.id, assigns(:user).id
     assert_equal @user.id, assigns(:user).id
-    assert_select '#unexpected_error', false
     assert_template 'users/edit_profile'
   end
 

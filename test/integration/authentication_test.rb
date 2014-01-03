@@ -15,7 +15,6 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
 
     assert_equal new_user_session_path, current_path
 
-    assert_page_has_no_errors!
     assert page.has_css?('.alert')
     assert page.has_content?(I18n.t('devise.sessions.signed_out'))
   end
@@ -70,8 +69,6 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
 
     visit new_user_session_path
 
-    assert_page_has_no_errors!
-
     fill_in 'user_email', with: user.email
     fill_in 'user_password', with: clean_password
 
@@ -79,7 +76,6 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
 
     assert_equal new_user_session_path, current_path
 
-    assert_page_has_no_errors!
     assert page.has_css?('.alert')
     assert page.has_content?(I18n.t('devise.failure.invalid'))
   end
