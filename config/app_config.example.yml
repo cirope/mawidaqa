@@ -7,5 +7,5 @@ smtp:
   authentication: 'plain'
   enable_starttls_auto: true
 
-public_host: 'public.domain.com'
+public_host: 'lvh.me'
 support_email: 'noreply@change.me'
