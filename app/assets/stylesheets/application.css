@@ -13,8 +13,9 @@
  *= require bootstrap-theme
  *= require main
  *= require main-responsive
- *= require jquery/ui-custom
- *= require jquery/jquery.tagit
+ *= require jquery-ui
+ *= require jquery-ui-theme
+ *= require jquery-tagit
  *= require ie
  *= require documents
  *= require files

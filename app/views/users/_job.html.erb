@@ -5,13 +5,11 @@
 <fieldset class="row">
   <% unless current_organization %>
     <div class="col-md-5">
-      <% field_classes = ['autocomplete_field'] %>
       <% copy_attribute_errors(:organization_id, :auto_organization_name, f) %>
       <%= f.input :auto_organization_name, label: false,
         placeholder: Job.human_attribute_name('organization_id'),
         input_html: {
           id: "auto_organization_#{id}",
-          class: field_classes.join(' '),
           value: f.object.organization.try(:label),
           autofocus: true,
           data: {
@@ -20,9 +18,7 @@
           }
         }
       %>
-      <%= f.input :organization_id, as: :hidden,
-        input_html: { class: 'autocomplete_id', id: "auto_organization_id_#{id}" }
-      %>
+      <%= f.input :organization_id, as: :hidden, input_html: { id: "auto_organization_id_#{id}" } %>
     </div>
   <% end %>
   <div class="<%= current_organization ? 'col-md-10' : 'col-md-5' %>">
