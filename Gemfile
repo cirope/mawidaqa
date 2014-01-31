@@ -21,6 +21,7 @@ gem 'validates_timeliness'
 gem 'roadie'
 gem 'sidekiq'
 gem 'newrelic_rpm'
+gem 'bloggy'
 
 gem 'sass-rails'
 gem 'coffee-rails'

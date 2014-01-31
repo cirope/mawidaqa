@@ -1,0 +1,37 @@
+body {
+  .container {
+    max-width: 960px;
+  }
+}
+
+.article {
+  h2 { margin: 0 0 20px 0; }
+}
+
+.header {
+  margin-top: 0;
+}
+
+ul.menu {
+  padding: 10px 0;
+  background-color: #F7F5FA;
+
+  li {
+    &.active > a {
+      color: #563D7C;
+      font-weight: bold;
+      border-right: 1px solid #563D7C;
+      background-color: transparent;
+    }
+    a { color: #716B7A; }
+  }
+
+  ul {
+    margin-left: 1.5em;
+
+    a {
+      font-size: .9em;
+      padding: 3px 0;
+    }
+  }
+}

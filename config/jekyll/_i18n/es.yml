@@ -1,0 +1,7 @@
+app_name: 'MawidaQA Ayuda'
+faq: 'FAQ'
+guides:
+  title: 'Guías'
+  administration: 'Administración'
+  documents: 'Documentos'
+  tags: 'Etiquetas'
