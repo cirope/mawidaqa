@@ -2,7 +2,7 @@
   {% sorted_for article in site.pages sort_by:order %}
     {% if article.category == page.category %}
       <li {% if article.url == page.url %} class="active" {% endif %}>
-        <a href="{{ article.url }}">{{ article.title }}</a>
+        <a href="/help{{ article.url }}">{{ article.title }}</a>
       </li>
     {% endif %}
   {% endsorted_for %}

@@ -1,8 +1,9 @@
 markdown: rdiscount
 permalink: pretty
-destination: ../../public/
+destination: ../../public/help
 pygments: true
 assets:
+  baseurl: /help/assets/
   js_compressor:  uglifier
   css_compressor: sass
   sources:
@@ -15,7 +16,7 @@ assets:
 exclude:
   - Gemfile
   - Gemfile.lock
+  - README.rdoc
   - .git
   - .gitignore
-  - Rakefile
 languages: ['es']
