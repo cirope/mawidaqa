@@ -1,12 +1,22 @@
-desc 'Run Jekyll in config/jekyll directory without having to cd there'
-task :generate do
-  Dir.chdir("config/jekyll") do
-    system('BUNDLE_GEMFILE=./Gemfile bundle exec jekyll build')
+namespace :help do
+  desc 'Install help dependencies'
+  task install: :environment do
+    Dir.chdir("config/jekyll") do
+      Bundler.with_clean_env { system('bundle install') }
+    end
   end
-end
-desc 'Run Jekyll in config/jekyll directory with --watch'
-task :autogenerate do
-  Dir.chdir("config/jekyll") do
-    system('bundle exec jekyll build --watch')
+
+  desc 'Run Jekyll in config/jekyll directory without having to cd there'
+  task generate: :environment do
+    Dir.chdir("config/jekyll") do
+      Bundler.with_clean_env { system('bundle exec jekyll build') }
+    end
+  end
+
+  desc 'Run Jekyll in config/jekyll directory with --watch'
+  task autogenerate: :environment do
+    Dir.chdir("config/jekyll") do
+      Bundler.with_clean_env { system('bundle exec jekyll build --watch') }
+    end
   end
 end
