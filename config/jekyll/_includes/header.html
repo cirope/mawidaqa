@@ -1,9 +1,18 @@
-<div class="page-header header clearfix">
-  <h2 class="text-muted text-center">
-    {% t app_name %}
-
-    <a href='/' class="pull-left">
+<div class="row">
+  <div class="col-md-4">
+    <br />
+    <!--[if lt IE 9]>
       <img src="{% asset_path logo.png %}" alt="Cirope" height="35" width="107" />
-    </a>
-  </h2>
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+      <embed src="{% asset_path logo.svg %}" type="image/svg+xml" height="35" width="107" />
+    <!--<![endif]-->
+  </div>
+  <div class="col-md-8">
+    <h2 class="text-muted">
+      {% t app_name_html %}
+    </h2>
+  </div>
 </div>
+
+<hr />

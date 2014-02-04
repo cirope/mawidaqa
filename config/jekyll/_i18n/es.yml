@@ -1,4 +1,5 @@
 app_name: 'MawidaQA Ayuda'
+app_name_html: 'MawidaQA <small>Ayuda</small>'
 faq: 'FAQ'
 guides:
   title: 'Guías'
