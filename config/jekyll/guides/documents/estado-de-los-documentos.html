@@ -5,4 +5,67 @@ category: documents
 order: 2
 ---
 
+<h3>Estado de los documentos</h3>
 
+<p>
+  Todos los documentos tienen un estado, siendo el inicial
+  <strong>En revisión</strong>
+</p>
+
+<div class="media">
+  <h4 class="badge pull-left">1</h4>
+  <div class="media-body">
+    <h4>En revisión</h4>
+    <p>
+      El documento puede ser modificado por cualquier persona, se encuentra
+      abierto a cualquier propuesta
+    </p>
+  </div>
+</div>
+
+<div class="media">
+  <h4 class="badge pull-left">2</h4>
+  <div class="media-body">
+    <h4>Revisado</h4>
+    <p>
+      Un usuario con perfil <em>revisor</em> verificó los cambios y ha
+      propuesto el documento para su aprobación. En este estado no se
+      permiten nuevas modificaciones
+    </p>
+
+    <p class="text-muted">
+      <span class="label label-default">Nota</span>
+      Si se encuentra algún problema con la revisión un usuario con perfil de
+      <em>aprobador</em> puede rechazar la revisión. En este caso el documento
+      vuelve al estado <strong>En revisión</strong>
+    </p>
+  </div>
+</div>
+
+<div class="media">
+  <h4 class="badge pull-left">3</h4>
+  <div class="media-body">
+    <h4>Aprobado</h4>
+    <p>
+      Un usuario con perfil <em>aprobador</em> avaló los cambios. El documento
+      que se encuentre en este estado es el que debe utilizarse para el trabajo
+      cotidiano
+    </p>
+  </div>
+</div>
+
+<div class="media">
+  <h4 class="badge pull-left">4</h4>
+  <div class="media-body">
+    <h4>Obsoleto</h4>
+    <p>
+      Cuando se aprueba una nueva versión de un documento, el
+      <strong>aprobado</strong> actual pasa al estado
+      <strong>obsoleto</strong>
+    </p>
+    <p class="text-muted">
+      <span class="label label-default">Nota</span>
+      Este estado es definitivo, no lo puede cambiar ningún usuario
+    </p>
+  </div>
+</div>
