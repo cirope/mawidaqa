@@ -20,7 +20,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     organization = Fabricate(:organization)
 
     within '#jobs fieldset' do
-      fill_in find('input[name$="[auto_organization_name]"]')[:id], with: organization.name
+      fill_in find('input[name$="[organization]"]')[:id], with: organization.name
     end
 
     find('.ui-autocomplete li.ui-menu-item a').click
@@ -42,7 +42,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     organization = Fabricate(:organization)
 
     within '#jobs fieldset:nth-child(2)' do
-      fill_in find('input[name$="[auto_organization_name]"]')[:id], with: organization.name
+      fill_in find('input[name$="[organization]"]')[:id], with: organization.name
     end
 
     synchronize { find('.ui-autocomplete li.ui-menu-item a').visible? }

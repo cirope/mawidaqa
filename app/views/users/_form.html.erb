@@ -36,7 +36,7 @@
           <%= render partial: 'job', locals: { f: j_f } %>
         <% end %>
 
-        <%= link_to_add_fields(t('view.users.new_job'), f, :jobs) unless current_organization %>
+        <%= link_to_add_fields t('view.users.new_job'), f, :jobs unless current_organization %>
       </div>
     </div>
   </div>

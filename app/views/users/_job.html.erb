@@ -5,20 +5,7 @@
 <fieldset class="row">
   <% unless current_organization %>
     <div class="col-md-5">
-      <% copy_attribute_errors(:organization_id, :auto_organization_name, f) %>
-      <%= f.input :auto_organization_name, label: false,
-        placeholder: Job.human_attribute_name('organization_id'),
-        input_html: {
-          id: "auto_organization_#{id}",
-          value: f.object.organization.try(:label),
-          autofocus: true,
-          data: {
-            'autocomplete-url' => organizations_path(format: :json),
-            'autocomplete-id-target' => "#auto_organization_id_#{id}"
-          }
-        }
-      %>
-      <%= f.input :organization_id, as: :hidden, input_html: { id: "auto_organization_id_#{id}" } %>
+      <%= f.input :organization, as: :autocomplete, label: false, url: organizations_path, input_html: { autofocus: true } %>
     </div>
   <% end %>
   <div class="<%= current_organization ? 'col-md-10' : 'col-md-5' %>">

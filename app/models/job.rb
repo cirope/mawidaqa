@@ -3,8 +3,6 @@ class Job < ActiveRecord::Base
 
   TYPES = ['approver', 'reviewer', 'author']
 
-  attr_accessor :auto_organization_name
-
   # Validations
   validates :job, :organization_id, presence: true
   validates :job, length: { maximum: 255 }, allow_nil: true, allow_blank: true
