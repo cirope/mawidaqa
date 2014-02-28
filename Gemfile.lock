@@ -266,7 +266,7 @@ DEPENDENCIES
   newrelic_rpm
   paper_trail
   pg
-  rails (= 4.0.3)
+  rails (~> 4.0.3)
   roadie
   rocket_tag!
   role_model
