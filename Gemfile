@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.0.3'
+gem 'rails', '~> 4.0.5'
 
 gem 'pg'
 gem 'jquery-rails'
@@ -12,7 +12,7 @@ gem 'devise'
 gem 'cancan', github: 'francocatena/cancan'
 gem 'role_model'
 gem 'rocket_tag', github: 'chytreg/rocket_tag', branch: 'feature/rails4-compatibility'
-gem 'acts_as_tree', github: 'tmuerell/acts_as_tree'
+gem 'acts_as_tree'
 gem 'aasm'
 gem 'gdata_19', require: 'gdata'
 gem 'paper_trail'
