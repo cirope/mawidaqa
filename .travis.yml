@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-  - 2.1.1
+  - 2.1.2
 before_script:
   - 'cp config/app_config.example.yml config/app_config.yml'
   - "psql -c 'create database mawidaqa_test;' -U postgres"
